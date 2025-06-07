@@ -26,3 +26,7 @@
 - Rebuild switch home manager
 
 - Run `link.sh` script
+
+## Tmux
+
+- Launch terminal and press `prefix + I` to install plugins

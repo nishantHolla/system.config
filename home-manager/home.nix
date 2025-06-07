@@ -16,6 +16,7 @@
     git
     neovim
     starship
+    tmux
     zathura
   ];
 
@@ -31,6 +32,10 @@
 
   # Environment Variables
   home.sessionVariables = {
+    # System
+
+    SYSTEM_DIR = "$HOME/System";
+
     # XDG Paths
 
     XDG_CONFIG_HOME = "$HOME/.config";

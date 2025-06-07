@@ -31,11 +31,23 @@ bindkey -v '^?' backward-delete-char
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-# aliases
+# Aliases
 
 [ -f "$HOME/.config/zsh/aliasrc" ] && source "$HOME/.config/zsh/aliasrc"
+
+# Path
+
+export PATH=$SYSTEM_DIR/bin/:$PATH
 
 # Starship
 
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
+
+# Tmux
+TPM_DIR="$HOME/.tmux/plugins/tpm"
+
+if [ ! -d "$TPM_DIR" ]; then
+  echo "TPM not found. Cloning Tmux Plugin Manager..."
+  git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"
+fi
