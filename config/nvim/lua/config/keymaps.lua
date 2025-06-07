@@ -1,8 +1,12 @@
 Key = vim.keymap.set
-K_Opt = function(desc, silent, noremap)
+K_Opt = function(desc, silent, noremap, buffer)
   if silent == nil then silent = true end
   if noremap == nil then noremap = true end
-  return { silent = silent, noremap = noremap, desc = desc }
+  if buffer then
+    return { silent = silent, noremap = noremap, desc = desc, buffer = buffer }
+  else
+    return { silent = silent, noremap = noremap, desc = desc }
+  end
 end
 
 vim.g.mapleader = ","

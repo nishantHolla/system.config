@@ -1,0 +1,6 @@
+Key('n', '<c-h>', '<cmd>TmuxNavigateLeft<cr>', K_Opt('Tmux move left'))
+Key('n', '<c-j>', '<cmd>TmuxNavigateDown<cr>', K_Opt('Tmux move down'))
+Key('n', '<c-k>', '<cmd>TmuxNavigateUp<cr>', K_Opt('Tmux move up'))
+Key('n', '<c-l>', '<cmd>TmuxNavigateRight<cr>', K_Opt('Tmux move right'))
+Key('n', '<leader>th', ':execute "silent !tmux split-window -c" shellescape(expand("%:p:h"), 1)<cr>', K_Opt("Tmux open horizontal split"))
+Key('n', '<leader>tv', ':execute "silent !tmux split-window -h -c" shellescape(expand("%:p:h"), 1)<cr>', K_Opt("Tmux open vertical split"))
