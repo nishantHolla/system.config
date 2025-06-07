@@ -61,6 +61,7 @@
     htop
     vim
     wget
+    xclip
   ];
 
   # SUID Wrappers
