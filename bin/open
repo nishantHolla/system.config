@@ -1,0 +1,117 @@
+#!/bin/sh
+
+APPLICATIONS_OPTIONS="applications\0icon\x1fGI_fileAppWhite\n"
+IMAGE_OPTION="images\0icon\x1fGI_fileImageWhite\n"
+VIDEO_OPTION="videos\0icon\x1fGI_fileVideoWhite\n"
+TEXT_OPTION="texts\0icon\x1fGI_fileTextWhite\n"
+PDF_OPTION="pdfs\0icon\x1fGI_filePdfWhite\n"
+DIRECTORIES_OPTION="directories\0icon\x1fGI_fileDirectoryWhite\n"
+ALL_FILES_OPTION="all files\0icon\x1fGI_allFilesWhite\n"
+
+OPTIONS="$APPLICATIONS_OPTIONS$IMAGE_OPTION$VIDEO_OPTION$TEXT_OPTION$PDF_OPTION$DIRECTORIES_OPTION$ALL_FILES_OPTION"
+
+SELECTED=`echo -en "$OPTIONS" | rofi -dmenu -i -p "Open: " -icon-theme GI`
+SELECTED_FILE=""
+
+if [[ -z "$SELECTED" ]] ; then
+	exit 1
+fi
+
+queryImage() {
+	COLLECTED_FILES=`fd -H -e jpg -e jpeg -e png -e webp . $HOME | sort | sed 's/$/\\\0icon\\\x1fGI_fileImageWhite/'`
+	SELECTED_FILE=`echo -en  "$COLLECTED_FILES" | rofi -dmenu -i -p "Open image: " -icon-theme GI`
+	if [[ ! -f "$SELECTED_FILE" ]]; then
+		exit 2
+	fi
+
+}
+
+queryVideo() {
+	COLLECTED_FILES=`fd -H -e mp4 . $HOME | sort | sed 's/$/\\\0icon\\\x1fGI_fileVideoWhite/'`
+	SELECTED_FILE=`echo -en "$COLLECTED_FILES" | rofi -dmenu -i -p "Open video: " -icon-theme GI`
+	if [[ ! -f "$SELECTED_FILE" ]]; then
+		exit 2
+	fi
+}
+
+queryText() {
+	COLLECTED_FILES=`fd -H -e txt -e md -e sh . $HOME | sort | sed 's/$/\\\0icon\\\x1fGI_fileTextWhite/'`
+	SELECTED_FILE=`echo -en "$COLLECTED_FILES" | rofi -dmenu -i -p "Open text file: " -icon-theme GI`
+	if [[ ! -f "$SELECTED_FILE" ]]; then
+		exit 2
+	fi
+}
+
+queryDirectory() {
+	COLLECTED_FILES=`fd -H -t d . $HOME | sort | sed 's/$/\\\0icon\\\x1fGI_fileDirectoryWhite/'`
+	SELECTED_FILE=`echo -en "$COLLECTED_FILES" | rofi -dmenu -i -p "Open directory: " -icon-theme GI`
+	if [[ ! -d "$SELECTED_FILE" ]]; then
+		exit 2
+	fi
+}
+
+queryPdf() {
+	COLLECTED_FILES=`fd -H -e pdf . $HOME | sort |  sed 's/$/\\\0icon\\\x1fGI_filePdfWhite/'`
+	SELECTED_FILE=`echo -en "$COLLECTED_FILES" | rofi -dmenu -i -p "Open PDF: " -icon-theme GI`
+	if [[ ! -f "$SELECTED_FILE" ]]; then
+		exit 2
+	fi
+}
+
+queryFile() {
+	COLLECTED_FILES=`fd -H -t f . $HOME | sort | sed 's/$/\\\0icon\\\x1fGI_allFilesWhite/'`
+	SELECTED_FILE=`echo -en "$COLLECTED_FILES" | rofi -dmenu -i -p "Open file: " -icon-theme GI`
+	if [[ ! -f  "$SELECTED_FILE" ]]; then
+		exit 2
+	fi
+}
+
+open() {
+	case `file --mime-type -Lb $1` in
+		image/*) $IMAGE_VIEWER $1;;
+		video/*) $VIDEO_VIEWER $1;;
+		text/*) $TERMINAL -e $EDITOR $1;;
+		application/pdf) $PDF_VIEWER $1;;
+		inode/directory) $TERMINAL -e $CLI_FILE_MANAGER $1;;
+		*) exit 2;;
+	esac
+}
+
+sleep 0.3
+case "$SELECTED" in
+
+	"applications")
+		rofi -show drun;;
+
+	"images")
+		queryImage
+		open $SELECTED_FILE;;
+
+	"videos")
+		queryVideo
+		open $SELECTED_FILE;;
+
+	"texts")
+		queryText
+		open $SELECTED_FILE;;
+
+	"pdfs")
+		queryPdf
+		open $SELECTED_FILE;;
+
+	# "directories")
+	# 	queryDirectory
+	# 	open $SELECTED_FILE;;
+
+	"directories")
+		$TERMINAL -e $CLI_FILE_MANAGER -command "fzf fd dir";;
+
+	# "all files")
+	# 	queryFile
+	# 	open $SELECTED_FILE;;
+
+	"all files")
+		$TERMINAL -e $CLI_FILE_MANAGER -command "fzf fd file";;
+
+	*) exit 3;;
+esac

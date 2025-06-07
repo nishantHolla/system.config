@@ -1,0 +1,31 @@
+#!/bin/sh
+
+SHUTDOWN_OPTION="shutdown\0icon\x1fGI_powerShutdownWhite\n"
+RESTART_OPTION="restart\0icon\x1fGI_powerRestartWhite\n"
+SLEEP_OPTION="sleep\0icon\x1fGI_powerSleepWhite\n"
+LOCK_OPTION="lock\0icon\x1fGI_powerLockWhite\n"
+LOGOUT_OPTION="logout\0icon\x1fGI_powerLogoutWhite\n"
+
+OPTIONS="$SHUTDOWN_OPTION$RESTART_OPTION$LOCK_OPTION$SLEEP_OPTION$LOGOUT_OPTION"
+
+SELECTED=`echo -en "$OPTIONS" | rofi -dmenu -i -p "Powermenu: " -icon-theme GI`
+
+if [[ -z "$SELECTED" ]] ; then
+	exit 1
+fi
+
+confirm
+if [[ "$?" == "1" ]] ; then
+	exit 2
+fi
+
+case "$SELECTED" in
+
+	"shutdown") awesome-client "AwesomeWM.functions.power.shutdown()";;
+	"restart") awesome-client "AwesomeWM.functions.power.reboot()";;
+	"logout") awesome-client "AwesomeWM.functions.power.logout()";;
+	"sleep") awesome-client "AwesomeWM.functions.power.sleep()";;
+	"lock") awesome-client "AwesomeWM.functions.power.lock()";;
+	*) exit 3;
+
+esac

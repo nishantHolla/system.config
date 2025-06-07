@@ -16,6 +16,7 @@
     clang-tools
     dragon-drop
     fd
+    file
     firefox
     flameshot
     fzf
@@ -24,13 +25,17 @@
     glow
     lf
     libgcc
+    mpv
     neovim
     p7zip
+    pcmanfm
     poppler_utils
+    rofi
     starship
     tmux
     trash-cli
     ueberzugpp
+    vimiv-qt
     vimv-rs
     zathura
   ];
@@ -62,6 +67,11 @@
     EDITOR = "nvim";
     TERMINAL = "alacritty";
     BROWSER = "firefox";
+    FILE_MANAGER = "pcmanfm";
+    CLI_FILE_MANAGER = "lf";
+    PDF_VIEWER = "zathura";
+    IMAGE_VIEWER = "vimiv";
+    VIDEO_VIEWER = "mpv";
   };
 
   # Let Home Manager install and manage itself.

@@ -1,0 +1,29 @@
+* {
+	background-color : rgba(0, 0, 0, 0%);
+	text-color : rgba(255, 255, 255, 100%);
+}
+
+window {
+	width: 100%;
+	height: 100%;
+	margin: 5px;
+	background-color : rgba(0, 0, 0, 70%);
+}
+
+prompt,entry {
+	margin: 20px 10px;
+	text-color: rgba(51, 249, 196, 100%);
+}
+
+element.selected.normal {
+	background-color: rgba(242, 7, 70, 100%);
+}
+
+element-icon {
+	size: 40;
+	margin: 10px;
+}
+
+element-text {
+	margin: 15px;
+}
