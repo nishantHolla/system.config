@@ -1,0 +1,8 @@
+calibre/
+.mozilla/
+Trash/
+.gnupg/
+.npm/
+.git/
+.cache/
+.private/

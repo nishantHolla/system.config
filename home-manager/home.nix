@@ -12,6 +12,7 @@
   home.packages = with pkgs; [
     alacritty
     btop
+    fd
     firefox
     git
     neovim
