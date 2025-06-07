@@ -27,6 +27,8 @@
 
 - Run `link.sh` script
 
+- Clone `fonts` repo from github to `~/Fonts`
+
 ## Tmux
 
 - Launch terminal and press `prefix + I` to install plugins
