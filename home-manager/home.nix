@@ -14,7 +14,9 @@
     btop
     fd
     firefox
+    gcc
     git
+    libgcc
     neovim
     starship
     tmux
