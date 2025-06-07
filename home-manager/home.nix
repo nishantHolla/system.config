@@ -15,26 +15,36 @@
     btop
     clang-tools
     dragon-drop
+    docker_28
     fd
     file
     firefox
     flameshot
+    flowblade
+    font-manager
     fzf
     gcc
+    gimp3
     git
     glow
+    inkscape
+    kdePackages.kdeconnect-kde
     lf
     libgcc
+    libreoffice-qt6
     mpv
     neovim
+    obs-studio
     p7zip
     pcmanfm
     poppler_utils
+    qalculate-qt
     rofi
     starship
     tmux
     trash-cli
     ueberzugpp
+    virtualbox
     vimiv-qt
     vimv-rs
     zathura
