@@ -12,6 +12,7 @@
   home.packages = with pkgs; [
     alacritty
     btop
+    clang-tools
     fd
     firefox
     gcc
