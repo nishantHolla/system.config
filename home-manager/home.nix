@@ -15,6 +15,7 @@
     clang-tools
     fd
     firefox
+    flameshot
     gcc
     git
     libgcc
