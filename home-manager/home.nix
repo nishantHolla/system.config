@@ -17,9 +17,30 @@
     neovim
   ];
 
+  # Programs
+  programs.zsh = {
+    enable = true;
+    syntaxHighlighting.enable = true;
+    autosuggestion.enable = true;
+    initContent = ''
+    unalias -m "*"
+    source $XDG_CONFIG_HOME/zsh/zshrc
+    '';
+  };
+
   # Environment Variables
   home.sessionVariables = {
+    # XDG Paths
+
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_DATA_HOME = "$HOME/.local/share";
+
+    # Applications
+
     EDITOR = "nvim";
+    TERMINAL = "alacritty";
+    BROWSER = "firefox";
   };
 
   # Let Home Manager install and manage itself.
