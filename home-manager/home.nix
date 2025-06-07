@@ -16,6 +16,7 @@
     git
     neovim
     starship
+    zathura
   ];
 
   # Programs
