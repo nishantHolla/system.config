@@ -27,7 +27,7 @@
 
 - Run `link.sh` script
 
-- Clone `fonts` repo from github to `~/Fonts`
+- Run `setup.sh` script
 
 ## Tmux
 
