@@ -1,0 +1,45 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+format = '''$git_branch $git_status$python $directory $character'''
+
+scan_timeout = 30
+
+[directory]
+style = 'bold white'
+truncation_length = 100
+truncate_to_repo = false
+format = '[$path]($style)'
+disabled = false
+
+[git_branch]
+always_show_remote = true
+format = " [$branch(:$remote_branch)]($style)"
+style = 'bold blue'
+disabled = false
+
+[git_status]
+format = "$untracked$modified$staged$renamed$deleted$ahead_behind$stashed$conflicted\n"
+untracked = '[U:$count](bold white)'
+modified = '[ M:$count ](bold green)'
+staged = '[ S:$count ](bold yellow)'
+renamed = '[ R:$count ](bold blue)'
+deleted = '[ D:$count ](bold red)'
+conflicted = '[ C:$count ](bold red)'
+ahead = '[ A:$count ](bold green)'
+behind = '[ B:$count ](bold blue)'
+stashed = '[ S:$count ](bold yellow)'
+disabled = false
+
+[character]
+success_symbol = '[>](white)'
+vimcmd_symbol = '[<](white)'
+error_symbol = '[>](white)'
+
+[line_break]
+format = "\n"
+
+[python]
+format = '\[$virtualenv\] '
+disabled = false

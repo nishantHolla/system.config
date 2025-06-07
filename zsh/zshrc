@@ -35,3 +35,7 @@ bindkey '^e' edit-command-line
 
 [ -f "$HOME/.config/zsh/aliasrc" ] && source "$HOME/.config/zsh/aliasrc"
 
+# Starship
+
+eval "$(starship init zsh)"
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"

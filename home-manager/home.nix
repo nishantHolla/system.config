@@ -15,13 +15,13 @@
     firefox
     git
     neovim
+    starship
   ];
 
   # Programs
   programs.zsh = {
     enable = true;
     syntaxHighlighting.enable = true;
-    autosuggestion.enable = true;
     initContent = ''
     unalias -m "*"
     source $XDG_CONFIG_HOME/zsh/zshrc
