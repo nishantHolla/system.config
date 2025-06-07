@@ -1,0 +1,8 @@
+[user]
+	name = Nishant Holla
+	email = nishantholla19@gmail.com
+[core]
+	editor = nvim
+	excludesfile = /home/nishant/.config/git/gitignore
+[init]
+	defaultBranch = main

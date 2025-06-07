@@ -1,0 +1,8 @@
+.env
+tags
+build/
+Session.vim
+node_modules/
+commit.log
+compile_commands.json
+.cache/
