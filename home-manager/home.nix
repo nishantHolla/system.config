@@ -11,17 +11,27 @@
   # Packages
   home.packages = with pkgs; [
     alacritty
+    bat
     btop
     clang-tools
+    dragon-drop
     fd
     firefox
     flameshot
+    fzf
     gcc
     git
+    glow
+    lf
     libgcc
     neovim
+    p7zip
+    poppler_utils
     starship
     tmux
+    trash-cli
+    ueberzugpp
+    vimv-rs
     zathura
   ];
 

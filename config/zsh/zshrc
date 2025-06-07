@@ -45,9 +45,37 @@ eval "$(starship init zsh)"
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 
 # Tmux
+
 TPM_DIR="$HOME/.tmux/plugins/tpm"
 
 if [ ! -d "$TPM_DIR" ]; then
   echo "TPM not found. Cloning Tmux Plugin Manager..."
   git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"
 fi
+
+# lf
+
+lfcd () {
+    tmp="$(mktemp)"
+    lfrun -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+
+if [ -f /tmp/lf_cd ]; then
+  source /tmp/lf_cd
+  rm /tmp/lf_cd
+fi
+
+# fzf
+
+export FZF_KEYBINDINGS="alt-j:down,alt-k:up,alt-l:accept,alt-h:cancel"
+export FZF_DEFAULT_OPTS="--bind=alt-j:down,alt-k:up,alt-l:accept,alt-h:cancel"
+
+# fd
+
+export FD_IGNORE="$HOME/.config/fd/ignore"
+
