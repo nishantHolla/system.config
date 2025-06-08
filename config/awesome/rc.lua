@@ -15,4 +15,12 @@ AwesomeWM.hotkeysPopupKeys = require("awful.hotkeys_popup.keys")
 
 -- User modules
 
-AwesomeWM.functions = require("functions")
+AwesomeWM.values = require("values")
+AwesomeWM.notify = require("notify")
+
+-- Initialization
+
+AwesomeWM.notify.init_notifications()
+
+
+AwesomeWM.notify.normal("Hello", "world")
