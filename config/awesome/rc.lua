@@ -3,6 +3,8 @@ AwesomeWM = {}
 -- Awesome modules
 
 AwesomeWM.awesome = awesome
+AwesomeWM.root = root
+AwesomeWM.screen = screen
 AwesomeWM.luarocks = pcall(require, "luarocks.loader")
 AwesomeWM.gears = require("gears")
 AwesomeWM.awful = require("awful")
@@ -18,14 +20,15 @@ AwesomeWM.hotkeysPopupKeys = require("awful.hotkeys_popup.keys")
 
 AwesomeWM.values = require("values")
 AwesomeWM.notify = require("notify")
-AwesomeWM.functions = require("functions")
 AwesomeWM.theme = require("theme")
+AwesomeWM.functions = require("functions")
 
 -- Initialization
 
 AwesomeWM.values.init_values()
 AwesomeWM.notify.init_notifications()
-AwesomeWM.functions.init_error_handling()
 AwesomeWM.theme.init_theme()
+AwesomeWM.functions.init_error_handling()
+AwesomeWM.functions.init_screens()
 
 AwesomeWM.notify.normal("Hello", "world")
