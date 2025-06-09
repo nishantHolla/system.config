@@ -4,6 +4,7 @@ AwesomeWM = {}
 
 AwesomeWM.luarocks = pcall(require, "luarocks.loader")
 AwesomeWM.awesome = awesome
+AwesomeWM.screen = screen
 AwesomeWM.gears = require("gears")
 AwesomeWM.awful = require("awful")
 AwesomeWM.autofocus = require("awful.autofocus")
@@ -27,5 +28,6 @@ AwesomeWM.values.init_values()
 AwesomeWM.notify.init_notifications()
 AwesomeWM.theme.init_theme()
 AwesomeWM.functions.init_error_handling()
+AwesomeWM.functions.screens.init_screens()
 
 AwesomeWM.notify.normal("Notification Test", "Ping!")
