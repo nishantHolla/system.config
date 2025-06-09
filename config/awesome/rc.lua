@@ -18,12 +18,14 @@ AwesomeWM.hotkeys_popup_keys = require("awful.hotkeys_popup.keys")
 
 AwesomeWM.values = require("values")
 AwesomeWM.notify = require("notify")
+AwesomeWM.theme = require("theme")
 AwesomeWM.functions = require("functions")
 
 -- Init
 
 AwesomeWM.values.init_values()
 AwesomeWM.notify.init_notifications()
+AwesomeWM.theme.init_theme()
 AwesomeWM.functions.init_error_handling()
 
 AwesomeWM.notify.normal("Notification Test", "Ping!")
