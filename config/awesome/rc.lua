@@ -22,6 +22,7 @@ AwesomeWM.functions = require("functions")
 
 -- Init
 
+AwesomeWM.values.init_values()
 AwesomeWM.notify.init_notifications()
 AwesomeWM.functions.init_error_handling()
 
