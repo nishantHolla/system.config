@@ -3,6 +3,7 @@ AwesomeWM = {}
 -- Awesome modules
 
 AwesomeWM.luarocks = pcall(require, "luarocks.loader")
+AwesomeWM.awesome = awesome
 AwesomeWM.gears = require("gears")
 AwesomeWM.awful = require("awful")
 AwesomeWM.autofocus = require("awful.autofocus")
@@ -17,10 +18,11 @@ AwesomeWM.hotkeys_popup_keys = require("awful.hotkeys_popup.keys")
 
 AwesomeWM.values = require("values")
 AwesomeWM.notify = require("notify")
+AwesomeWM.functions = require("functions")
 
 -- Init
 
 AwesomeWM.notify.init_notifications()
-
+AwesomeWM.functions.init_error_handling()
 
 AwesomeWM.notify.normal("Notification Test", "Ping!")
