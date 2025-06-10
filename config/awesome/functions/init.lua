@@ -50,5 +50,6 @@ end
 functions_m.screens = require("functions.screens")
 functions_m.tags = require("functions.tags")
 functions_m.clients = require("functions.clients")
+functions_m.power = require("functions.power")
 
 return functions_m
