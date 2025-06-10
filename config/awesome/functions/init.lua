@@ -24,8 +24,31 @@ functions_m.init_error_handling = function()
   end
 end
 
+functions_m.restart = function()
+  -- TODO: Save state for restart
+  AwesomeWM.awesome.restart()
+end
+
+functions_m.spawn = function(application, options)
+  if options then
+    if options.tag == nil then
+      options.tag = AwesomeWM.awful.screen.focused().selected_tag
+    end
+  else
+    options = { tag = AwesomeWM.awful.screen.focused().selected_tag }
+  end
+
+  AwesomeWM.awful.spawn(application, options)
+end
+
+functions_m.spawn_with_shell = function(command)
+  AwesomeWM.awful.spawn.with_shell(command)
+end
+
 -- Sub modules
 
 functions_m.screens = require("functions.screens")
+functions_m.tags = require("functions.tags")
+functions_m.clients = require("functions.clients")
 
 return functions_m
