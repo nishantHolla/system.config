@@ -12,6 +12,7 @@
   home.packages = with pkgs; [
     alacritty
     bat
+    brightnessctl
     btop
     clang-tools
     dragon-drop
@@ -61,6 +62,10 @@
   };
 
   # Environment Variables
+  home.sessionPath = [
+    "$HOME/System/bin"
+  ];
+
   home.sessionVariables = {
     # System
 

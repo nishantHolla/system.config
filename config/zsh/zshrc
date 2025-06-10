@@ -35,10 +35,6 @@ bindkey '^e' edit-command-line
 
 [ -f "$HOME/.config/zsh/aliasrc" ] && source "$HOME/.config/zsh/aliasrc"
 
-# Path
-
-export PATH=$SYSTEM_DIR/bin/:$PATH
-
 # Starship
 
 eval "$(starship init zsh)"
