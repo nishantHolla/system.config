@@ -51,5 +51,7 @@ functions_m.screens = require("functions.screens")
 functions_m.tags = require("functions.tags")
 functions_m.clients = require("functions.clients")
 functions_m.power = require("functions.power")
+functions_m.brightness = require("functions.brightness")
+functions_m.volume = require("functions.volume")
 
 return functions_m
