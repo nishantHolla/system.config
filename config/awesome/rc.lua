@@ -26,6 +26,7 @@ AwesomeWM.theme = require("theme")
 AwesomeWM.functions = require("functions")
 AwesomeWM.keymaps = require("keymaps")
 AwesomeWM.assets = require("assets")
+AwesomeWM.widgets = require("widgets")
 
 -- Init
 
@@ -36,5 +37,6 @@ AwesomeWM.functions.init_error_handling()
 AwesomeWM.functions.screens.init_screens()
 AwesomeWM.functions.clients.init_clients()
 AwesomeWM.keymaps.init_keymaps()
+AwesomeWM.widgets.init_widgets()
 
 AwesomeWM.notify.normal("Notification Test", "Ping!")

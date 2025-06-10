@@ -13,7 +13,7 @@ tags_sm.move_to_tag = function(tag_name)
   end
 
   AwesomeWM.theme.set_wallpaper()
-  -- TODO: Update client count
+  AwesomeWM.widgets.overlays.client_count.refresh()
   -- TODO: Update tags in pages
   -- TODO: Update client properites
   -- TODO: Show tag

@@ -19,7 +19,7 @@ clients_sm.init_clients = function()
   },
 
   AwesomeWM.client.connect_signal("unmanage", function(client)
-    -- TODO: Update client count
+    AwesomeWM.widgets.overlays.client_count.refresh()
   end)
 
   AwesomeWM.client.connect_signal("manage", function(client)
@@ -31,7 +31,7 @@ clients_sm.init_clients = function()
       AwesomeWM.awful.placement.no_offscreen(client)
     end
 
-    -- TODO: Update client count
+    AwesomeWM.widgets.overlays.client_count.refresh()
   end)
 
   AwesomeWM.client.connect_signal("mouse::enter", function(client)
@@ -39,12 +39,12 @@ clients_sm.init_clients = function()
   end)
 
   AwesomeWM.client.connect_signal("focus", function(client)
-    -- TODO: Update client properties
+    AwesomeWM.widgets.overlays.client_properties.refresh()
     clients_sm.apply_border_color(client)
   end)
 
   AwesomeWM.client.connect_signal("unfocus", function(client)
-    -- TODO: Update client properties
+    AwesomeWM.widgets.overlays.client_properties.refresh()
     client.border_color  = AwesomeWM.beautiful.border_normal
   end)
 
@@ -54,7 +54,7 @@ end
 clients_sm.get_client_count = function()
   local local_count = #(AwesomeWM.awful.screen.focused().selected_tag:clients())
   local global_count = 0
-  for _, _ in ipairs(AwesomeWM.cleint.get()) do
+  for _, _ in ipairs(AwesomeWM.client.get()) do
     global_count = global_count + 1
   end
 
@@ -65,17 +65,20 @@ clients_sm.toggle_client_property = function(property_name)
   local focused_client = AwesomeWM.client.focus
   local focused_tag = AwesomeWM.awful.screen.focused().selected_tag
 
-  if focused_client == nil then return end
   focused_client[property_name] = not focused_client[property_name]
+
   if focused_client.sticky == false then
     focused_client:move_to_tag(focused_tag)
   end
 
-  client_sm.apply_border_color(focused_client)
-  -- TODO: Update client properties
+  clients_sm.apply_border_color(focused_client)
+  AwesomeWM.widgets.overlays.client_properties.refresh(focused_client)
 end
 
 clients_sm.apply_border_color = function(client)
+  client = client or AwesomeWM.client.focus
+  if client == nil then return end
+
   if client.not_to_kill then
     client.border_color = AwesomeWM.beautiful.white
   elseif client.floating then
