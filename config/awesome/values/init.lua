@@ -40,6 +40,10 @@ values_m.client_geometry_step = 50
 
 -- Functions
 
+values_m.get_script = function(name)
+  return (values_m.awesome_dir .. "/scripts/" .. name .. ".sh")
+end
+
 values_m.init_values = function()
   terminal = values_m.terminal
   editor = values_m.editor
