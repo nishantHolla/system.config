@@ -4,10 +4,11 @@ local b = AwesomeWM.beautiful
 theme_m.theme_assets = require("beautiful.theme_assets")
 theme_m.xresources = require("beautiful.xresources")
 theme_m.dpi = theme_m.xresources.apply_dpi
+theme_m.is_dark_theme = true
 
 theme_m.set_wallpaper = function(screen, wallpaper_path)
   screen = screen or AwesomeWM.awful.screen.focused()
-  wallpaper_path = wallpaper_path -- or TODO: Get wallpaper path
+  wallpaper_path = wallpaper_path or AwesomeWM.assets.get_wallpaper()
 
   AwesomeWM.gears.wallpaper.maximized(wallpaper_path, screen, false)
 end

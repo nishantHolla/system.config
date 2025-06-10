@@ -25,6 +25,7 @@ AwesomeWM.notify = require("notify")
 AwesomeWM.theme = require("theme")
 AwesomeWM.functions = require("functions")
 AwesomeWM.keymaps = require("keymaps")
+AwesomeWM.assets = require("assets")
 
 -- Init
 

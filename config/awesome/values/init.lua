@@ -31,6 +31,7 @@ values_m.tag_layouts = {
   values_m.layout_suit.max.fullscreen,
   values_m.layout_suit.tile.right,
   values_m.layout_suit.tile.top,
+  values_m.layout_suit.spiral,
   values_m.layout_suit.floating
 }
 
