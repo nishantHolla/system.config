@@ -5,7 +5,7 @@ brightness_sm.script = AwesomeWM.values.get_script("brightness")
 local run = function(cmd)
   AwesomeWM.awful.spawn.easy_async(cmd, function(stdout, stderr, error_reason, exit_code)
     -- TODO: Update page stats
-    -- TODO: Show brightness indicator
+    AwesomeWM.widgets.indicators.brightness.show()
   end)
 end
 
@@ -32,7 +32,7 @@ brightness_sm.find_brightness_and = function(callback)
 
   AwesomeWM.awful.spawn.easy_async(brightness_sm.get(), function(stdout, stderr, error_reason, exit_code)
     local brightness = tonumber(stdout)
-    local icon = nil -- TODO: Get brightness icon
+    local icon = AwesomeWM.assets.get_brightness_icon(brightness)
 
     callback(icon, brightness)
   end)

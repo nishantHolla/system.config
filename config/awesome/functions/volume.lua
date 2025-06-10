@@ -5,7 +5,7 @@ volume_sm.script = AwesomeWM.values.get_script("volume")
 local run = function(cmd)
   AwesomeWM.awful.spawn.easy_async(cmd, function(stdout, stderr, error_reason, exit_code)
     -- TODO: Update page stats
-    -- TODO: Show volume indicator
+    AwesomeWM.widgets.indicators.volume.show()
   end)
 end
 
@@ -40,7 +40,7 @@ volume_sm.find_volume_and = function(callback)
 
   AwesomeWM.awful.spawn.easy_async(volume_sm.get(), function(stdout, stderr, error_reason, exit_code)
     local volume = tonumber(stdout)
-    local icon = nil -- TODO: Get volume icon
+    local icon = AwesomeWM.assets.get_volume_icon(volume)
 
     callback(icon, volume)
   end)

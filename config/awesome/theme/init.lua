@@ -13,21 +13,35 @@ theme_m.set_wallpaper = function(screen, wallpaper_path)
   AwesomeWM.gears.wallpaper.maximized(wallpaper_path, screen, false)
 end
 
+theme_m.white = "#F0F1DF"
+theme_m.gray = "#2A2D30"
+theme_m.black = "#0D0D0D"
+
+theme_m.red = "#ff005c"
+theme_m.purple = "#ddaaff"
+theme_m.blue = "#60a3d9"
+theme_m.green = "#9aeba3"
+theme_m.yellow = "#ffe06a"
+theme_m.orange = "#F5793B"
+
+theme_m.default_font = "MartianMono Nerd Font Mono"
+theme_m.font = theme_m.default_font .. " 12"
+
 theme_m.init_theme = function()
-  b.default_font = "MartianMono Nerd Font Mono"
-  b.font = b.default_font .. " 12"
+  b.default_font = theme_m.default_font
+  b.font = theme_m.font
   b.nerd_font = b.default_font
 
-  b.white = "#F0F1DF"
-  b.gray = "#2A2D30"
-  b.black = "#0D0D0D"
+  b.white = theme_m.white
+	b.gray = theme_m.gray
+	b.black = theme_m.black
 
-  b.red = "#ff005c"
-  b.purple = "#ddaaff"
-  b.blue = "#60a3d9"
-  b.green = "#9aeba3"
-  b.yellow = "#ffe06a"
-  b.orange = "#F5793B"
+	b.red = theme_m.red
+	b.purple = theme_m.purple
+	b.blue = theme_m.blue
+	b.green = theme_m.green
+	b.yellow = theme_m.yellow
+	b.orange = theme_m.orange
 
   b.useless_gap = theme_m.dpi(3)
   b.border_width = theme_m.dpi(3)

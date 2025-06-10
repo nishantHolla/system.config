@@ -29,7 +29,7 @@ assets_m.get_sound = function(sound_name)
   return (assets_m.sound_dir .. "/" .. sound_name)
 end
 
-assets_m.get_layout = function(layout_name)
+assets_m.get_layout_icon = function(layout_name)
 	layout_name = layout_name or tostring(AwesomeWM.awful.screen.focused().selected_tag.layout.name)
 
 	if
