@@ -19,11 +19,13 @@ player_sm.toggle = function()
 end
 
 player_sm.play_tick = function()
-	AwesomeWM.awful.spawn.easy_async("paplay " .. AwesomeWM.assets.get_sound("tick_sound") .. " --volume=30000")
+	AwesomeWM.awful.spawn.easy_async("paplay " .. AwesomeWM.assets.get_sound("tick_sound") .. " --volume=30000", function()
+  end)
 end
 
 player_sm.play_glitter = function()
-	AwesomeWM.awful.spawn.easy_async("paplay " .. AwesomeWM.assets.get_sound("glitter_sound") .. " --volume=30000")
+	AwesomeWM.awful.spawn.easy_async("paplay " .. AwesomeWM.assets.get_sound("glitter_sound") .. " --volume=30000", function()
+  end)
 end
 
 return player_sm
