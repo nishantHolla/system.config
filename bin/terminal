@@ -22,11 +22,11 @@ if tmux run 2>/dev/null; then
   else
     # Root session is not active
 
-    $TERMINAL -e tmux new-session -A $ROOT_SESSION_NAME
+    $TERMINAL -e tmux new-session -A $ROOT_SESSION_NAME &
 
   fi
 
 else
   # Starting tmux server
-  $TERMINAL -e tmux new-session -t $ROOT_SESSION_NAME -s $ROOT_SESSION_NAME
+  $TERMINAL -e tmux new-session -t $ROOT_SESSION_NAME -s $ROOT_SESSION_NAME &
 fi
