@@ -32,3 +32,7 @@
 ## Tmux
 
 - Launch terminal and press `prefix + I` to install plugins
+
+## AwesomeWM
+
+- Create directory `$HOME/.local/share/awesome`
