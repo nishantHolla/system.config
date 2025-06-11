@@ -26,7 +26,7 @@ assets_m.get_asset = function(asset_path)
 end
 
 assets_m.get_sound = function(sound_name)
-  return (assets_m.sound_dir .. "/" .. sound_name)
+  return (assets_m.sound_dir .. "/" .. sound_name .. ".mp3")
 end
 
 assets_m.get_layout_icon = function(layout_name)

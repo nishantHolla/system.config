@@ -4,7 +4,7 @@ volume_sm.script = AwesomeWM.values.get_script("volume")
 
 local run = function(cmd)
   AwesomeWM.awful.spawn.easy_async(cmd, function(stdout, stderr, error_reason, exit_code)
-    -- TODO: Update page stats
+    -- TODO: Update dashboard stats
     AwesomeWM.widgets.indicators.volume.show()
   end)
 end

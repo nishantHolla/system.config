@@ -1,7 +1,7 @@
 local notify_m = {}
 
 notify_m.silence = false
-notify_m.quiet = true
+notify_m.quiet = false
 
 notify_m.blacklist = {
   { title = "Firefox", app_name = "KDE Connect" }
@@ -68,7 +68,7 @@ notify_m.init_notifications = function()
       AwesomeWM.naughty.destroy_all_notifications()
       return nil
     elseif not notify_m.quiet then
-      -- TODO: Play notification sound
+      AwesomeWM.functions.player.play_glitter()
     end
 
     return notification
