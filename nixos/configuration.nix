@@ -47,6 +47,7 @@
 
   # Programs
   programs.zsh.enable = true;
+  security.pam.services.i3lock = {};
 
   # Users
   users.users.nishant = {
@@ -58,7 +59,9 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
+    betterlockscreen
     htop
+    i3lock
     vim
     wget
     xclip

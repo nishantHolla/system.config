@@ -11,6 +11,7 @@
   # Packages
   home.packages = with pkgs; [
     alacritty
+    alsa-utils
     bat
     brightnessctl
     btop
@@ -38,8 +39,10 @@
     obs-studio
     p7zip
     pcmanfm
+    playerctl
     poppler_utils
     qalculate-qt
+    ripgrep
     rofi
     starship
     tmux
@@ -51,7 +54,7 @@
     zathura
   ];
 
-  # Programs
+  # Programs and services
   programs.zsh = {
     enable = true;
     syntaxHighlighting.enable = true;
@@ -60,6 +63,8 @@
     source $XDG_CONFIG_HOME/zsh/zshrc
     '';
   };
+
+  # services.picom.enable = true;
 
   # Environment Variables
   home.sessionPath = [
