@@ -9,7 +9,7 @@ widgets_m.init_widgets = function()
   widgets_m.indicators.init()
   widgets_m.low_battery.init()
 
-  -- widgets_m.low_battery.show()
+  widgets_m.low_battery.show()
 end
 
 return widgets_m
