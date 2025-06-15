@@ -10,6 +10,7 @@
 
   # Packages
   home.packages = with pkgs; [
+    acpi
     alacritty
     alsa-utils
     bat
