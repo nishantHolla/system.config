@@ -1,4 +1,5 @@
 vim.lsp.enable('clangd')
+vim.lsp.enable('ruff')
 vim.diagnostic.enable = true
 
 vim.diagnostic.config({

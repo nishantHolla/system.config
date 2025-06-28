@@ -35,10 +35,9 @@ autocommand('BufWritePre', {
   group = usergroup
 })
 
-
--- Use tabs for python
-autocommand('BufWinEnter', {
-  pattern = '?*.py',
-  command = 'set noexpandtab',
+-- Autoformat on save for python
+autocommand('BufWritePre', {
+  pattern = "?*.py",
+  command = "lua vim.lsp.buf.format()",
   group = usergroup
 })
