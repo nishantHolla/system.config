@@ -45,6 +45,7 @@
     qalculate-qt
     ripgrep
     rofi
+    ruff
     starship
     tmux
     trash-cli
