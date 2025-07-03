@@ -8,7 +8,8 @@ require('nvim-treesitter.configs').setup({
     'astro',
     'c',
     'cpp',
-    'python'
+    'python',
+    'nix'
   },
   highlight = {
     enable = true,
