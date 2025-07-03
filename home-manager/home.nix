@@ -17,6 +17,7 @@
     brightnessctl
     btop
     clang-tools
+    dconf
     dragon-drop
     docker_28
     fd
@@ -35,8 +36,10 @@
     lf
     libgcc
     libreoffice-qt6
+    lxappearance
     mpv
     neovim
+    networkmanagerapplet
     obs-studio
     p7zip
     pcmanfm
@@ -67,6 +70,14 @@
   };
 
   # services.picom.enable = true;
+
+  # dconf
+  dconf.settings = {
+    "org/gnome/nm-applet" = {
+      "disable-connected-notifications" = true;
+      "disable-disconnected-notifications" = true;
+    };
+  };
 
   # Environment Variables
   home.sessionPath = [
