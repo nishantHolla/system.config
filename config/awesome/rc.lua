@@ -8,6 +8,7 @@ AwesomeWM.screen = screen
 AwesomeWM.root = root
 AwesomeWM.tag = tag
 AwesomeWM.client = client
+AwesomeWM.mouse = mouse
 AwesomeWM.gears = require("gears")
 AwesomeWM.awful = require("awful")
 AwesomeWM.autofocus = require("awful.autofocus")
@@ -39,4 +40,8 @@ AwesomeWM.functions.clients.init_clients()
 AwesomeWM.keymaps.init_keymaps()
 AwesomeWM.widgets.init_widgets()
 
-AwesomeWM.notify.normal("Notification Test", "Ping!")
+-- Launch apps
+
+AwesomeWM.functions.spawn("nm-applet")
+AwesomeWM.functions.spawn("flameshot")
+AwesomeWM.functions.spawn("kdeconnect-indicator")

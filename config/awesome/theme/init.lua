@@ -27,6 +27,19 @@ theme_m.orange = "#F5793B"
 theme_m.default_font = "MartianMono Nerd Font Mono"
 theme_m.font = theme_m.default_font .. " 12"
 
+theme_m.tag_active_color = theme_m.red
+theme_m.tag_alive_color = theme_m.blue
+theme_m.tag_dead_color = theme_m.gray
+
+theme_m.dashboard_inactive_button_bg = theme_m.black
+theme_m.dashboard_inactive_button_fg = theme_m.white
+theme_m.dashboard_button_border_width = 2
+theme_m.dashboard_inactive_button_border_bg = theme_m.white
+
+theme_m.dashboard_active_button_bg = theme_m.red
+theme_m.dashboard_active_button_fg = theme_m.white
+theme_m.dashboard_active_button_border_bg = theme_m.red
+
 theme_m.init_theme = function()
   b.default_font = theme_m.default_font
   b.font = theme_m.font
@@ -72,6 +85,9 @@ theme_m.init_theme = function()
 
   b.tag_indicator_alive_border_color = b.blue
   b.tag_indicator_alive_backgound = b.blue
+
+  b.bg_systray = "#00000000"
+  b.systray_icon_spacing = theme_m.dpi(15)
 end
 
 return theme_m

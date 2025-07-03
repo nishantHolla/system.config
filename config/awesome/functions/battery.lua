@@ -31,4 +31,17 @@ battery_sm.find_battery_and = function(callback)
   )
 end
 
+battery_sm.find_uptime_and = function(callback)
+  if type(callback) ~= "function" then
+    return
+  end
+
+  AwesomeWM.awful.spawn.easy_async(
+    AwesomeWM.values.get_script("uptime"),
+    function(stdout, std_error, error_reason, error_code)
+      callback(stdout)
+    end
+  )
+end
+
 return battery_sm

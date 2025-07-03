@@ -1,7 +1,7 @@
 local notify_m = {}
 
 notify_m.silence = false
-notify_m.quiet = false
+notify_m.quiet = true
 
 notify_m.blacklist = {
   { title = "Firefox", app_name = "KDE Connect" }

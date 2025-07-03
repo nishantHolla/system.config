@@ -14,9 +14,13 @@ tags_sm.move_to_tag = function(tag_name)
 
   AwesomeWM.theme.set_wallpaper()
   AwesomeWM.widgets.overlays.client_count.refresh()
-  -- TODO: Update tags in dashboard
   AwesomeWM.widgets.overlays.client_properties.refresh()
-  AwesomeWM.widgets.indicators.tags.show()
+
+  if AwesomeWM.widgets.dashboard.wibox.visible then
+    AwesomeWM.widgets.dashboard.components.tag_layout.refresh()
+  else
+    AwesomeWM.widgets.indicators.tags.show()
+  end
 end
 
 tags_sm.move_client_to_tag = function(tag_name)
@@ -30,8 +34,11 @@ end
 tags_sm.cycle_layout = function(order)
   AwesomeWM.awful.layout.inc(order)
 
-  -- TODO: Update tags in dashboard
-  AwesomeWM.widgets.indicators.tags.show()
+  if AwesomeWM.widgets.dashboard.wibox.visible then
+    AwesomeWM.widgets.dashboard.components.tag_layout.refresh()
+  else
+    AwesomeWM.widgets.indicators.tags.show()
+  end
 end
 
 tags_sm.get_tag_state = function(tag_name)

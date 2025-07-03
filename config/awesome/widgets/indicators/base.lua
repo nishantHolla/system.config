@@ -6,7 +6,7 @@ indicator_base_sm.margins = 5
 indicator_base_sm.timeout = 1
 indicator_base_sm.opacity = 0.8
 indicator_base_sm.background = "#111111"
-indicator_base_sm.padding = 6
+indicator_base_sm.padding = 5
 indicator_base_sm.inner_margins = 10
 indicator_base_sm.slider_outer_color = AwesomeWM.theme.white
 

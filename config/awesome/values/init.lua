@@ -8,13 +8,14 @@ values_m.data_dir = os.getenv("HOME") .. '/.local/share/awesome'
 -- Files
 
 values_m.notification_history_file = values_m.data_dir .. '/notification_history.txt'
+values_m.notes_file = values_m.data_dir .. "/notes.txt"
 
 -- Applications
 
-values_m.terminal = os.getenv("TERMINAL") or "alacritty"
-values_m.editor = os.getenv("EDITOR") or "nvim"
-values_m.browser = os.getenv("BROWSER") or "firefox"
-values_m.file_manager = os.getenv("FILE_MANAGER") or "pcmanfm"
+values_m.terminal = "alacritty"
+values_m.editor = "nvim"
+values_m.browser = "firefox"
+values_m.file_manager = "pcmanfm"
 values_m.editor_cmd = values_m.terminal .. " -e " .. values_m.editor
 
 -- Layouts and Tags

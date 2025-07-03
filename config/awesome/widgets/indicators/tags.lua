@@ -8,9 +8,9 @@ tags_indicator_sm.padding = 10
 tags_indicator_sm.timeout = base.timeout
 tags_indicator_sm.opacity = base.opacity
 
-tags_indicator_sm.tag_indicator_dead = AwesomeWM.theme.gray
-tags_indicator_sm.tag_indicator_alive = AwesomeWM.theme.blue
-tags_indicator_sm.tag_indicator_active = AwesomeWM.theme.red
+tags_indicator_sm.tag_indicator_dead = AwesomeWM.theme.tag_dead_color
+tags_indicator_sm.tag_indicator_alive = AwesomeWM.theme.tag_alive_color
+tags_indicator_sm.tag_indicator_active = AwesomeWM.theme.tag_active_color
 
 tags_indicator_sm.layout_icon = AwesomeWM.wibox.widget({
   image = AwesomeWM.assets.get_layout_icon("fullscreen"),
@@ -28,6 +28,7 @@ for _, t in pairs(AwesomeWM.values.tags) do
     AwesomeWM.wibox.widget({
       {
         text = t.name,
+        font = AwesomeWM.theme.default_font .. ' 12',
         align = "center",
         valign = "center",
         widget = AwesomeWM.wibox.widget.textbox
