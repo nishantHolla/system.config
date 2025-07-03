@@ -3,9 +3,11 @@ local overlays_sm = {}
 overlays_sm.time = require("widgets.overlays.time")
 overlays_sm.client_count = require("widgets.overlays.client_count")
 overlays_sm.client_properties = require("widgets.overlays.client_properties")
+overlays_sm.low_battery = require("widgets.overlays.low_battery")
 
 overlays_sm.init = function()
   overlays_sm.time.init()
+  overlays_sm.low_battery.init()
   overlays_sm.client_count.init()
   overlays_sm.client_properties.init()
 end

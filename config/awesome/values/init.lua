@@ -39,6 +39,8 @@ values_m.tag_layouts = {
 -- Config
 
 values_m.client_geometry_step = 50
+values_m.low_battery_warned = false
+values_m.low_battery_threshold = 15
 
 -- Functions
 

@@ -14,7 +14,7 @@ battery_sm.find_battery_and = function(callback)
       local icon = ""
 
       if chargingIndicator == "C\n" then
-        icon = "batteryChargin"
+        icon = "batteryCharging"
       elseif value > 95 then
         icon = "batteryFull"
       elseif value > 70 then
@@ -43,5 +43,27 @@ battery_sm.find_uptime_and = function(callback)
     end
   )
 end
+
+battery_sm.check_battery = function()
+  battery_sm.find_battery_and(function(_, value)
+    if value <= AwesomeWM.values.low_battery_threshold then
+      AwesomeWM.widgets.overlays.low_battery.show()
+      if AwesomeWM.values.low_battery_warned == false then
+        AwesomeWM.widgets.low_battery.show()
+        AwesomeWM.values.low_battery_warned = true
+      end
+    elseif value > AwesomeWM.values.low_battery_threshold then
+      AwesomeWM.widgets.overlays.low_battery.hide()
+      AwesomeWM.values.low_battery_warned = false
+    end
+    battery_sm.timer:again()
+  end)
+
+end
+
+battery_sm.timer = AwesomeWM.gears.timer({
+  timeout = 10,
+  callback = battery_sm.check_battery
+})
 
 return battery_sm

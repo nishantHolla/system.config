@@ -9,7 +9,7 @@ time_sm.main = AwesomeWM.wibox.widget({
   align = "center",
   valign = "center",
   format = "%I : %M %p",
-  font = AwesomeWM.beautiful.font,
+  font = AwesomeWM.theme.default_font .. " 7",
   widget = AwesomeWM.wibox.widget.textclock
 })
 
@@ -20,7 +20,7 @@ time_sm.wibox = AwesomeWM.wibox({
   ontop = true,
   type = "desktop",
   bg = time_sm.background_color,
-  height = 15,
+  height = time_sm.height,
   width = time_sm.width
 })
 

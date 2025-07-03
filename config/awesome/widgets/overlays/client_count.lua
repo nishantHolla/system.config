@@ -9,7 +9,7 @@ client_count_sm.main = AwesomeWM.wibox.widget({
   text = "0:0",
   align = "center",
   valign = "center",
-  font = AwesomeWM.beautiful.font,
+  font = AwesomeWM.theme.default_font .. " 7",
   widget = AwesomeWM.wibox.widget.textbox
 })
 

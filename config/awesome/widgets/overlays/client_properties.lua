@@ -9,7 +9,7 @@ client_properites_sm.main = AwesomeWM.wibox.widget({
   text = "0",
   align = "left",
   valign = "center",
-  font = AwesomeWM.beautiful.font,
+  font = AwesomeWM.theme.default_font .. " 7",
   widget = AwesomeWM.wibox.widget.textbox
 })
 

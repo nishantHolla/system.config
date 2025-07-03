@@ -40,8 +40,9 @@ AwesomeWM.functions.clients.init_clients()
 AwesomeWM.keymaps.init_keymaps()
 AwesomeWM.widgets.init_widgets()
 
--- Launch apps
+-- Launch apps and timers
 
+AwesomeWM.functions.battery.timer:start()
 AwesomeWM.functions.spawn("nm-applet")
 AwesomeWM.functions.spawn("flameshot")
 AwesomeWM.functions.spawn("kdeconnect-indicator")
