@@ -35,3 +35,12 @@ else
   echo "Linking icons..."
   ln -s $HOME/Icons/GI $HOME/.local/share/icons/GI
 fi
+
+# Wallpapers
+
+if [ -e $HOME/Wallpapers ]; then
+  echo "$HOME/Wallpapers already exists. Skipping...";
+else
+  echo "Pulling down wallpapers..."
+  git clone git@github.com:nishantHolla/wallpapers.git $HOME/Wallpapers
+fi
