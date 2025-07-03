@@ -9,6 +9,7 @@
   home.stateVersion = "25.05";
 
   # Packages
+  nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
     acpi
     alacritty
@@ -50,6 +51,7 @@
     rofi
     ruff
     starship
+    spotify
     tmux
     trash-cli
     ueberzugpp
