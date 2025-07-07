@@ -58,6 +58,7 @@
   };
 
   # System packages
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     betterlockscreen
     htop
