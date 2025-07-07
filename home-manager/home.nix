@@ -15,12 +15,13 @@
     alacritty
     alsa-utils
     bat
+    bibata-cursors
     brightnessctl
     btop
     clang-tools
     dconf
-    dragon-drop
     docker_28
+    dragon-drop
     fd
     file
     firefox
@@ -43,6 +44,7 @@
     networkmanagerapplet
     obs-studio
     p7zip
+    papirus-icon-theme
     pcmanfm
     playerctl
     poppler_utils
@@ -50,14 +52,15 @@
     ripgrep
     rofi
     ruff
-    starship
     spotify
+    starship
     tmux
     trash-cli
     ueberzugpp
-    virtualbox
     vimiv-qt
     vimv-rs
+    virtualbox
+    xorg.xev
     zathura
   ];
 
