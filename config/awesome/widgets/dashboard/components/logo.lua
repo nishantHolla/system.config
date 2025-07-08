@@ -11,8 +11,8 @@ logo_component.image = AwesomeWM.wibox.widget({
 })
 
 logo_component.text = AwesomeWM.wibox.widget({
-  text = "NixOS",
-  font = AwesomeWM.theme.default_font .. ' 30',
+  markup = "<b>NixOS</b>",
+  font = AwesomeWM.theme.default_font .. ' 40',
   valign = "center",
   align = "center",
   widget = AwesomeWM.wibox.widget.textbox

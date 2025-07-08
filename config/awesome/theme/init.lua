@@ -24,7 +24,7 @@ theme_m.green = "#9aeba3"
 theme_m.yellow = "#ffe06a"
 theme_m.orange = "#F5793B"
 
-theme_m.default_font = "MartianMono Nerd Font Mono"
+theme_m.default_font = "Inconsolata LGC Nerd Font Mono"
 theme_m.font = theme_m.default_font .. " 12"
 
 theme_m.tag_active_color = theme_m.red

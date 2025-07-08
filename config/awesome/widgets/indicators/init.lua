@@ -9,8 +9,6 @@ indicators_sm.init = function()
   indicators_sm.volume.init()
   indicators_sm.tags.init()
 
-  indicators_sm.brightness.show()
-  indicators_sm.volume.show()
   indicators_sm.tags.show()
 end
 
