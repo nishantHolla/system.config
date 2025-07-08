@@ -15,6 +15,15 @@ clients_sm.init_clients = function()
         placement = AwesomeWM.awful.placement.no_overlap + AwesomeWM.awful.placement.no_offscreen,
         size_hints_honor = true
       }
+    },
+    {
+      rule = { class = "Dragon-drop" },
+      description = "Rule for dragon drop",
+      properties = {
+        floating = true,
+        ontop = true,
+        placement = AwesomeWM.awful.placement.top_right
+      }
     }
   },
 
