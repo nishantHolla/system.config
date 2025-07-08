@@ -67,5 +67,6 @@ functions_m.volume = require("functions.volume")
 functions_m.player = require("functions.player")
 functions_m.battery = require("functions.battery")
 functions_m.storage = require("functions.storage")
+functions_m.process = require("functions.process")
 
 return functions_m

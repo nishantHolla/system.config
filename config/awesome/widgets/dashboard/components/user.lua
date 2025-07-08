@@ -28,9 +28,16 @@ user_component.uptime_text = AwesomeWM.wibox.widget({
   widget = AwesomeWM.wibox.widget.textbox
 })
 
-user_component.time = AwesomeWM.wibox.widget({
+user_component.process_count_text = AwesomeWM.wibox.widget({
+  text =  "",
+  font = AwesomeWM.theme.default_font .. " 16",
+  widget = AwesomeWM.wibox.widget.textbox
+})
+
+user_component.info = AwesomeWM.wibox.widget({
   user_component.uptime_text,
-  spacing = 10,
+  user_component.process_count_text,
+  spacing = 5,
   layout = AwesomeWM.wibox.layout.fixed.vertical
 })
 
@@ -41,7 +48,7 @@ user_component.layout = AwesomeWM.wibox.widget({
     widget = AwesomeWM.wibox.container.place
   },
   {
-    user_component.time,
+    user_component.info,
     valign = "center",
     widget = AwesomeWM.wibox.container.place
   },
@@ -57,6 +64,10 @@ user_component.main = AwesomeWM.wibox.widget({
 user_component.refresh = function()
   AwesomeWM.functions.battery.find_uptime_and(function(uptime)
     user_component.uptime_text.text = "Uptime: " .. uptime
+  end)
+
+  AwesomeWM.functions.process.find_process_count_and(function(count)
+    user_component.process_count_text.text = "Process Count: " .. count
   end)
 end
 
