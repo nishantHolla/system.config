@@ -38,7 +38,6 @@
     lf
     libgcc
     libreoffice-qt6
-    lxappearance
     mpv
     neovim
     networkmanagerapplet
@@ -84,6 +83,29 @@
     };
   };
 
+  # GTK
+  gtk = {
+    enable = true;
+
+    theme = {
+      name = "Adwaita-dark";
+    };
+
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+
+    cursorTheme = {
+      name = "Bibata-Modern-Classic";
+      package = pkgs.bibata-cursors;
+    };
+  };
+
+  xresources.properties = {
+    "Xcursor.theme" = "Bibata-Modern-Classic";
+  };
+
   # Environment Variables
   home.sessionPath = [
     "$HOME/System/bin"
@@ -99,6 +121,10 @@
     XDG_CONFIG_HOME = "$HOME/.config";
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_DATA_HOME = "$HOME/.local/share";
+
+    # GTK
+
+    XCURSOR_THEME = "Bibata-Modern-Classic";
 
     # Applications
 
