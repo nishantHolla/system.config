@@ -60,9 +60,8 @@
   # System packages
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    betterlockscreen
+    xsecurelock
     htop
-    i3lock
     vim
     wget
     xclip
