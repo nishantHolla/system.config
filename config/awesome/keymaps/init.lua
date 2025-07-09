@@ -29,7 +29,7 @@ keymaps_m.list = {
     {
       { mod }, "3",
       function()
-        AwesomeWM.functions.spawn_with_shell("sleep 1; xset dpms forece off; betterlockscreen -l")
+        AwesomeWM.functions.power.lock()
       end,
       "Turn off screen"
     },
@@ -43,7 +43,7 @@ keymaps_m.list = {
     {
       { mod, "Shift" }, "3",
       function()
-        AwesomeWM.functions.spawn("betterlockscreen -l")
+        AwesomeWM.functions.power.lock()
       end,
       "Lock the computer"
     },

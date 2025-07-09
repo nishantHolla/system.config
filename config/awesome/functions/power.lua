@@ -27,11 +27,11 @@ power_sm.logout = function()
 end
 
 power_sm.lock = function()
-  AwesomeWM.functions.spawn_with_shell("betterlockscreen -l")
+  AwesomeWM.functions.spawn_with_shell("xsecurelock")
 end
 
 power_sm.sleep = function()
-  AwesomeWM.functions.spawn_with_shell("systemctl suspend && betterlockscreen -l")
+  AwesomeWM.functions.spawn_with_shell("systemctl suspend && xsecurelock")
 end
 
 
