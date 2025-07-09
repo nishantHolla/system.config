@@ -75,14 +75,6 @@
 
   # services.picom.enable = true;
 
-  # dconf
-  dconf.settings = {
-    "org/gnome/nm-applet" = {
-      "disable-connected-notifications" = true;
-      "disable-disconnected-notifications" = true;
-    };
-  };
-
   # GTK
   gtk = {
     enable = true;
@@ -136,6 +128,12 @@
     PDF_VIEWER = "zathura";
     IMAGE_VIEWER = "vimiv";
     VIDEO_VIEWER = "mpv";
+
+    # xsecurelock
+
+    XSECURELOCK_BLANK_DPMS_STATE = "off";
+    XSECURELOCK_FONT = "Inconsolata LGC Nerd Font Mono";
+    XSECURELOCK_SHOW_DATETIME = "1";
   };
 
   # Let Home Manager install and manage itself.
