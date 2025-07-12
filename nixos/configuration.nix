@@ -78,9 +78,9 @@
   services.openssh.enable = true;
 
   # Firewall
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # networking.firewall.enable = false;
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 22 80 433 ];
+  networking.firewall.allowedUDPPorts = [ ];
 
   # Other settings
   system.stateVersion = "25.05";
