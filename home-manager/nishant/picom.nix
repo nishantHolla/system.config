@@ -1,3 +1,4 @@
+## picom settings for nishant
 { config, pkgs, ... }:
 
 {

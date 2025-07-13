@@ -1,3 +1,4 @@
+## dconf settings for nishant
 { config, pkgs, ... }:
 
 {

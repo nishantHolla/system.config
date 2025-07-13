@@ -1,3 +1,4 @@
+## gtk config for nishant
 { config, pkgs, ... }:
 
 {

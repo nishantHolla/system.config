@@ -1,3 +1,4 @@
+## user packages for nishant
 { config, pkgs, ... }:
 
 {
@@ -27,6 +28,7 @@
     git                        # Distributed version control system
     glow                       # Render markdown on the CLI, with pizzazz!
     inkscape                   # Vector graphics editor
+    kdePackages.filelight      # Quickly visualize your disk space usage
     kdePackages.kdeconnect-kde # Multi-platform app that allows your devices to communicate
     lf                         # Terminal file manager written in Go and heavily inspired by ranger
     libgcc                     # GNU Compiler Collection, version 14.2.1.20250322

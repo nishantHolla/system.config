@@ -20,12 +20,12 @@
         inherit pkgs;
 
         modules = [
-          ./nishant/nishant-home.nix
-          ./nishant/nishant-packages.nix
-          ./nishant/nishant-dconf.nix
-          ./nishant/nishant-picom.nix
-          ./nishant/nishant-gtk.nix
-          ./nishant/nishant-zsh.nix
+          ./nishant/home.nix
+          ./nishant/packages.nix
+          ./nishant/dconf.nix
+          ./nishant/picom.nix
+          ./nishant/gtk.nix
+          ./nishant/zsh.nix
         ];
       };
     };

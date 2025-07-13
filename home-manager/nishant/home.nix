@@ -1,3 +1,4 @@
+## home-manager for nishant
 { config, pkgs, ... }:
 
 {

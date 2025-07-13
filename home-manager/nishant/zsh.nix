@@ -1,3 +1,4 @@
+## zsh config for nishant
 { config, pkgs, ... }:
 
 {
