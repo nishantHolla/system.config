@@ -10,9 +10,9 @@
 
     nixosConfigurations.nixosVM = nixpkgs.lib.nixosSystem {
       modules = [
-        ./nixosVM/nixosVM-config.nix
-        ./nixosVM/nixosVM-packages.nix
-        ./nixosVM/nixosVM-hardware.nix
+        ./nixosVM/config.nix
+        ./nixosVM/packages.nix
+        ./nixosVM/hardware.nix
       ];
     };
 

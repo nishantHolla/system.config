@@ -1,3 +1,4 @@
+## system config for nixosVM
 { config, lib, pkgs, ... }:
 
 {
