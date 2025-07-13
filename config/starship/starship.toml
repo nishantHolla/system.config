@@ -2,7 +2,7 @@
 
 add_newline = true
 
-format = '''$git_branch $git_status$python $directory $character'''
+format = '''$git_branch $git_status$python$nix_shell $directory $character'''
 
 scan_timeout = 30
 
@@ -42,4 +42,8 @@ format = "\n"
 
 [python]
 format = '\[$virtualenv\] '
+disabled = false
+
+[nix_shell]
+format = '\[$name:$state\]'
 disabled = false
