@@ -9,12 +9,10 @@
   outputs = inputs@{ self, nixpkgs, ... }: {
 
     nixosConfigurations.nixosVM = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        hostname = "nixosVM";
-      };
       modules = [
-        ./configuration.nix
-        ./hardware/nixosVM-hw-config.nix
+        ./nixosVM/nixosVM-config.nix
+        ./nixosVM/nixosVM-packages.nix
+        ./nixosVM/nixosVM-hardware.nix
       ];
     };
 

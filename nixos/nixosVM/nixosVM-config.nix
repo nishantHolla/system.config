@@ -1,4 +1,4 @@
-{ config, lib, pkgs, hostname, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # GRUB Boot Loader
@@ -9,7 +9,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Networking
-  networking.hostName = hostname;
+  networking.hostName = "nixosVM";
   networking.networkmanager.enable = true;
 
   # Time Zone
@@ -21,11 +21,6 @@
 
   # Internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
 
   # X11
   services.xserver.enable = true;
@@ -56,16 +51,6 @@
     packages = with pkgs; [ ];
     shell = pkgs.zsh;
   };
-
-  # System packages
-  nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
-    xsecurelock
-    htop
-    vim
-    wget
-    xclip
-  ];
 
   # SUID Wrappers
   programs.mtr.enable = true;
