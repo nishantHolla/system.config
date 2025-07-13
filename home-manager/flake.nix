@@ -2,7 +2,6 @@
   description = "Home Manager configuration of nishant";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -20,12 +19,14 @@
       homeConfigurations."nishant" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./home.nix ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
+        modules = [
+          ./nishant/nishant-home.nix
+          ./nishant/nishant-packages.nix
+          ./nishant/nishant-dconf.nix
+          ./nishant/nishant-picom.nix
+          ./nishant/nishant-gtk.nix
+          ./nishant/nishant-zsh.nix
+        ];
       };
     };
 }

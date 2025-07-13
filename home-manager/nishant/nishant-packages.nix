@@ -1,0 +1,59 @@
+{ config, pkgs, ... }:
+
+{
+  # User Packages
+  nixpkgs.config.allowUnfree = true;
+  home.packages = with pkgs; [
+    acpi
+    alacritty
+    alsa-utils
+    bat
+    bibata-cursors
+    brightnessctl
+    btop
+    clang-tools
+    dconf
+    docker_28
+    dragon-drop
+    fd
+    file
+    firefox
+    flameshot
+    flowblade
+    font-manager
+    fzf
+    gcc
+    gimp3
+    git
+    glow
+    inkscape
+    kdePackages.kdeconnect-kde
+    lf
+    libgcc
+    libreoffice-qt6
+    mpv
+    neovim
+    networkmanagerapplet
+    obs-studio
+    p7zip
+    papirus-icon-theme
+    pcmanfm
+    playerctl
+    python313
+    poppler_utils
+    qalculate-qt
+    ripgrep
+    rofi
+    ruff
+    spotify
+    starship
+    tmux
+    trash-cli
+    ueberzugpp
+    vimiv-qt
+    vimv-rs
+    virtualbox
+    xorg.xev
+    zathura
+  ];
+}
