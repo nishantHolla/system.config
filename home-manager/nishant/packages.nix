@@ -37,7 +37,7 @@
     neovim                     # Vim text editor fork focused on extensibility and agility
     networkmanagerapplet       # NetworkManager control applet for GNOME
     obs-studio                 # Free and open source software for video recording and live streaming
-    p7zip                      # New p7zip fork with additional codecs and improvements (forked from https://sourceforge.net/projects/p7zip/)
+    p7zip                      # File compression and decompression tool
     papirus-icon-theme         # Pixel perfect icon theme for Linux
     pcmanfm                    # File manager with GTK interface
     playerctl                  # Command-line utility and library for controlling media players that implement MPRIS
@@ -57,6 +57,5 @@
     virtualbox                 # PC emulator
     xorg.xev                   # Log xserver events
     zathura                    # Highly customizable and functional PDF viewer
-
   ];
 }
