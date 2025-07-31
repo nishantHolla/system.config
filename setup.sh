@@ -44,3 +44,10 @@ else
   echo "Pulling down wallpapers..."
   git clone git@github.com:nishantHolla/wallpapers.git $HOME/Wallpapers
 fi
+
+# Awesome
+
+echo "Making required files and directories for awesome...";
+mkdir $HOME/.local/share/awesome
+touch $HOME/.local/share/awesome/notification_history.txt
+touch $HOME/.local/share/awesome/notes.txt

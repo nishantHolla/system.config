@@ -9,25 +9,21 @@
 
 - Setup LUKS encryption on `nixos` partition
 
-- Continue with installation and add `git` and `firefox`
-
-- Setup SSH key and add to github
-
 - Clone `System` repository
 
-- Copy current system's `hardware-configuration.nix` to `~/System/nixos/hardware`
+- Setup current system's nixos config
 
 - Edit `~/System/nixos/flake.nix` to add the current system's section
 
-- Rebuild switch nixos
+- Install nixos with `nixos-install --flake .#<system-name>`
 
-- Setup home-manager
+- Setup SSH key and add to github
 
-- Rebuild switch home manager
-
-- Run `link.sh` script
+- Install home-manager with `nix run home-manager/master -- switch --flake .#<user-name>`
 
 - Run `setup.sh` script
+
+- Run `link.sh` script
 
 ## Tmux
 
