@@ -1,3 +1,3 @@
 config/tmux/plugins/
-config/awesome/assets/wallpapers
-!config/awesome/assets/wallpapers/default
+./config/awesome/assets/wallpapers
+!./config/awesome/assets/wallpapers/default
