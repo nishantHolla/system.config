@@ -55,4 +55,14 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     config = plugin('lsp')
   },
+
+  {
+    'numToStr/Comment.nvim',
+    config = plugin('comment')
+  },
+
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    config = plugin('indentline')
+  }
 })
