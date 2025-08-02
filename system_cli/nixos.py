@@ -43,7 +43,7 @@ def setup():
     with open(v.NIXOS_FLAKE_FILE, "r") as file:
         flake = file.read()
 
-    check = rf"(nixosConfigurations\.{HOSTNAME}\s*=nixpkgs\.lib\.nixosSystem\s*)"
+    check = rf"(nixosConfigurations\.{HOSTNAME}\s*=\s*nixpkgs\.lib\.nixosSystem\s*)"
     if not re.search(check, flake, re.DOTALL):
         print("Updating nixos flake file...")
         pattern = r"(nixosConfigurations\.template\s*=\s*nixpkgs\.lib\.nixosSystem\s*\{.*?\};)"
