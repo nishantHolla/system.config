@@ -2,6 +2,7 @@
 import sys
 import values as v
 from nixos import run as nixos_run
+from home import run as home_run
 
 if __name__ == "__main__":
     args = sys.argv
@@ -18,6 +19,11 @@ if __name__ == "__main__":
 
     elif command == "nixos":
         exit_code = nixos_run(args)
+        if exit_code:
+            exit(exit_code)
+
+    elif command == "home":
+        exit_code == home_run(args)
         if exit_code:
             exit(exit_code)
 

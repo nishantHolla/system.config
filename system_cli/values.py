@@ -9,6 +9,8 @@ NIXOS_DIR = SYSTEM_DIR / "nixos"
 NIXOS_TEMPLATE_DIR = NIXOS_DIR / "template"
 NIXOS_FLAKE_FILE = NIXOS_DIR / "flake.nix"
 
+HOME_MANAGER_DIR = SYSTEM_DIR / "home-manager"
+
 # Usage
 
 SYSTEM_USAGE = """
@@ -23,6 +25,10 @@ command:
     nixos:
 
         Control system-level configurations.
+
+    home:
+
+        Control home-level configurations.
 """
 
 NIXOS_USAGE = """
@@ -37,5 +43,20 @@ sub-command:
     setup:
 
         Perform setup actions for the system.
+        Run only once for a new system.
+"""
+
+HOME_USAGE = """
+Usage: system home <sub-command> [...arguments]
+
+sub-command:
+
+    help:
+
+        Print help message and exit.
+
+    setup:
+
+        Perform setup actions the home.
         Run only once for a new system.
 """
