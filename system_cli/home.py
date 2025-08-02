@@ -27,7 +27,7 @@ def setup_fonts():
 def setup_icons():
     print("Setting up icons...")
     system_icons_dir = Path("~/.local/share/icons/GI").expanduser()
-    icons_dir = Path("~/Icons").expanduser()
+    icons_dir = Path("~/Icons/GI").expanduser()
 
     system_icons_dir.parent.mkdir(parents=True, exist_ok=True)
     if icons_dir.is_dir():
@@ -96,7 +96,7 @@ def setup():
         print("Failed to list remotes\n.Error: {err_msg}")
         return 2
 
-    if not "mega:" in remotes:
+    if "mega:" not in remotes:
         print("Preparing to pull down ssh key...")
         username = input("Enter mega username: ")
         password = getpass.getpass("Enter mega password:")
@@ -107,7 +107,7 @@ def setup():
 
         print("Pulling down ssh key..")
         u.run_sys(f"rclone copy mega:/secrets/github {TEMP_DIR}")
-        u.run_sys(f"cp {TEMP_DIR}/* {SSH_DIR}")
+        u.run_sys(f"mv {TEMP_DIR}/* {SSH_DIR}")
         u.run_sys(f"rmdir {TEMP_DIR}")
 
         print("Decrypting ssh key..")
