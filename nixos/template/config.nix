@@ -10,7 +10,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Networking
-  networking.hostName = "nixosVM";
+  networking.hostName = "$TEMPLATE_HOSTNAME";
   networking.networkmanager.enable = true;
 
   # Time Zone
