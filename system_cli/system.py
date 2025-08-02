@@ -23,7 +23,7 @@ if __name__ == "__main__":
             exit(exit_code)
 
     elif command == "home":
-        exit_code == home_run(args)
+        exit_code = home_run(args)
         if exit_code:
             exit(exit_code)
 

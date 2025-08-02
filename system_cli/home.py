@@ -7,10 +7,10 @@ import utils as u
 
 def setup_fonts():
     print("Setting up fonts...")
-    system_fonts_dir = Path("~/.local/share").expanduser()
+    system_fonts_dir = Path("~/.local/share/fonts").expanduser()
     fonts_dir = Path("~/Fonts").expanduser()
 
-    system_fonts_dir.mkdir(parents=True, exist_ok=True)
+    system_fonts_dir.parent.mkdir(parents=True, exist_ok=True)
     if fonts_dir.is_dir():
         print("Fonts dir already exists. Skipping...")
     else:
@@ -21,7 +21,7 @@ def setup_fonts():
         print(f"{system_fonts_dir} already exists. Skipping linking...")
     else:
         print("Linking fonts dir...")
-        u.run_sys(f"ln -s {fonts_dir} {system_fonts_dir}")
+        system_fonts_dir.symlink_to(fonts_dir)
 
 
 def setup_icons():
@@ -29,6 +29,7 @@ def setup_icons():
     system_icons_dir = Path("~/.local/share/icons/GI").expanduser()
     icons_dir = Path("~/Icons").expanduser()
 
+    system_icons_dir.parent.mkdir(parents=True, exist_ok=True)
     if icons_dir.is_dir():
         print("Icons dir already exists. Skipping...")
     else:
@@ -39,7 +40,7 @@ def setup_icons():
         print(f"{system_icons_dir} already exists. Skipping linking...")
     else:
         print("Linking icons dir...")
-        u.run_sys(f"ln -s {icons_dir} {system_icons_dir}")
+        system_icons_dir.symlink_to(icons_dir)
 
 
 def setup_wallpapers():
@@ -57,12 +58,10 @@ def setup_wallpapers():
 
 def setup_awesome():
     print("Setting up awesome...")
-    Path("~/.local/share/awesome/notification_history.txt").expanduser().touch(
-        parents=True, exist_ok=True
-    )
-    Path("~/.local/share/awesome/notes.txt").expanduser().touch(
-        parents=True, exist_ok=True
-    )
+    AWESOME_DIR = Path("~/.local/share/awesome").expanduser()
+    AWESOME_DIR.mkdir(parents=True, exist_ok=True)
+    open(AWESOME_DIR / "notification_history.txt", "a").close()
+    open(AWESOME_DIR / "notes.txt", "a").close()
 
 
 def setup_links():
@@ -92,23 +91,31 @@ def setup():
         f"nix run home-manager/master -- switch --flake {v.HOME_MANAGER_DIR}#{USER}"
     )
 
-    print("Preparing to pull down ssh key...")
-    username = input("Enter mega username: ")
-    password = getpass.getpass("Enter mega password:")
-    u.run_sys(f"rclone config create mega mega user {username} pass {password}")
-    SSH_DIR.mkdir(parents=True, exist_ok=True)
+    remotes, ec, err_msg = u.run("rclone listremotes")
+    if ec:
+        print("Failed to list remotes\n.Error: {err_msg}")
+        return 2
 
-    print("Pulling down ssh key..")
-    u.run_sys(f"rclone copy mega:/secrets/github {TEMP_DIR}")
-    u.run_sys(f"cp {TEMP_DIR}/* {SSH_DIR}")
-    u.run_sys(f"rmdir {TEMP_DIR}")
+    if not "mega:" in remotes:
+        print("Preparing to pull down ssh key...")
+        username = input("Enter mega username: ")
+        password = getpass.getpass("Enter mega password:")
+        u.run_sys(f"rclone config create mega mega user {username} pass {password}")
 
-    print("Decrypting ssh key..")
-    u.run_sys("gpg -d ~/.ssh/github_rsa.gpg > ~/.ssh/github_rsa")
-    u.run_sys("chmod 600 ~/.ssh/github_rsa")
+    if not Path("~/.ssh/github_rsa").expanduser().exists():
+        SSH_DIR.mkdir(parents=True, exist_ok=True)
 
-    print("Adding ssh key")
-    u.run_sys("ssh-add ~/.ssh/github_rsa")
+        print("Pulling down ssh key..")
+        u.run_sys(f"rclone copy mega:/secrets/github {TEMP_DIR}")
+        u.run_sys(f"cp {TEMP_DIR}/* {SSH_DIR}")
+        u.run_sys(f"rmdir {TEMP_DIR}")
+
+        print("Decrypting ssh key..")
+        u.run_sys("gpg -d ~/.ssh/github_rsa.gpg > ~/.ssh/github_rsa")
+        u.run_sys("chmod 600 ~/.ssh/github_rsa")
+
+        print("Adding ssh key")
+        u.run_sys("ssh-add ~/.ssh/github_rsa")
 
     print("Chaning origin of system...")
     u.run_sys(
