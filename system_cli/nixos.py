@@ -31,22 +31,10 @@ def setup():
         print(f"Failed to copy template config to {HOSTNAME}.\nError: {err}")
         return 2
 
-    print("Generating hardware.nix...")
-    _, rc, err = u.run(f"nixos-generate-config --dir {CONFIG_DIR}")
+    print("Copying hardware.nix...")
+    _, rc, err = u.run(f"cp {ROOT_PATH / 'etc' / 'nixos' / 'hardware-configuration.nix'} {CONFIG_DIR / 'hardware.nix'}")
     if rc:
         print(f"Failed to generate hardware.nix.\nError: {err}")
-        return 2
-
-    _, rc, err = u.run(
-        f"mv {CONFIG_DIR / 'hardware-configuration.nix'} {CONFIG_DIR / 'hardware.nix'}"
-    )
-    if rc:
-        print(f"Failed to copy hardware.nix.\nError: {err}")
-        return 2
-
-    _, rc, err = u.run(f"rm {CONFIG_DIR / 'configuration.nix'}")
-    if rc:
-        print(f"Failed to copy hardware.nix.\nError: {err}")
         return 2
 
     print(f"Updating config.nix for {HOSTNAME}")
