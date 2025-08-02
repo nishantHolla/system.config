@@ -21,44 +21,45 @@ def setup():
             return 2
 
     print(f"Checking if {HOSTNAME} config exists...")
-    if CONFIG_DIR.is_dir():
-        print(f"Config files for {HOSTNAME} already exists")
-        return 2
+    if not CONFIG_DIR.is_dir():
+        print(f"Preparing config files for {HOSTNAME}...")
+        _, rc, err = u.run(f"cp -r {v.NIXOS_TEMPLATE_DIR} {CONFIG_DIR}")
+        if rc:
+            print(f"Failed to copy template config to {HOSTNAME}.\nError: {err}")
+            return 2
 
-    print(f"Preparing config files for {HOSTNAME}...")
-    _, rc, err = u.run(f"cp -r {v.NIXOS_TEMPLATE_DIR} {CONFIG_DIR}")
-    if rc:
-        print(f"Failed to copy template config to {HOSTNAME}.\nError: {err}")
-        return 2
+        print("Copying hardware.nix...")
+        _, rc, err = u.run(
+            f"cp {ROOT_PATH / 'etc' / 'nixos' / 'hardware-configuration.nix'} {CONFIG_DIR / 'hardware.nix'}"
+        )
+        if rc:
+            print(f"Failed to generate hardware.nix.\nError: {err}")
+            return 2
 
-    print("Copying hardware.nix...")
-    _, rc, err = u.run(f"cp {ROOT_PATH / 'etc' / 'nixos' / 'hardware-configuration.nix'} {CONFIG_DIR / 'hardware.nix'}")
-    if rc:
-        print(f"Failed to generate hardware.nix.\nError: {err}")
-        return 2
+        print(f"Updating config.nix for {HOSTNAME}")
+        u.find_and_replace(CONFIG_DIR / "config.nix", "$TEMPLATE_HOSTNAME", HOSTNAME)
 
-    print(f"Updating config.nix for {HOSTNAME}")
-    u.find_and_replace(CONFIG_DIR / "config.nix", "$TEMPLATE_HOSTNAME", HOSTNAME)
-
-    print("Updating nixos flake file...")
+    print(f"Checking if flake file has {HOSTNAME}...")
     with open(v.NIXOS_FLAKE_FILE, "r") as file:
         flake = file.read()
 
-    pattern = (
-        r"(nixosConfigurations\.template\s*=\s*nixpkgs\.lib\.nixosSystem\s*\{.*?\};)"
-    )
-    match = re.search(pattern, flake, re.DOTALL)
-    if match:
-        extracted_block = match.group(1)
-        block = extracted_block.replace("template", HOSTNAME)
+    check = f"(nixosConfigurations\.{HOSTNAME}\s*=nixpkgs\.lib\.nixosSystem\s*)"
+    if not re.search(check, flake, re.DOTALL):
+        print("Updating nixos flake file...")
+        pattern = r"(nixosConfigurations\.template\s*=\s*nixpkgs\.lib\.nixosSystem\s*\{.*?\};)"
+        match = re.search(pattern, flake, re.DOTALL)
 
-    else:
-        print("Failed to find template block")
-        return 2
+        if match:
+            extracted_block = match.group(1)
+            block = extracted_block.replace("template", HOSTNAME)
 
-    flake = flake[: match.end()] + "\n\n    " + block + flake[match.end() :]
-    with open(v.NIXOS_FLAKE_FILE, "w") as file:
-        file.write(flake)
+        else:
+            print("Failed to find template block")
+            return 2
+
+        flake = flake[: match.end()] + "\n\n    " + block + flake[match.end() :]
+        with open(v.NIXOS_FLAKE_FILE, "w") as file:
+            file.write(flake)
 
     print("Adding new config to git...")
     _, rc, err = u.run(f"git add {v.NIXOS_DIR}")
