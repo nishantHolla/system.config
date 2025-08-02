@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import sys
 import values as v
+from nixos import run as nixos_run
 
 if __name__ == "__main__":
     args = sys.argv
@@ -14,5 +15,14 @@ if __name__ == "__main__":
 
     if command == "help":
         print(v.SYSTEM_USAGE)
+
+    elif command == "nixos":
+        exit_code = nixos_run(args)
+        if exit_code:
+            exit(exit_code)
+
     else:
-        print(f'Unknown command "{command}"\nRun "system help" for list of commands')
+        print(f'Unknown command "{command}"\nRun "system help" for list of commands.')
+        exit(1)
+
+    exit(0)

@@ -1,3 +1,14 @@
+from pathlib import Path
+
+# Paths
+
+SYSTEM_CLI_DIR = Path(__file__).parent
+SYSTEM_DIR = SYSTEM_CLI_DIR.parent
+
+NIXOS_DIR = SYSTEM_DIR / "nixos"
+NIXOS_TEMPLATE_DIR = NIXOS_DIR / "template"
+NIXOS_FLAKE_FILE = NIXOS_DIR / "flake.nix"
+
 # Usage
 
 SYSTEM_USAGE = """
@@ -8,4 +19,23 @@ command:
     help:
 
         Print help message and exit.
+
+    nixos:
+
+        Control system-level configurations.
+"""
+
+NIXOS_USAGE = """
+Usage: system nixos <sub-command> [...arguments]
+
+sub-command:
+
+    help:
+
+        Print help message and exit.
+
+    setup:
+
+        Perform setup actions for the system.
+        Run only once for a new system.
 """
