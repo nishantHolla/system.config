@@ -41,3 +41,10 @@ autocommand('BufWritePre', {
   command = "lua vim.lsp.buf.format()",
   group = usergroup
 })
+
+-- Resize splits on window resize
+vim.api.nvim_create_autocmd("VimResized", {
+  pattern = "*",
+  command = "wincmd =",
+  group = usergroup
+})

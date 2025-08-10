@@ -64,5 +64,9 @@ require('lazy').setup({
   {
     'lukas-reineke/indent-blankline.nvim',
     config = plugin('indentline')
+  },
+
+  {
+    'dhruvasagar/vim-table-mode',
   }
 })
