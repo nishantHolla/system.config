@@ -52,6 +52,5 @@ Key({"n", "v", "o"}, "<a-l>", "9", K_Opt("Press 9"))
 Key({"n", "v", "o"}, "<a-;>", "0", K_Opt("Press 0"))
 
 -- Shared Clipboard
-Key("v", "<leader>y", ":w! /tmp/nvim_clipboard<cr>", K_Opt("Copy to shared clipboard"))
-Key("n", "<leader>y", ":.w! /tmp/nvim_clipboard<cr>", K_Opt("Copy to shared clipboard"))
-Key("n", "<leader>p", ":r /tmp/nvim_clipboard<cr>", K_Opt("Paste from shared clipboard"))
+Key("v", "<leader>y", ":lua WriteToSharedClipboard()<cr>", K_Opt("Copy to shared clipboard"))
+Key("n", "<leader>p", ":lua ReadFromSharedClipboard()<cr>", K_Opt("Paste from shared clipboard"))

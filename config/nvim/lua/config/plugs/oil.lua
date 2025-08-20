@@ -22,3 +22,4 @@ require('oil').setup({
 })
 
 Key('n', '<leader><leader>', ':Oil<cr>', K_Opt('Open oil'))
+vim.cmd("highlight OilDir guibg=none guifg=#a8a9eb")

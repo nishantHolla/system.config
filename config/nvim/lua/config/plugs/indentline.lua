@@ -4,7 +4,7 @@ local highlight = {
 
 local hooks = require "ibl.hooks"
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-  vim.api.nvim_set_hl(0, "IndentHighlight", { fg = "#333333" })
+  vim.api.nvim_set_hl(0, "IndentHighlight", { fg = "#555555" })
 end)
 
 require("ibl").setup({
