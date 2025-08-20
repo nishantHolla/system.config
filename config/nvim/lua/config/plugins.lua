@@ -24,11 +24,13 @@ end
 require('lazy').setup({
   {
     'stevearc/oil.nvim',
-    config = plugin('oil')
+    config = plugin('oil'),
+    event = "VeryLazy"
   },
 
   {
-    'famiu/bufdelete.nvim'
+    'famiu/bufdelete.nvim',
+    event = "VeryLazy"
   },
 
   {
@@ -38,7 +40,8 @@ require('lazy').setup({
 
   {
     'christoomey/vim-tmux-navigator',
-    config = plugin('tmux')
+    config = plugin('tmux'),
+    event = "VeryLazy"
   },
 
   {
@@ -48,7 +51,8 @@ require('lazy').setup({
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'L3MON4D3/LuaSnip'
-    }
+    },
+    event = "VeryLazy"
   },
 
   {
@@ -58,7 +62,8 @@ require('lazy').setup({
 
   {
     'numToStr/Comment.nvim',
-    config = plugin('comment')
+    config = plugin('comment'),
+    event = "VeryLazy"
   },
 
   {
@@ -67,6 +72,7 @@ require('lazy').setup({
   },
 
   {
-    'dhruvasagar/vim-table-mode',
+    'loctvl842/monokai-pro.nvim',
+    config = plugin('monokai')
   }
 })
