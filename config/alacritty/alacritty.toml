@@ -1,5 +1,5 @@
 [font]
-size = 16.0
+size = 10.0
 
 [font.normal]
 family = "Inconsolata LGC Nerd Font Mono"
@@ -7,42 +7,29 @@ family = "Inconsolata LGC Nerd Font Mono"
 [window]
 opacity = 1
 
-# moonfly theme for Alacritty
-#
-# Upstream: github.com/bluz71/vim-moonfly-colors
-
 [colors]
 draw_bold_text_with_bright_colors = true
 
-[colors.bright]
-black = "#949494"
-blue = "#74b2ff"
-cyan = "#85dc85"
-green = "#36c692"
-magenta = "#ae81ff"
-red = "#ff5189"
-white = "#e4e4e4"
-yellow = "#c6c684"
-
-[colors.cursor]
-cursor = "#8e8e8e"
-text = "#080808"
+[colors.primary]
+background = "#2D2A2E"
+foreground = "#fff1f3"
 
 [colors.normal]
-black = "#323437"
-blue = "#80a0ff"
-cyan = "#79dac8"
-green = "#8cc85f"
-magenta = "#cf87e8"
-red = "#ff5d5d"
-white = "#c6c6c6"
-yellow = "#e3c78a"
+black = "#2c2525"
+red = "#fd6883"
+green = "#adda78"
+yellow = "#f9cc6c"
+blue = "#a8a9eb"
+magenta = "#f38d70"
+cyan = "#85dacc"
+white = "#fff1f3"
 
-[colors.primary]
-background = "#080808"
-bright_foreground = "#eeeeee"
-foreground = "#bdbdbd"
-
-[colors.selection]
-background = "#b2ceee"
-text = "#080808"
+[colors.bright]
+black = "#72696a"
+red = "#fd6883"
+green = "#adda78"
+yellow = "#f9cc6c"
+blue = "#a8a9eb"
+magenta = "#f38d70"
+cyan = "#85dacc"
+white = "#fff1f3"
