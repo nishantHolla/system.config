@@ -27,7 +27,7 @@ def setup_fonts():
 def setup_icons():
     print("Setting up icons...")
     system_icons_dir = Path("~/.local/share/icons/GI").expanduser()
-    icons_dir = Path("~/Icons/GI").expanduser()
+    icons_dir = Path("~/Icons").expanduser()
 
     system_icons_dir.parent.mkdir(parents=True, exist_ok=True)
     if icons_dir.is_dir():
@@ -40,7 +40,7 @@ def setup_icons():
         print(f"{system_icons_dir} already exists. Skipping linking...")
     else:
         print("Linking icons dir...")
-        system_icons_dir.symlink_to(icons_dir)
+        system_icons_dir.symlink_to(icons_dir / "GI")
 
 
 def setup_wallpapers():
