@@ -2,13 +2,14 @@ from log import Log
 import values as v
 import utils as u
 
+from pathlib import Path
 import re
 
 
 def setup():
     HOSTNAME = Log.input("nixos", "Enter hostname: ")
     USERNAME = Log.input("nixos", "Enter username: ")
-    ROOT_PATH = Log.input("nixos", "Enter root path: ")
+    ROOT_PATH = Path(Log.input("nixos", "Enter root path: "))
 
     ROOT_CONFIG_DIR = ROOT_PATH / "etc" / "nixos"
     ROOT_HARDWARE_FILE = ROOT_CONFIG_DIR / "hardware-configuration.nix"
@@ -22,7 +23,9 @@ def setup():
     if not ROOT_CONFIG_DIR.is_dir() or not ROOT_HARDWARE_FILE.is_file():
         Log.info("setup", f"Making root config at {ROOT_CONFIG_DIR}")
 
-        _, rc, err = u.run(f"nixos-generate-config --root {ROOT_PATH}", capture=True)
+        _, rc, err = u.run(
+            "setup", f"nixos-generate-config --root {ROOT_PATH}", capture=True
+        )
         if rc:
             Log.error("setup", f"Failed to make root config. Error: {err}")
             return 2
@@ -36,14 +39,16 @@ def setup():
         Log.info("setup", f"Making host config at {HOST_CONFIG_DIR}")
 
         _, rc, err = u.run(
-            f"cp -r {v.NIXOS_TEMPLATE_DIR} {HOST_CONFIG_DIR}", capture=True
+            "setup", f"cp -r {v.NIXOS_TEMPLATE_DIR} {HOST_CONFIG_DIR}", capture=True
         )
         if rc:
             Log.error("setup", f"Failed to make host config. Error: {err}")
             return 2
 
     Log.info("setup", "Updating hardware file for host")
-    _, rc, err = u.run(f"cp -f {ROOT_HARDWARE_FILE} {HOST_HARDWARE_FILE}", capture=True)
+    _, rc, err = u.run(
+        "setup", f"cp -f {ROOT_HARDWARE_FILE} {HOST_HARDWARE_FILE}", capture=True
+    )
     if rc:
         Log.error("setup", f"Failed to update hardware file. Error: {err}")
         return 2
@@ -87,20 +92,20 @@ def setup():
             return 2
 
     Log.info("setup", "Adding new config to git")
-    _, rc, err = u.run(f"git add {v.NIXOS_DIR}", capture=True)
+    _, rc, err = u.run("setup", f"git add {v.NIXOS_DIR}", capture=True)
     if rc:
         Log.error("setup", f"Failed to add config to git. Error: {err}")
         return 2
 
     Log.info("setup", "Installing system")
-    rc = u.run(f"nixos-install --flake {v.NIXOS_DIR}#{HOSTNAME}")
+    rc = u.run("setup", f"nixos-install --flake {v.NIXOS_DIR}#{HOSTNAME}")
     if rc:
         Log.error("setup", "Failed to install system")
         return 2
 
     if USERNAME != "":
-        Log.info(f"Setting password for {USERNAME}")
-        u.run(f"nixos-enter --root {ROOT_PATH} -c 'passwd {USERNAME}'")
+        Log.info("setup", f"Setting password for {USERNAME}")
+        u.run("setup", f"nixos-enter --root {ROOT_PATH} -c 'passwd {USERNAME}'")
 
     return 0
 

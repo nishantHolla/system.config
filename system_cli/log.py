@@ -16,4 +16,4 @@ class Log:
 
     @staticmethod
     def input(author, message, new_line=False):
-        return input(f"{author} [warn ]: {'\n' if new_line else ''}{message}")
+        return input(f"{author} [input]: {'\n' if new_line else ''}{message}")
