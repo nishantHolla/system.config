@@ -18,6 +18,13 @@ if __name__ == "__main__":
     if command == "help":
         Log.info("system", v.SYSTEM_USAGE, new_line=True)
 
+    elif command == "nixos":
+        from nixos import run
+
+        ec = run(args)
+        if ec:
+            exit(ec)
+
     else:
         Log.error(
             "system",

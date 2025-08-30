@@ -13,3 +13,7 @@ class Log:
     @staticmethod
     def warn(author, message, new_line=False):
         print(f"{author} [warn ]: {'\n' if new_line else ''}{message}")
+
+    @staticmethod
+    def input(author, message, new_line=False):
+        return input(f"{author} [warn ]: {'\n' if new_line else ''}{message}")
