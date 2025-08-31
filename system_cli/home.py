@@ -120,7 +120,7 @@ def setup():
         return 2
 
     if "mega:" not in remotes:
-        Log.info("Preparing to connect to mega drive")
+        Log.info("setup", "Preparing to connect to mega drive")
         username = Log.input("setup", "Enter mega username: ")
         password = Log.input("setup", "Enter mega password: ", passwd=True)
 
@@ -169,7 +169,7 @@ def setup():
             Log.error("setup", "Failed to add ssh key")
             return 2
 
-    Log.info("Changing origin of the system repo")
+    Log.info("setup", "Changing origin of the system repo")
     ec = u.run(
         "setup",
         f"git -C {v.SYSTEM_DIR} remote set-url origin git@github.com:nishantHolla/system.config.git",
