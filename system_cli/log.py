@@ -1,3 +1,6 @@
+import getpass
+
+
 class Log:
     def __init__(self):
         raise RuntimeError("Log class can not be initialized")
@@ -15,5 +18,10 @@ class Log:
         print(f"{author} [warn ]: {'\n' if new_line else ''}{message}")
 
     @staticmethod
-    def input(author, message, new_line=False):
-        return input(f"{author} [input]: {'\n' if new_line else ''}{message}")
+    def input(author, message, new_line=False, passwd=False):
+        if passwd:
+            return getpass.getpass(
+                f"{author} [input]: {'\n' if new_line else ''}{message}"
+            )
+        else:
+            return input(f"{author} [input]: {'\n' if new_line else ''}{message}")

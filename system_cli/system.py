@@ -25,6 +25,13 @@ if __name__ == "__main__":
         if ec:
             exit(ec)
 
+    elif command == "home":
+        from home import run
+
+        ec = run(args)
+        if ec:
+            exit(ec)
+
     else:
         Log.error(
             "system",
