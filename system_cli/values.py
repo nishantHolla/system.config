@@ -63,4 +63,8 @@ sub-command:
 
         Perform setup actions for the home.
         Run only once for a new system.
+
+    switch:
+
+        Switch to new configuration by rebuilding using home-manager.
 """

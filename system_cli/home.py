@@ -202,6 +202,23 @@ def setup():
     return 0
 
 
+def switch():
+    USER = os.getenv("USER")
+    if not USER:
+        Log.error("switch", "Falied to get USER env")
+        return 2
+
+    Log.info("switch", "Switching home-manager config")
+    ec = u.run(
+        "switch",
+        f"home-manager switch --flake {v.HOME_MANAGER_DIR}#{USER}",
+        capture=False,
+    )
+    if ec:
+        Log.error("switch", "Failed to switch home-manager config")
+        return 2
+
+
 def run(args):
     if len(args) == 0:
         Log.info("home", v.HOME_USAGE, new_line=True)
@@ -214,6 +231,11 @@ def run(args):
 
     elif sub_command == "setup":
         ec = setup()
+        if ec:
+            return ec
+
+    elif sub_command == "switch":
+        ec = switch()
         if ec:
             return ec
 
