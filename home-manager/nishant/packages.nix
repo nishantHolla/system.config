@@ -24,6 +24,7 @@
     font-manager               # Simple font management for GTK desktop environments
     fzf                        # Command-line fuzzy finder written in Go
     gcc                        # GNU Compiler Collection, version 14.2.1.20250322 (wrapper script)
+    gdb                        # GNU Project debugger
     gimp3                      # GNU Image Manipulation Program
     git                        # Distributed version control system
     glow                       # Render markdown on the CLI, with pizzazz!
