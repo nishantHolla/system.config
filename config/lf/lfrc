@@ -281,9 +281,9 @@ cmd fzf ${{
 		then
 			return
 		elif [[ -d "$selection" ]] ; then
-			lf -remote "send $id cd $selection"
+			lf -remote "send $id cd \"$selection\""
 		else
-			lf -remote "send $id select $selection"
+			lf -remote "send $id select \"$selection\""
 		fi
 	fi
 
