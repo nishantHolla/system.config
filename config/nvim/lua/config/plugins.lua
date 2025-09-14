@@ -74,5 +74,9 @@ require('lazy').setup({
   {
     'loctvl842/monokai-pro.nvim',
     config = plugin('monokai')
+  },
+
+  {
+    'tpope/vim-surround'
   }
 })
