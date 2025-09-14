@@ -1,7 +1,6 @@
 local usergroup = vim.api.nvim_create_augroup('UserGroup', { clear = true })
 local autocommand = vim.api.nvim_create_autocmd
 
-
 -- Set formatoptions
 autocommand('FileType', {
   pattern = '*',
@@ -11,7 +10,6 @@ autocommand('FileType', {
   group = usergroup
 })
 
-
 -- Load view on open
 autocommand('BufWinEnter', {
   pattern = '?*',
@@ -19,14 +17,12 @@ autocommand('BufWinEnter', {
   group = usergroup
 })
 
-
 -- Save view on close
 autocommand('BufWinLeave', {
   pattern = '?*',
   command = 'silent! mkview',
   group = usergroup
 })
-
 
 -- Remove trailing whitespace
 autocommand('BufWritePre', {
@@ -43,8 +39,20 @@ autocommand('BufWritePre', {
 })
 
 -- Resize splits on window resize
-vim.api.nvim_create_autocmd("VimResized", {
+autocommand("VimResized", {
   pattern = "*",
   command = "wincmd =",
+  group = usergroup
+})
+
+-- Indent options for Makefile
+autocommand("Filetype", {
+  pattern = "make",
+  callback = function()
+    vim.opt_local.expandtab = false
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.softtabstop = 0
+  end,
   group = usergroup
 })
