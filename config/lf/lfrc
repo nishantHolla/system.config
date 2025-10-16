@@ -43,7 +43,7 @@ cmd remove ${{
 	fi
 }}
 
-map DX remove
+# map DX remove
 
 
 # Trash
@@ -71,6 +71,9 @@ cmd open ${{
 		jpg|jpeg|png|webp|gif|ppm) APP="$IMAGE_VIEWER";;
 		mp4|mpg|mkv) APP="$VIDEO_VIEWER";;
 		pdf) APP="$PDF_VIEWER";;
+    doc|docx) APP="$WORD_EDITOR";;
+    ppt|pptx) APP="$PRESENTATION_EDITOR";;
+    xls|xlsx) APP="$SPREADSHEET_EDITOR";;
 		*) lf -remote "send $id \$$EDITOR \"$fx\""; exit 0;;
 	esac
 
@@ -156,10 +159,9 @@ cmd paste %{{
 # Archive
 
 cmd archive ${{
-	set -f
-	7z a $(1).zip $fx
+  set -f
+  7z a $1 $fx
 	lf -remote "send unselect"
-
 }}
 
 map a push :archive<space>
