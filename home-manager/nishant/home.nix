@@ -39,6 +39,9 @@
     PDF_VIEWER = "zathura";
     IMAGE_VIEWER = "vimiv";
     VIDEO_VIEWER = "mpv";
+    WORD_EDITOR = "wps";
+    PRESENTATION_EDITOR = "wpp";
+    SPREADSHEET_EDITOR = "et";
 
     # xsecurelock
 
