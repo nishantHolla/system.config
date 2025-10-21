@@ -3,8 +3,8 @@ import values as v
 import utils as u
 
 import os
-import random
 from pathlib import Path
+import json
 
 
 def setup_fonts():
@@ -90,7 +90,7 @@ def setup_links():
 def setup():
     SSH_DIR = Path("~/.ssh").expanduser()
     SSH_FILE = SSH_DIR / "github_rsa"
-    TEMP_DIR = Path(f"~/github.{random.randint(0, 1000)}").expanduser()
+    SSH_PUB_FILE = SSH_DIR / "github_rsa.pub"
 
     USER = os.getenv("USER")
     if not USER:
@@ -113,61 +113,47 @@ def setup():
         Log.error("setup", "Failed to setup home-manager")
         return 2
 
-    Log.info("setup", "Pulling down ssh key")
-    remotes, ec, err = u.run("setup", "rclone listremotes", capture=True)
+    Log.info("setup", "Pulling down ssh key from bitwarden")
+    ec = u.run("setup", "bw config server https://vault.bitwarden.eu", capture=False)
     if ec:
-        Log.error("setup", f"Failed to list remotes. Error: {err}")
+        Log.error("setup", "Failed to change bitwarden server to eu")
         return 2
 
-    if "mega:" not in remotes:
-        Log.info("setup", "Preparing to connect to mega drive")
-        username = Log.input("setup", "Enter mega username: ")
-        password = Log.input("setup", "Enter mega password: ", passwd=True)
+    ec = u.run("setup", "bw login", capture=False)
+    if ec:
+        Log.error("setup", "Failed to login to bitwarden")
+        return 2
 
-        ec = u.run(
-            "setup",
-            f"rclone config create mega mega user {username} pass {password}",
-            capture=False,
-        )
-        if ec:
-            Log.error("setup", "Failed to connect to mega drive")
-            return 2
+    session, ec, err = u.run("setup", "bw unlock --raw", capture=True)
+    if ec:
+        Log.error("setup", f"Failed to get session: {err}")
+        return 2
 
-    if not SSH_FILE.is_file():
-        SSH_DIR.mkdir(parents=True, exist_ok=True)
+    note, ec, err = u.run(
+        "setup", f'bw get item "GithubSSH" --session {session}', capture=True
+    )
+    if ec:
+        Log.error("setup", f"Failed to get note: {err}")
+        return 2
 
-        ec = u.run(
-            "setup", f"rclone copy mega:/secrets/github {TEMP_DIR}", capture=False
-        )
-        if ec:
-            Log.error("setup", "Failed to pull down ssh key")
-            return 2
+    j = json.loads(note)
 
-        ec = u.run("setup", f"mv {TEMP_DIR}/* {SSH_DIR}", capture=False)
-        if ec:
-            Log.error("setup", "Failed to pull down ssh key")
-            return 2
+    SSH_DIR.mkdir(parents=True, exist_ok=True)
+    with open(SSH_FILE, "w") as f:
+        f.write(j["notes"])
 
-        ec = u.run("setup", f"rmdir {TEMP_DIR}", capture=False)
-        if ec:
-            Log.error("setup", "Failed to pull down ssh key")
-            return 2
+    with open(SSH_PUB_FILE, "w") as f:
+        f.write(j["fields"][0]["value"])
 
-        Log.info("setup", "Decrypting ssh key")
-        ec = u.run(
-            "setup",
-            "gpg -d ~/.ssh/github_rsa.gpg > ~/.ssh/github_rsa && chmod 600 ~/.ssh/github_rsa",
-            capture=False,
-        )
-        if ec:
-            Log.error("setup", "Failed to decrypt ssh key")
-            return 2
+    ec = u.run("setup", f"sudo chmod 600 {SSH_FILE}", capture=False)
+    if ec:
+        Log.error("setup", "Failed to change permission of ssh file")
+        return 2
 
-        Log.info("setup", "Adding ssh key")
-        ec = u.run("setup", "ssh-add ~/.ssh/github_rsa", capture=False)
-        if ec:
-            Log.error("setup", "Failed to add ssh key")
-            return 2
+    ec = u.run("setup", f"ssh-add {SSH_FILE}", capture=False)
+    if ec:
+        Log.error("setup", "Failed to add ssh key")
+        return 2
 
     Log.info("setup", "Changing origin of the system repo")
     ec = u.run(
@@ -181,22 +167,27 @@ def setup():
 
     ec = setup_fonts()
     if ec:
+        Log.error("setup", "Font setup failed")
         return ec
 
     ec = setup_icons()
     if ec:
+        Log.error("setup", "Icon setup failed")
         return ec
 
     ec = setup_wallpapers()
     if ec:
+        Log.error("setup", "Wallpaper setup failed")
         return ec
 
     ec = setup_awesome()
     if ec:
+        Log.error("setup", "Awesome setup failed")
         return ec
 
     ec = setup_links()
     if ec:
+        Log.error("setup", "Linking failed")
         return ec
 
     return 0
