@@ -2,33 +2,72 @@
 
 ## Setup
 
-- Setup partition using `fdisk`
+- Connect to wifi
+
+- Enter root
+```bash
+sudo su
+```
+
+- Setup partitions
     - `BOOT`: 1GB FAT 32
     - `swap`: 8GB Linux Swap
     - `nixos`: nGB Linux Filesystem
+```bash
+lsblk
+fdisk /dev/<partition-name>
+```
 
 - Setup LUKS encryption on `nixos` partition
+```bash
+cryptsetup luksFormat /dev/<nixos-partition>
+cryptsetup luksOpen /dev/<nixos-partition> crypted
+```
+
+- Format partitions
+```bash
+mkfs.fat -F 32 -n BOOT /dev/<boot-parition>
+mkswap -L swap /dev/<swap-parition>
+mkfs.ext4 -L nixos /dev/mapper/crypted
+```
+
+- Mount partitions
+```bash
+mount /dev/mapper/crypted /mnt
+swapon /dev/disk/by-label/swap
+mkdir -p /mnt/boot
+mount /dev/disk/by-label/BOOT /mnt/boot
+```
+
 
 - Clone `System` repository
+```bash
+cd /mnt
+git clone https://github.com/nishantHolla/system.config System
+cd System/system_cli
+```
 
-- Setup current system's nixos config
+- Setup nixos using system_cli
+```bash
+nix-shell -p python313
+python system.py nixos setup
+```
 
-- Edit `~/System/nixos/flake.nix` to add the current system's section
+- Shutdown and remove iso
 
-- Install nixos with `nixos-install --flake .#<system-name>`
+- Bring system to home directory
+```bash
+sudo mv /System .
+sudo chown -R nishant System
+cd System/system_cli
+```
 
-- Setup SSH key and add to github
+- Setup home-manager using system_cli
+```bash
+nix-shell -p python313
+python system.py home setup
+```
 
-- Install home-manager with `nix run home-manager/master -- switch --flake .#<user-name>`
+- Restart computer
 
-- Run `setup.sh` script
-
-- Run `link.sh` script
-
-## Tmux
-
-- Launch terminal and press `prefix + I` to install plugins
-
-## AwesomeWM
-
-- Create directory `$HOME/.local/share/awesome`
+- Launch terminal and press `prefix + I` to install tmux plugins
