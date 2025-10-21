@@ -10,6 +10,5 @@
     vim
     wget
     xclip
-    rclone
   ];
 }
