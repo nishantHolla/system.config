@@ -2,6 +2,7 @@ from log import Log
 import values as v
 import utils as u
 
+import socket
 from pathlib import Path
 import re
 
@@ -110,6 +111,21 @@ def setup():
     return 0
 
 
+def switch():
+    HOST = socket.gethostname()
+    if not HOST:
+        Log.error("switch", "Failed to get HOST env")
+        return 2
+
+    Log.info("switch", "Switching nixos config")
+    ec = u.run("switch", f"sudo nixos-rebuild switch --flake {v.NIXOS_DIR}#{HOST}")
+    if ec:
+        Log.error("switch", "Failed to switch nixos config")
+        return 2
+
+    return 0
+
+
 def run(args):
     if len(args) == 0:
         Log.info("nixos", v.NIXOS_USAGE, new_line=True)
@@ -122,6 +138,11 @@ def run(args):
 
     elif sub_command == "setup":
         ec = setup()
+        if ec:
+            return ec
+
+    elif sub_command == "switch":
+        ec = switch()
         if ec:
             return ec
 

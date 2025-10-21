@@ -32,6 +32,10 @@ command:
     nixos:
 
         Control system-level configuration
+
+    home:
+
+        Control home-manager level configuration
 """
 
 NIXOS_USAGE = """
@@ -47,6 +51,10 @@ sub-command:
 
         Perform setup actions for the system.
         Run only once for a new system.
+
+    switch:
+
+        Switch to new configuration by rebuilding using nixos.
 
 """
 

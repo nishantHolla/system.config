@@ -72,6 +72,8 @@ def setup_awesome():
     open(v.AWESOME_DIR / "notification_history.txt", "a").close()
     open(v.AWESOME_DIR / "notes.txt", "a").close()
 
+    return 0
+
 
 def setup_links():
     Log.info("setup", "Setting up links")
@@ -85,6 +87,8 @@ def setup_links():
             p = item.resolve()
             link_path.symlink_to(p)
             Log.info("setup", f"Linking {link_path} to {p}")
+
+    return 0
 
 
 def setup():
@@ -124,7 +128,9 @@ def setup():
         Log.error("setup", "Failed to login to bitwarden")
         return 2
 
-    session, ec, err = u.run("setup", "bw unlock --raw", capture=True)
+    session, ec, err = u.run(
+        "setup", "bw unlock --raw\nEnter master password: ", capture=True
+    )
     if ec:
         Log.error("setup", f"Failed to get session: {err}")
         return 2
@@ -208,6 +214,8 @@ def switch():
     if ec:
         Log.error("switch", "Failed to switch home-manager config")
         return 2
+
+    return 0
 
 
 def run(args):
