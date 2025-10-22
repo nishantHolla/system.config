@@ -10,6 +10,7 @@
     alsa-utils                 # ALSA, the Advanced Linux Sound Architecture utils
     bat                        # Cat(1) clone with syntax highlighting and Git integration
     bibata-cursors             # Material Based Cursor Theme
+    bitwarden-cli              # Secure and free password manager for all of your devices
     brightnessctl              # This program allows you read and control device brightness
     btop                       # Monitor of resources
     clang-tools                # Standalone command line tools for C++ development
@@ -42,8 +43,8 @@
     papirus-icon-theme         # Pixel perfect icon theme for Linux
     pcmanfm                    # File manager with GTK interface
     playerctl                  # Command-line utility and library for controlling media players that implement MPRIS
-    python313                  # High-level dynamically-typed programming language
     poppler_utils              # PDF rendering library
+    python313                  # High-level dynamically-typed programming language
     qalculate-qt               # Ultimate desktop calculator
     ripgrep                    # Utility that combines the usability of The Silver Searcher with the raw speed of grep
     rofi                       # Window switcher, run dialog and dmenu replacement
