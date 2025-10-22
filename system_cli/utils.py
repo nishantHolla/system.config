@@ -4,8 +4,10 @@ import subprocess
 import os
 
 
-def run(author, command, capture=False):
-    Log.info(author, f"Running {command}")
+def run(author, command, capture=False, silent=False):
+    if not silent:
+        command_str = " ".join(command) if type(command) is list else command
+        Log.info(author, f"Running {command_str}")
 
     if capture:
         result = subprocess.run(

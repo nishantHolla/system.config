@@ -3,6 +3,7 @@ import values as v
 import utils as u
 
 import os
+import shlex
 from pathlib import Path
 import json
 
@@ -123,16 +124,17 @@ def setup():
         Log.error("setup", "Failed to change bitwarden server to eu")
         return 2
 
-    ec = u.run("setup", "bw login", capture=False)
-    if ec:
-        Log.error("setup", "Failed to login to bitwarden")
-        return 2
+    BW_USERNAME = Log.input("setup", "Enter bitwarden username: ")
+    BW_PASSWORD = Log.input("setup", "Enter bitwarden password: ", passwd=True)
 
     session, ec, err = u.run(
-        "setup", "bw unlock --raw\nEnter master password: ", capture=True
+        "setup",
+        f"bw login {shlex.quote(BW_USERNAME)} {shlex.quote(BW_PASSWORD)} --raw",
+        capture=True,
+        silent=True,
     )
     if ec:
-        Log.error("setup", f"Failed to get session: {err}")
+        Log.error("setup", "Failed to login to bitwarden")
         return 2
 
     note, ec, err = u.run(
