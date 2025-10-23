@@ -127,14 +127,18 @@ def setup():
     BW_USERNAME = Log.input("setup", "Enter bitwarden username: ")
     BW_PASSWORD = Log.input("setup", "Enter bitwarden password: ", passwd=True)
 
-    session, ec, err = u.run(
+    ec = u.run(
         "setup",
-        f"bw login {shlex.quote(BW_USERNAME)} {shlex.quote(BW_PASSWORD)} --raw",
-        capture=True,
-        silent=True,
+        f"bw login {shlex.quote(BW_USERNAME)} {shlex.quote(BW_PASSWORD)}",
+        capture=False,
     )
     if ec:
         Log.error("setup", "Failed to login to bitwarden")
+        return 2
+
+    session, ec, err = u.run("setup", "bw unlock --raw", capture=True)
+    if ec:
+        Log.error("setup", f"Failed to unlock session: {err}")
         return 2
 
     note, ec, err = u.run(
