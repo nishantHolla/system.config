@@ -124,18 +124,7 @@ def setup():
         Log.error("setup", "Failed to change bitwarden server to eu")
         return 2
 
-    BW_USERNAME = Log.input("setup", "Enter bitwarden username: ")
-    BW_PASSWORD = Log.input("setup", "Enter bitwarden password: ", passwd=True)
-
-    session, ec, err = u.run(
-        "setup",
-        f"bw login {shlex.quote(BW_USERNAME)} {shlex.quote(BW_PASSWORD)} --raw",
-        capture=True,
-        silent=True,
-    )
-    if ec:
-        Log.error("setup", "Failed to login to bitwarden")
-        return 2
+    session = Log.input("setup", "Login to bitwarden and enter session key: ")
 
     note, ec, err = u.run(
         "setup", f'bw get item "GithubSSH" --session {session}', capture=True
