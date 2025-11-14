@@ -1,15 +1,16 @@
 require('nvim-treesitter.configs').setup({
   ensure_installed = {
-    'html',
-    'css',
-    'javascript',
-    'typescript',
-    'tsx',
     'astro',
     'c',
     'cpp',
+    'css',
+    'go',
+    'html',
+    'javascript',
+    'nix',
     'python',
-    'nix'
+    'tsx',
+    'typescript',
   },
   highlight = {
     enable = true,

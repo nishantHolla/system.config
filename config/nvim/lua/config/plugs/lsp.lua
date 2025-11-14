@@ -1,5 +1,7 @@
 vim.lsp.enable('clangd')
 vim.lsp.enable('ruff')
+vim.lsp.enable('gopls')
+
 vim.diagnostic.enable = true
 
 vim.diagnostic.config({
