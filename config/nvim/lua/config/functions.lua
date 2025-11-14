@@ -1,13 +1,8 @@
 CloseBuffer = function()
-  if vim.bo.filetype == "man" then
-    vim.cmd("bd")
-    return
-  end
-
-  local ls = vim.api.nvim_command_output("ls")
-  local count  = select(2, ls:gsub('\n', '\n'))
-  if count == 0 then
+  if vim.api.nvim_buf_get_name(0) == "" then
     vim.cmd("q")
+  elseif vim.bo.filetype == "man" then
+    vim.cmd("bd")
   else
     vim.cmd("Bdelete")
   end
