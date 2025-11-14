@@ -31,9 +31,9 @@ autocommand('BufWritePre', {
   group = usergroup
 })
 
--- Autoformat on save for python
+-- Autoformat on save for python and go
 autocommand('BufWritePre', {
-  pattern = "?*.py",
+  pattern = {"?*.py", "?*.go"},
   command = "lua vim.lsp.buf.format()",
   group = usergroup
 })
