@@ -3,6 +3,12 @@
 *tailwind.config.ts    󱏿
 *.env 
 *.env.local 
+*.docx 󱎒
+*.pptx 󱎐
+*.xlsx 󱎏
+*.ipynb 
+*.csv 
+*.lock 
 
 
 # default values from lf (with matching order)
