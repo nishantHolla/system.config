@@ -1,6 +1,6 @@
 configuration {
 	modes: "window,drun,run,ssh";
-	font: "MartianMono Nerd Font Mono 16";
+	font: "Inconsolata LGC Nerd Font Mono 16";
 	show-icons: true;
 	case-sensitive: false;
 	cycle: true;
