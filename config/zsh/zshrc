@@ -24,7 +24,10 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M vicmd 'e' edit-command-line
 bindkey -v '^?' backward-delete-char
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
 
 # Edit line in vim with ctrl-e:
 
@@ -75,3 +78,8 @@ export FZF_DEFAULT_OPTS="--bind=alt-j:down,alt-k:up,alt-l:accept,alt-h:cancel"
 
 export FD_IGNORE="$HOME/.config/fd/ignore"
 
+# zsh syntax hilighting
+
+if [ -f ~/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source ~/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi

@@ -1,2 +1,2 @@
-alias ls='ls -lh --color=auto'
+alias ls='eza -lh --color=auto'
 alias lf='lfcd'
