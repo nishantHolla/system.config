@@ -1,0 +1,13 @@
+[user]
+	name = Nishant Holla
+	email = nishantholla19@gmail.com
+	signingkey = 3D2F01C42414FBDE
+[core]
+	editor = nvim
+	excludesfile = /home/nishant/.config/git/gitignore
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
