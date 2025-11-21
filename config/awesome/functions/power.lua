@@ -26,8 +26,12 @@ power_sm.logout = function()
   AwesomeWM.functions.spawn_with_shell("kill -9 -1")
 end
 
-power_sm.lock = function()
-  AwesomeWM.functions.spawn_with_shell("xsecurelock")
+power_sm.lock = function(display_off)
+  if display_off then
+    AwesomeWM.functions.spawn_with_shell("xsecurelock & sleep 1 && xset dpms force off")
+  else
+    AwesomeWM.functions.spawn_with_shell("xsecurelock")
+  end
 end
 
 power_sm.sleep = function()

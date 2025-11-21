@@ -29,7 +29,7 @@ keymaps_m.list = {
     {
       { mod }, "3",
       function()
-        AwesomeWM.functions.power.lock()
+        AwesomeWM.functions.power.lock(true)
       end,
       "Turn off screen"
     },
@@ -43,7 +43,7 @@ keymaps_m.list = {
     {
       { mod, "Shift" }, "3",
       function()
-        AwesomeWM.functions.power.lock()
+        AwesomeWM.functions.power.lock(false)
       end,
       "Lock the computer"
     },
