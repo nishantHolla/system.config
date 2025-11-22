@@ -1,3 +1,19 @@
+function CopyOilPath(global)
+  local oil = require("oil")
+  local entry = oil.get_cursor_entry()
+  local dir = oil.get_current_dir()
+  local path = dir .. entry.name
+
+  if global then
+    vim.fn.setreg("+", path)
+    vim.fn.setreg("*", path)
+  else
+    vim.fn.setreg('"', path)
+  end
+
+  vim.notify("Copied " .. path)
+end
+
 require('oil').setup({
   columns = {
     'permissions',
@@ -18,6 +34,8 @@ require('oil').setup({
     ['<a-k>'] = { 'actions.parent', mode = 'n' },
     ['<a-h>'] = { 'actions.open_cwd', mode = 'n' },
     ['<a-z>'] = { 'actions.toggle_hidden', mode = 'n' },
+    ['<a-y>'] = { function() CopyOilPath(false) end, mode = 'n' },
+    ['<a-Y>'] = { function() CopyOilPath(true) end, mode = 'n'},
   },
 })
 
