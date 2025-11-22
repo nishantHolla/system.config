@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ -d $1 ]; then
+	# images
+	fd "(.jpg|.png|.webp)" $1 -x chmod -x "{}" \;
+
+	# texts
+	fd "(.pdf|.txt|.md)" $1 -x chmod -x "{}" \;
+
+	# others
+	fd "(.mp4|.mp3|.mkv)" $1 -x chmod -x "{}" \;
+fi
+
