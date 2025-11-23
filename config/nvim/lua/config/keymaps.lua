@@ -1,3 +1,6 @@
+local sc = require('config.utils.shared_clip')
+local b = require('config.utils.buffer')
+
 Key = vim.keymap.set
 K_Opt = function(desc, silent, noremap, buffer)
   if silent == nil then silent = true end
@@ -30,7 +33,7 @@ Key({"n", "v"}, "<leader>x", 'x', K_Opt("Delete character with changing clipboar
 -- File
 Key("n", "<leader>ss", ":w<cr>", K_Opt("Write current buffer"))
 Key("n", "<leader>sa", ":w<cr>", K_Opt("Write all buffers"))
-Key("n", "<leader>qq", ":lua CloseBuffer()<cr>", K_Opt("Close current buffer"))
+Key("n", "<leader>qq", function() b.close_buffer() end, K_Opt("Close current buffer"))
 Key("n", "<leader>qa", ":qa<cr>", K_Opt("Close all buffers"))
 
 -- Buffer
@@ -52,5 +55,5 @@ Key({"n", "v", "o"}, "<a-l>", "9", K_Opt("Press 9"))
 Key({"n", "v", "o"}, "<a-;>", "0", K_Opt("Press 0"))
 
 -- Shared Clipboard
-Key("v", "<leader>y", ":lua WriteToSharedClipboard()<cr>", K_Opt("Copy to shared clipboard"))
-Key("n", "<leader>p", ":lua ReadFromSharedClipboard()<cr>", K_Opt("Paste from shared clipboard"))
+Key("n", "<leader>sc", function() sc.copy() end, K_Opt("Send text to shared clipboard"))
+Key("n", "<leader>sp", function() sc.paste() end, K_Opt("Paste text from shared clipboard"))
