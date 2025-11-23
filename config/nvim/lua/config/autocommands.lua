@@ -56,3 +56,30 @@ autocommand("Filetype", {
   end,
   group = usergroup
 })
+
+-- Winbar with the file name
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function()
+    local bt = vim.bo.buftype
+    local ft = vim.bo.filetype
+
+    -- disable winbar for these
+    local ignore = {
+      "help",
+      "nofile",
+      "quickfix",
+    }
+
+    local ignore_ft = {
+      "TelescopePrompt",
+      "oil",
+    }
+
+    if vim.tbl_contains(ignore, bt) or vim.tbl_contains(ignore_ft, ft) then
+      vim.wo.winbar = ""
+    else
+      vim.wo.winbar = "%F"
+    end
+  end,
+})
