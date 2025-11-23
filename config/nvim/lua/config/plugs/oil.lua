@@ -37,6 +37,7 @@ require('oil').setup({
     ['<a-y>'] = { function() CopyOilPath(false) end, mode = 'n' },
     ['<a-Y>'] = { function() CopyOilPath(true) end, mode = 'n'},
   },
+  use_default_keymaps = false,
 })
 
 Key('n', '<leader><leader>', ':Oil<cr>', K_Opt('Open oil'))

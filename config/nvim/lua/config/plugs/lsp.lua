@@ -20,6 +20,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     Key('n', 'gri', vim.lsp.buf.implementation, K_Opt('LSP: Implementation', true, true, args.buf))
     Key('n', 'gO', vim.lsp.buf.document_symbol, K_Opt('LSP: Document symbols', true, true, args.buf))
     Key('n', 'gD', vim.lsp.buf.declaration, K_Opt('LSP: Declaration', true, true, args.buf))
+    Key('n', 'gd', vim.lsp.buf.definition, K_Opt('LSP: Defintion', true, true, args.buf))
     Key('n', 'gl', vim.diagnostic.open_float, K_Opt('LSP: Diagnostics', true, true, args.buf))
     Key('i', '<c-s>', vim.lsp.buf.signature_help, K_Opt('LSP: Signature help', true, true, args.buf))
     Key('n', 'K', vim.lsp.buf.hover, K_Opt('LSP: Hover', true, true, args.buf))
@@ -47,10 +48,7 @@ function _G.lsp_diagnostics_counts()
   return string.format('E:%d W:%d I:%d H:%d', counts.error, counts.warn, counts.info, counts.hint)
 end
 
-vim.o.signcolumn = 'yes:1'
-
 vim.o.statusline = table.concat({
-  '%f',                                -- file path
   '%h%m%r',                            -- flags
   ' %{&ff}',                           -- file format
   ' %{&fileencoding}',                 -- encoding

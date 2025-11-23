@@ -46,7 +46,7 @@ require('lazy').setup({
 
   {
     'hrsh7th/nvim-cmp',
-    config = plugin('nvimCmp'),
+    config = plugin('nvim_cmp'),
     dependencies = {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
