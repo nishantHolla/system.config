@@ -30,6 +30,7 @@
     gimp3                      # GNU Image Manipulation Program
     git                        # Distributed version control system
     glow                       # Render markdown on the CLI, with pizzazz!
+    gnumake                    # Tool to control the generation of non-source files from sources
     inkscape                   # Vector graphics editor
     kdePackages.filelight      # Quickly visualize your disk space usage
     kdePackages.kdeconnect-kde # Multi-platform app that allows your devices to communicate
