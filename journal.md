@@ -64,7 +64,7 @@ cd System/system_cli
 
 - Setup home-manager using system_cli
 ```bash
-nix-shell -p python313
+nix-shell -p python313 bitwarden-cli
 python system.py home setup
 ```
 
