@@ -33,14 +33,14 @@ set cleaner ~/.config/lf/cleaner
 # Remove
 
 cmd remove ${{
-	echo "Remove following files?"
-	echo " "
-	echo "$fx"
-	echo "y/n :"
-	read confirm
-	if [[ "$confirm" == "y" ]] ; then
-		echo "$fx" | while IFS= read -r line ; do rm -rf "$line"; done
-	fi
+  echo "Remove following files?"
+  echo " "
+  echo "$fx"
+  echo "y/n :"
+  read confirm
+  if [[ "$confirm" == "y" ]] ; then
+    echo "$fx" | while IFS= read -r line ; do rm -rf "$line"; done
+  fi
 }}
 
 # map DX remove
@@ -49,14 +49,14 @@ cmd remove ${{
 # Trash
 
 cmd trash ${{
-	echo "Trash following files?"
-	echo " "
-	echo "$fx"
-	echo "y/n :"
-	read confirm
-	if [[ "$confirm" == "y" ]] ; then
-		echo "$fx" | while IFS= read -r line ; do trash-put "$line"; done
-	fi
+  echo "Trash following files?"
+  echo " "
+  echo "$fx"
+  echo "y/n :"
+  read confirm
+  if [[ "$confirm" == "y" ]] ; then
+    echo "$fx" | while IFS= read -r line ; do trash-put "$line"; done
+  fi
 }}
 
 map Dx trash
@@ -64,25 +64,25 @@ map Dx trash
 # Open
 
 cmd open ${{
-	filename=$(basename -- "$fx")
-	extension="${filename##*.}"
+  filename=$(basename -- "$fx")
+  extension="${filename##*.}"
 
-	case $extension in
-		jpg|jpeg|png|webp|gif|ppm) APP="$IMAGE_VIEWER";;
-		mp4|mpg|mkv) APP="$VIDEO_VIEWER";;
-		pdf) APP="$PDF_VIEWER";;
+  case $extension in
+    jpg|jpeg|png|webp|gif|ppm) APP="$IMAGE_VIEWER";;
+    mp4|mpg|mkv) APP="$VIDEO_VIEWER";;
+    pdf) APP="$PDF_VIEWER";;
     doc|docx) APP="$WORD_EDITOR";;
     ppt|pptx) APP="$PRESENTATION_EDITOR";;
     xls|xlsx) APP="$SPREADSHEET_EDITOR";;
-		*) lf -remote "send $id \$$EDITOR \"$fx\""; exit 0;;
-	esac
+    *) lf -remote "send $id \$$EDITOR \"$fx\""; exit 0;;
+  esac
 
-	lf -remote "send $id \$$APP \"$fx\" > /dev/null 2> /dev/null &"
+  lf -remote "send $id \$$APP \"$fx\" > /dev/null 2> /dev/null &"
 
-	# case $(file --mime-type -Lb $f) in
-	# 	text/*|application/javascript|inode/x-empty|application/json) lf -remote "send $id \$$EDITOR "$fx"";;
-	# 	 *) for f in $fx; do xdg-open "$f" > /dev/null 2> /dev/null & done;;
-	# esac
+  # case $(file --mime-type -Lb $f) in
+  # 	text/*|application/javascript|inode/x-empty|application/json) lf -remote "send $id \$$EDITOR "$fx"";;
+  # 	 *) for f in $fx; do xdg-open "$f" > /dev/null 2> /dev/null & done;;
+  # esac
 }}
 
 cmd open-with-gui &$@ "$fx"
@@ -94,22 +94,22 @@ map o push :open-with-cli<space>
 
 cmd duplicateFile ${{
   echo "$fx" | while IFS= read -r line ; do
-    parent_dir=$(dirname "$line")
-    filename=$(basename "$line" | sed 's/\(.*\)\..*/\1/');
+  parent_dir=$(dirname "$line")
+  filename=$(basename "$line" | sed 's/\(.*\)\..*/\1/');
 
-    if [ -d "$line" ]; then
-      extension=""
-    else
-      extension=".${line##*.}";
-    fi
+  if [ -d "$line" ]; then
+    extension=""
+  else
+    extension=".${line##*.}";
+  fi
 
-    counter=1
-    while [ -e "${parent_dir}/${filename}-${counter}${extension}" ]; do
-      ((counter++))
-    done
-
-    cp -r $line "${parent_dir}/${filename}-${counter}${extension}";
+  counter=1
+  while [ -e "${parent_dir}/${filename}-${counter}${extension}" ]; do
+    ((counter++))
   done
+
+  cp -r $line "${parent_dir}/${filename}-${counter}${extension}";
+done
 }}
 
 map Y duplicateFile
@@ -117,42 +117,77 @@ map Y duplicateFile
 # Paste
 
 cmd paste %{{
-	set -- $(cat ~/.local/share/lf/files)
-	mode="$1"
+  set -- $(cat ~/.local/share/lf/files)
+  mode="$1"
   echo "$fx"
-	shift
-	case "$mode" in
-	copy) cp -r --backup=numbered -- "$@" .;;
-	move) mv --backup=numbered -- "$@" .;;
-	esac
-	rm ~/.local/share/lf/files
-	lf -remote "send clear"
+  shift
+  case "$mode" in
+    copy) cp -r --backup=numbered -- "$@" .;;
+    move) mv --backup=numbered -- "$@" .;;
+  esac
+  rm ~/.local/share/lf/files
+  lf -remote "send clear"
 }}
 
 # Extract
 
 cmd extract ${{
-	set -f
-	echo "Extract to: "
-	read target
-	7z x $fx -o"$target"
+  set -f
+  echo -n "Extract to [leave empty to use archive name]: "
+  read target
+
+  if [ -z "$target" ]; then
+    base="$(basename -- "$fx")"
+
+    case "$base" in
+      *.tar.gz)   target="${base%.tar.gz}" ;;
+      *.tgz)      target="${base%.tgz}" ;;
+      *.tar.bz2)  target="${base%.tar.bz2}" ;;
+      *.tar.xz)   target="${base%.tar.xz}" ;;
+      *.tar)      target="${base%.tar}" ;;
+      *.zip)      target="${base%.zip}" ;;
+      *.rar)      target="${base%.rar}" ;;
+      *.7z)       target="${base%.7z}" ;;
+      *.gz)       target="${base%.gz}" ;;
+      *)          target="${base}" ;;
+    esac
+  fi
+
+  mkdir -p "$target"
+
+  case "$fx" in
+    *.tar.gz|*.tgz)
+      tar -xzf "$fx" -C "$target"
+      ;;
+    *.tar.bz2)
+      tar -xjf "$fx" -C "$target"
+      ;;
+    *.tar.xz)
+      tar -xJf "$fx" -C "$target"
+      ;;
+    *)
+      7z x "$fx" -o"$target"
+      ;;
+  esac
 }}
+
+
 
 map e extract
 
 # paste
 
 cmd paste %{{
-	set -- $(cat ~/.local/share/lf/files)
-	mode="$1"
+  set -- $(cat ~/.local/share/lf/files)
+  mode="$1"
   echo "$fx"
-	shift
-	case "$mode" in
-	copy) cp -r --backup=numbered -- "$@" .;;
-	move) mv --backup=numbered -- "$@" .;;
-	esac
-	rm ~/.local/share/lf/files
-	lf -remote "send clear"
+  shift
+  case "$mode" in
+    copy) cp -r --backup=numbered -- "$@" .;;
+    move) mv --backup=numbered -- "$@" .;;
+  esac
+  rm ~/.local/share/lf/files
+  lf -remote "send clear"
 }}
 
 
@@ -161,7 +196,7 @@ cmd paste %{{
 cmd archive ${{
   set -f
   7z a $1 $fx
-	lf -remote "send unselect"
+  lf -remote "send unselect"
 }}
 
 map a push :archive<space>
@@ -171,23 +206,23 @@ map a push :archive<space>
 
 cmd new ${{
 
-	for arg in "$@"
-	do
-		if [[ "$arg" == */*\.* ]] ; then
-			p="$(dirname "$arg")"
-			f="$(basename "$arg")"
-			mkdir -p "$p"
-			touch "$arg"
-		elif [[ "$arg" == */* ]] ; then
-			mkdir -p "$arg"
-		else
-			touch "$arg"
-		fi
-	done
+  for arg in "$@"
+  do
+    if [[ "$arg" == */*\.* ]] ; then
+      p="$(dirname "$arg")"
+      f="$(basename "$arg")"
+      mkdir -p "$p"
+      touch "$arg"
+    elif [[ "$arg" == */* ]] ; then
+      mkdir -p "$arg"
+    else
+      touch "$arg"
+    fi
+  done
 
-	if [[ $# -eq 1 ]]; then
-		lf -remote "send select $1"
-	fi
+  if [[ $# -eq 1 ]]; then
+    lf -remote "send select $1"
+  fi
 
 
 }}
@@ -197,10 +232,10 @@ map n push :new<space>
 # Rename
 
 cmd rename ${{
-    vimv $(basename -a -- $fx)
+  vimv $(basename -a -- $fx)
 
-    lf -remote "send $id load"
-    lf -remote "send $id unselect"
+  lf -remote "send $id load"
+  lf -remote "send $id unselect"
 }}
 
 map r rename
@@ -220,7 +255,7 @@ map <space>
 # Follow symlinks
 
 cmd follow_link %{{
-	lf -remote "send ${id} select '$(readlink $f)'"
+  lf -remote "send ${id} select '$(readlink $f)'"
 }}
 
 map gL follow_link
@@ -228,66 +263,66 @@ map gL follow_link
 # Fzf: file and directory navigation
 
 cmd fzf ${{
-	if [[ $1 == "ripgrep" ]]
-	then
-		RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
-		res="$(
-				fzf --bind "$FZF_KEYBINDINGS" --bind "change:reload:$RG_PREFIX {q} || true" \
-				--ansi --layout=reverse --header 'Search in files' \
-				| cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
-			  )"
-		[ -n "$res" ] && lf -remote "send $id select \"$res\""
-		return
+  if [[ $1 == "ripgrep" ]]
+  then
+    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+    res="$(
+      fzf --bind "$FZF_KEYBINDINGS" --bind "change:reload:$RG_PREFIX {q} || true" \
+        --ansi --layout=reverse --header 'Search in files' \
+        | cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
+      )"
+      [ -n "$res" ] && lf -remote "send $id select \"$res\""
+      return
 
-	elif [[ $1 == "fasd" ]]
-	then
+    elif [[ $1 == "fasd" ]]
+    then
 
-		if [ -z ${2+x} ]
-		then
-			res="$(fasd -l | grep -iv cache | fzf --bind $FZF_KEYBINDINGS 2>/dev/tty)"
-		elif [[ $2 == "dir" ]]
-		then
-			res="$(fasd -ld | grep -iv cache | fzf --bind $FZF_KEYBINDINGS 2>/dev/tty)"
-		elif [[ $2 == "file" ]]
-		then
-			res="$(fasd -lf | grep -iv cache | fzf --bind $FZF_KEYBINDINGS 2>/dev/tty)"
-		fi
+      if [ -z ${2+x} ]
+      then
+        res="$(fasd -l | grep -iv cache | fzf --bind $FZF_KEYBINDINGS 2>/dev/tty)"
+      elif [[ $2 == "dir" ]]
+      then
+        res="$(fasd -ld | grep -iv cache | fzf --bind $FZF_KEYBINDINGS 2>/dev/tty)"
+      elif [[ $2 == "file" ]]
+      then
+        res="$(fasd -lf | grep -iv cache | fzf --bind $FZF_KEYBINDINGS 2>/dev/tty)"
+      fi
 
-		if [ -n "$res" ]; then
-			if [ -d "$res" ]; then
-				cmd="cd"
-			else
-				cmd="select"
-			fi
-			res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
-			lf -remote "send $id $cmd \"$res\""
-		fi
+      if [ -n "$res" ]; then
+        if [ -d "$res" ]; then
+          cmd="cd"
+        else
+          cmd="select"
+        fi
+        res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+        lf -remote "send $id $cmd \"$res\""
+      fi
 
-	elif [[ $1 == "fd" ]]
-	then
-		IGNORES=`cat $FD_IGNORE | sed ':a;N;$!ba;s/\n/ -E /g'`
-		if [ -z ${2+x} ]
-		then
-			selection="$(fd -HI . $HOME | fzf --bind $FZF_KEYBINDINGS)"
+    elif [[ $1 == "fd" ]]
+    then
+      IGNORES=`cat $FD_IGNORE | sed ':a;N;$!ba;s/\n/ -E /g'`
+      if [ -z ${2+x} ]
+      then
+        selection="$(fd -HI . $HOME | fzf --bind $FZF_KEYBINDINGS)"
 
-		elif [[ $2 == "dir" ]]
-		then
-			selection="$(fd -HI -t d . $HOME | fzf --bind $FZF_KEYBINDINGS)"
+      elif [[ $2 == "dir" ]]
+      then
+        selection="$(fd -HI -t d . $HOME | fzf --bind $FZF_KEYBINDINGS)"
 
-		elif [[ $2 == "file" ]]
-		then
-			selection="$(fd -HI -t f . $HOME | fzf --bind $FZF_KEYBINDINGS)"
-		fi
+      elif [[ $2 == "file" ]]
+      then
+        selection="$(fd -HI -t f . $HOME | fzf --bind $FZF_KEYBINDINGS)"
+      fi
 
-		if [ -z ${selection+x} ]
-		then
-			return
-		elif [[ -d "$selection" ]] ; then
-			lf -remote "send $id cd \"$selection\""
-		else
-			lf -remote "send $id select \"$selection\""
-		fi
-	fi
+      if [ -z ${selection+x} ]
+      then
+        return
+      elif [[ -d "$selection" ]] ; then
+        lf -remote "send $id cd \"$selection\""
+      else
+        lf -remote "send $id select \"$selection\""
+      fi
+  fi
 
 }}
 
@@ -308,51 +343,51 @@ cmd yank-path $printf '%s' "$fx" | xclip -i -selection clipboard
 cmd yank-basename $basename -a -- $fx | head -c-1 | xclip -i -selection clipboard
 
 cmd yank-basename-without-extension ${{
-	echo "$fx" |
-	xargs -r -d '\n' basename -a |
-	awk -e '{
-	for (i=length($0); i > 0; i--) {
-	  if (substr($0, i, 1) == ".") {
-	    if (i == 1) print $0
-	    else print substr($0, 0, i-1)
+  echo "$fx" |
+    xargs -r -d '\n' basename -a |
+    awk -e '{
+      for (i=length($0); i > 0; i--) {
+        if (substr($0, i, 1) == ".") {
+          if (i == 1) print $0
+          else print substr($0, 0, i-1)
 
-	    break
-	  }
-	}
+            break
+          }
+      }
 
-	if (i == 0)
-	  print $0
-	}' |
-	if [ -n "$fs" ]; then cat; else tr -d '\n'; fi |
-	xclip -i -selection clipboard
-}}
+    if (i == 0)
+      print $0
+    }' |
+      if [ -n "$fs" ]; then cat; else tr -d '\n'; fi |
+        xclip -i -selection clipboard
+      }}
 
-map c
-map cd yank-dirname
-map cp yank-path
-map cb yank-basename
+    map c
+    map cd yank-dirname
+    map cp yank-path
+    map cb yank-basename
 
 # Quit
 
 cmd quit ${{
-	~/.config/lf/cleaner
-	lf --remote "send $id quit"
+  ~/.config/lf/cleaner
+  lf --remote "send $id quit"
 }}
 
 map q quit
 map <esc> &{{
-	lf --remote "send $id clear"
-	lf --remote "send $id unselect"
+  lf --remote "send $id clear"
+  lf --remote "send $id unselect"
 }}
 
 # Preview
 
 cmd toggle_preview %{{
-    if [ "$lf_preview" = "true" ]; then
-        lf -remote "send $id :set preview false; set ratios 1:5"
-    else
-        lf -remote "send $id :set preview true; set ratios 1:2:3"
-    fi
+  if [ "$lf_preview" = "true" ]; then
+    lf -remote "send $id :set preview false; set ratios 1:5"
+  else
+    lf -remote "send $id :set preview true; set ratios 1:2:3"
+  fi
 }}
 
 map zp toggle_preview
@@ -360,14 +395,14 @@ map zp toggle_preview
 # Edit file
 
 map <a-l> &{{
-	lf -remote "send $id \$$EDITOR "$fx""
+  lf -remote "send $id \$$EDITOR "$fx""
 }}
 
 
 # Dragon drop
 
 cmd dragonDrop ${{
-	dragon-drop $fx &
+  dragon-drop $fx &
 }}
 
 map <a-d> dragonDrop
