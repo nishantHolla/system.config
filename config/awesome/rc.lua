@@ -21,13 +21,13 @@ AwesomeWM.hotkeys_popup_keys = require("awful.hotkeys_popup.keys")
 
 -- User modules
 
-AwesomeWM.values = require("values")
-AwesomeWM.notify = require("notify")
-AwesomeWM.theme = require("theme")
-AwesomeWM.functions = require("functions")
-AwesomeWM.keymaps = require("keymaps")
-AwesomeWM.assets = require("assets")
-AwesomeWM.widgets = require("widgets")
+AwesomeWM.values = require("values.init")
+AwesomeWM.notify = require("notify.init")
+AwesomeWM.theme = require("theme.init")
+AwesomeWM.functions = require("functions.init")
+AwesomeWM.keymaps = require("keymaps.init")
+AwesomeWM.assets = require("assets.init")
+AwesomeWM.widgets = require("widgets.init")
 
 -- Init
 
