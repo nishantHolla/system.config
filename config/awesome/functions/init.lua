@@ -45,6 +45,18 @@ functions_m.spawn_with_shell = function(command)
   AwesomeWM.awful.spawn.with_shell(command)
 end
 
+functions_m.spawn_once = function(command, application)
+  application = application or command
+  local check = "ps aux | grep \"" .. application .. "\" | grep -v \"grep\" | wc -l"
+
+  AwesomeWM.awful.spawn.easy_async_with_shell(check, function(stdout)
+    if tonumber(stdout) == 0 then
+      functions_m.spawn(command);
+    end
+  end)
+
+end
+
 functions_m.is_file = function(file_path)
   local f = io.open(file_path, "r")
 

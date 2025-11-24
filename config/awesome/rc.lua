@@ -43,7 +43,7 @@ AwesomeWM.widgets.init_widgets()
 -- Launch apps and timers
 
 AwesomeWM.functions.battery.timer:start()
-AwesomeWM.functions.spawn("nm-applet")
-AwesomeWM.functions.spawn("flameshot")
-AwesomeWM.functions.spawn("kdeconnect-indicator")
-AwesomeWM.functions.spawn("picom")
+AwesomeWM.functions.spawn_once("nm-applet")
+AwesomeWM.functions.spawn_once("flameshot")
+AwesomeWM.functions.spawn_once("kdeconnect-indicator")
+AwesomeWM.functions.spawn_once("picom")
