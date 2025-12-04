@@ -50,7 +50,7 @@ keymaps_m.list = {
     {
       { mod }, "Escape",
       function()
-        AwesomeWM.functions.spawn_with_shell("power-menu")
+        AwesomeWM.functions.spawn("power-menu")
       end,
       "Show power menu"
     }
@@ -125,7 +125,7 @@ keymaps_m.list = {
     {
       { mod }, "Return",
       function()
-        AwesomeWM.functions.spawn_with_shell("terminal")
+        AwesomeWM.functions.spawn("terminal")
       end,
       "Spawn " .. AwesomeWM.values.terminal
     },
@@ -146,7 +146,7 @@ keymaps_m.list = {
     {
       { mod }, "space",
       function()
-        AwesomeWM.functions.spawn_with_shell("open")
+        AwesomeWM.functions.spawn("open")
       end,
       "Launcher"
     },
