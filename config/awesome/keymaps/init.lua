@@ -125,7 +125,7 @@ keymaps_m.list = {
     {
       { mod }, "Return",
       function()
-        AwesomeWM.functions.spawn("terminal")
+        AwesomeWM.functions.spawn_with_shell("terminal")
       end,
       "Spawn " .. AwesomeWM.values.terminal
     },
