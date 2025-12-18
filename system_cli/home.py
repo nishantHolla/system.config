@@ -96,6 +96,7 @@ def setup():
     SSH_DIR = Path("~/.ssh").expanduser()
     SSH_FILE = SSH_DIR / "github_rsa"
     SSH_PUB_FILE = SSH_DIR / "github_rsa.pub"
+    GPG_FILE = Path("~/gpg").expanduser()
 
     USER = os.getenv("USER")
     if not USER:
@@ -118,7 +119,7 @@ def setup():
         Log.error("setup", "Failed to setup home-manager")
         return 2
 
-    Log.info("setup", "Pulling down ssh key from bitwarden")
+    Log.info("setup", "Configuring bitwarden")
     ec = u.run("setup", "bw config server https://vault.bitwarden.eu", capture=False)
     if ec:
         Log.error("setup", "Failed to change bitwarden server to eu")
@@ -127,6 +128,7 @@ def setup():
     BW_USERNAME = Log.input("setup", "Enter bitwarden username: ")
     BW_PASSWORD = Log.input("setup", "Enter bitwarden password: ", passwd=True)
 
+    Log.info("setup", "Logging in to bitwarden")
     ec = u.run(
         "setup",
         f"bw login {shlex.quote(BW_USERNAME)} {shlex.quote(BW_PASSWORD)}",
@@ -141,6 +143,7 @@ def setup():
         Log.error("setup", f"Failed to unlock session: {err}")
         return 2
 
+    Log.info("setup", "Pulling down ssh key from bitwarden")
     note, ec, err = u.run(
         "setup", f'bw get item "GithubSSH" --session {session}', capture=True
     )
@@ -166,6 +169,39 @@ def setup():
     if ec:
         Log.error("setup", "Failed to add ssh key")
         return 2
+
+    Log.info("setup", "Pulling down gpg key from bitwarden")
+    note, ec, err = u.run(
+        "setup", f'bw get item "GithubGPG-Public" --session {session}', capture=True
+    )
+    if ec:
+        Log.error("setup", f"Failed to get note: {err}")
+        return 2
+
+    j = json.loads(note)
+
+    with open(GPG_FILE, "w") as f:
+        f.write(j["notes"])
+
+    ec = u.run("setup", f"gpg --import {GPG_FILE}")
+    if ec:
+        Log.error("setup", "Failed to import gpg public key")
+        return 2
+
+    note, ec, err = u.run(
+        "setup", f'bw get item "GithubGPG-Private" --session {session}', capture=True
+    )
+    if ec:
+        Log.error("setup", f"Failed to get note: {err}")
+
+    j = json.load(note)
+
+    with open(GPG_FILE, "w") as f:
+        f.write(j["notes"])
+
+    ec = u.run("setup", f"gpg --import {GPG_FILE}")
+    if ec:
+        Log.error("setup", "Failed to import gpg private key")
 
     Log.info("setup", "Changing origin of the system repo")
     ec = u.run(
