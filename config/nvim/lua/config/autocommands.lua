@@ -79,7 +79,20 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     if vim.tbl_contains(ignore, bt) or vim.tbl_contains(ignore_ft, ft) then
       vim.wo.winbar = ""
     else
-      vim.wo.winbar = "%F"
+      local project_root = vim.fs.root(0, {".git"})
+      if project_root == nil then
+        vim.wo.winbar = "%F"
+      else
+        -- TODO
+        project_root = vim.fn.resolve(vim.fn.expand(project_root))
+        local parent = vim.fn.fnamemodify(project_root, ":h")
+        local path = vim.api.nvim_buf_get_name(0)
+
+        if path:sub(1, #parent) == parent then
+          path = path:sub(#parent + 1)
+        end
+        vim.wo.winbar = "Git: " .. path
+      end
     end
   end,
 })
