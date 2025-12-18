@@ -143,6 +143,11 @@ def setup():
         Log.error("setup", f"Failed to unlock session: {err}")
         return 2
 
+    ec = u.run("setup", "bw sync", capture=False)
+    if ec:
+        Log.error("setup", "Failed to sync bitwarden")
+        return 2
+
     Log.info("setup", "Pulling down ssh key from bitwarden")
     note, ec, err = u.run(
         "setup", f'bw get item "GithubSSH" --session {session}', capture=True
@@ -194,7 +199,7 @@ def setup():
     if ec:
         Log.error("setup", f"Failed to get note: {err}")
 
-    j = json.load(note)
+    j = json.loads(note)
 
     with open(GPG_FILE, "w") as f:
         f.write(j["notes"])
