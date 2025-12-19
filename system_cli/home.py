@@ -208,7 +208,15 @@ def setup():
     if ec:
         Log.error("setup", "Failed to import gpg private key")
 
+    os.remove(GPG_FILE)
+
     Log.info("setup", "Changing origin of the system repo")
+
+    ec = u.run("setup", f"git restore --staged {v.SYSTEM_DIR}")
+    if ec:
+        Log.error("setup", "Failed to restore staged")
+        return 2
+
     ec = u.run(
         "setup",
         f"git -C {v.SYSTEM_DIR} remote set-url origin git@github.com:nishantHolla/system.config.git",
