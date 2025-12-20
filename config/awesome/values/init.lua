@@ -3,12 +3,12 @@ local values_m = {}
 -- Directories
 
 values_m.awesome_dir = os.getenv("HOME") .. "/.config/awesome"
-values_m.data_dir = os.getenv("HOME") .. "./local/share/awesome"
+values_m.data_dir = os.getenv("HOME") .. "/.local/share/awesome"
 
--- Notification
+-- Notify
 
-values_m.notification = {
-  history_file = values_m.data_dir .. '/notification_history_file.txt',
+values_m.notify = {
+  history_file = values_m.data_dir .. '/notification_history.txt',
 
   silence = false,
   quiet = true,

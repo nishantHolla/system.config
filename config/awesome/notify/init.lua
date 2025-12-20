@@ -1,7 +1,7 @@
 local notify_m = {}
 
-notify_m.silence = false
-notify_m.quiet = true
+notify_m.silence = AwesomeWM.values.notify.silence
+notify_m.quiet = AwesomeWM.values.notify.quiet
 
 notify_m.blacklist = {
   { title = "Firefox", app_name = "KDE Connect" }
@@ -47,11 +47,11 @@ notify_m.init_notifications = function()
       return nil
     end
 
-    local file = io.open(AwesomeWM.values.notification.history_file, "a")
+    local file = io.open(AwesomeWM.values.notify.history_file, "a")
     local section = "---\n"
 
     if file then
-      file.write(
+      file:write(
         string.format(
           "Title: %s\nMessage: %s\nApp name: %s\nTime: %s\n%s",
           notification.title,
