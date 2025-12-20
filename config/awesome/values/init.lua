@@ -9,5 +9,25 @@ values_m.data_dir = os.getenv("HOME") .. "/.local/share/awesome"
 
 values_m.notification_history_file = values_m.data_dir .. "/notification_history.txt"
 
+-- Applications
+
+values_m.terminal = "alacritty"
+values_m.editor = "nvim"
+values_m.browser = "firefox"
+values_m.file_manager = "pcmanfm"
+values_m.editor_cmd = values_m.terminal .. " -e " .. values_m.editor
+
+-- Functions
+
+values_m.init_values = function()
+  terminal = values_m.terminal
+  editor = values_m.editor
+  editor_cmd = values_m.editor_cmd
+
+  local g = AwesomeWM.awful.screen.focused().geometry
+  values_m.screen_width = g.width
+  values_m.screen_height = g.height
+end
+
 
 return values_m
