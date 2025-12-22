@@ -1,7 +1,6 @@
 local theme_m = {}
 local b = AwesomeWM.beautiful
 
-
 theme_m.theme_assets = require("beautiful.theme_assets")
 theme_m.xresources = require("beautiful.xresources")
 theme_m.dpi = theme_m.xresources.apply_dpi
