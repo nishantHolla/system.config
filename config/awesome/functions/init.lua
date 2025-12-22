@@ -24,4 +24,8 @@ functions_m.init_error_handling = function()
   end
 end
 
+-- Sub modules
+
+functions_m.screens = require("functions.screens")
+
 return functions_m

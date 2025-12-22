@@ -4,6 +4,7 @@ AwesomeWM = {}
 
 AwesomeWM.luarocks = pcall(require, "luarocks.loader")
 AwesomeWM.awesome = awesome
+AwesomeWM.screen = screen
 AwesomeWM.gears = require("gears")
 AwesomeWM.awful = require("awful")
 AwesomeWM.autofocus = require("awful.autofocus")
@@ -13,6 +14,10 @@ AwesomeWM.naughty = require("naughty")
 AwesomeWM.menubar = require("menubar")
 AwesomeWM.hotkeys_popup = require("awful.hotkeys_popup")
 AwesomeWM.hotkeys_popup_keys = require("awful.hotkeys_popup.keys")
+
+-- External modules
+
+AwesomeWM.sharedtags = require("external.sharedtags")
 
 -- User modules
 
@@ -27,3 +32,4 @@ AwesomeWM.values.init_values()
 AwesomeWM.theme.init_theme()
 AwesomeWM.notify.init_notifications()
 AwesomeWM.functions.init_error_handling()
+AwesomeWM.functions.screens.init_screens()
