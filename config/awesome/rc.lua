@@ -23,13 +23,14 @@ AwesomeWM.sharedtags = require("external.sharedtags")
 
 AwesomeWM.values = require("values")
 AwesomeWM.notify = require("notify")
-AwesomeWM.functions = require("functions")
 AwesomeWM.theme = require("theme")
+AwesomeWM.functions = require("functions")
+AwesomeWM.assets = require("assets")
 
 -- Init
 
 AwesomeWM.values.init_values()
-AwesomeWM.theme.init_theme()
 AwesomeWM.notify.init_notifications()
+AwesomeWM.theme.init_theme()
 AwesomeWM.functions.init_error_handling()
 AwesomeWM.functions.screens.init_screens()

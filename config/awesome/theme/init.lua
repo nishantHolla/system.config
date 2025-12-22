@@ -86,9 +86,7 @@ end
 
 theme_m.set_wallpaper = function(screen, wallpaper_path)
   screen = screen or AwesomeWM.awful.screen.focused()
-  -- TODO: Implement AwesomeWM.assets.get_wallpaper()
-  -- wallpaper_path = wallpaper_path or AwesomeWM.assets.get_wallpaper()
-  wallpaper_path = os.getenv("SYSTEM_DIR") .. "/config/awesome/assets/wallpapers/default"
+  wallpaper_path = wallpaper_path or AwesomeWM.assets.get_wallpaper()
 
   AwesomeWM.gears.wallpaper.maximized(wallpaper_path, screen, false)
 end
