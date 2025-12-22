@@ -24,6 +24,27 @@ functions_m.init_error_handling = function()
   end
 end
 
+functions_m.restart = function()
+  -- TODO: Save state for restart
+  AwesomeWM.awesome.restart()
+end
+
+functions_m.spawn = function(application, options)
+  if options then
+    if options.tag == nil then
+      options.tag = AwesomeWM.awful.screen.focused().selected_tag
+    end
+  else
+    options = { tag = AwesomeWM.awful.screen.focused().selected_tag }
+  end
+
+  AwesomeWM.awful.spawn(application, options)
+end
+
+functions_m.spawn_with_shell = function(command)
+  AwesomeWM.awful.spawn.with_shell(command)
+end
+
 functions_m.is_file= function(file_path)
   local f = io.open(file_path, "r")
 
@@ -38,5 +59,9 @@ end
 -- Sub modules
 
 functions_m.screens = require("functions.screens")
+functions_m.power = require("functions.power")
+functions_m.volume = require("functions.volume")
+functions_m.brightness = require("functions.brightness")
+functions_m.player = require("functions.player")
 
 return functions_m
