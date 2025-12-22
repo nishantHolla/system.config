@@ -4,6 +4,7 @@ AwesomeWM = {}
 
 AwesomeWM.luarocks = pcall(require, "luarocks.loader")
 AwesomeWM.awesome = awesome
+AwesomeWM.root = root
 AwesomeWM.screen = screen
 AwesomeWM.gears = require("gears")
 AwesomeWM.awful = require("awful")
@@ -25,6 +26,7 @@ AwesomeWM.values = require("values")
 AwesomeWM.notify = require("notify")
 AwesomeWM.theme = require("theme")
 AwesomeWM.functions = require("functions")
+AwesomeWM.keymaps = require("keymaps")
 AwesomeWM.assets = require("assets")
 
 -- Init
@@ -34,3 +36,4 @@ AwesomeWM.notify.init_notifications()
 AwesomeWM.theme.init_theme()
 AwesomeWM.functions.init_error_handling()
 AwesomeWM.functions.screens.init_screens()
+AwesomeWM.keymaps.init_keymaps()
