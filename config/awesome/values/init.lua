@@ -36,6 +36,10 @@ values_m.tags = AwesomeWM.sharedtags({
   { name = "5", layout = values_m.tag_layouts[1], key = "g" },
 })
 
+-- Valuse
+
+values_m.client_geometry_step = 50
+
 -- Functions
 
 values_m.init_values = function()

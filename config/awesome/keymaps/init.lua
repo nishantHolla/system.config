@@ -206,6 +206,48 @@ keymaps_m.list = {
 
   ["Client Management"] = {
     {
+      { mod }, "c",
+      function()
+        AwesomeWM.functions.clients.close_focused_client()
+      end,
+      "Close client"
+    },
+    {
+      { mod, "Shift" }, "c",
+      function()
+        AwesomeWM.functions.clients.toggle_client_property("not_to_kill")
+      end,
+      "Toggle not_to_kill property"
+    },
+    {
+      { mod }, "v",
+      function()
+        AwesomeWM.functions.clients.toggle_client_property("floating")
+      end,
+      "Toggle floating property"
+    },
+    {
+      { mod, "Shift" }, "v",
+      function()
+        AwesomeWM.functions.clients.toggle_client_property("ontop")
+      end,
+      "Toggle ontop property"
+    },
+    {
+      { mod }, "b",
+      function()
+        AwesomeWM.functions.clients.toggle_client_property("sticky")
+      end,
+      "Toggle sticky property"
+    },
+    {
+      { mod }, "n",
+      function()
+        AwesomeWM.functions.clients.toggle_client_property("fullscreen")
+      end,
+      "Toggle fullscreen property"
+    },
+    {
       { mod, "Shift" }, "h",
       function()
         AwesomeWM.awful.client.swap.bydirection("left")
@@ -242,13 +284,11 @@ keymaps_m.list = {
       "Decrease master client size"
     },
     {
-      {
-        { mod }, "equal",
-        function()
-          AwesomeWM.awful.tag.incmwfact(0.05)
-        end,
-        "Increase master client size"
-      }
+      { mod }, "equal",
+      function()
+        AwesomeWM.awful.tag.incmwfact(0.05)
+      end,
+      "Increase master client size"
     },
     {
       { mod, "Shift" }, "minus",
@@ -264,9 +304,109 @@ keymaps_m.list = {
       end,
       "Increase master client count"
     }
+  },
+
+  ["Floating Clients"] = {
+    {
+      { mod }, "Right",
+      function()
+				AwesomeWM.client.focus:relative_move(AwesomeWM.values.client_geometry_step, 0, 0, 0)
+      end,
+      "Move client right"
+    },
+    {
+      { mod }, "Down",
+      function()
+				AwesomeWM.client.focus:relative_move(0, AwesomeWM.values.client_geometry_step, 0, 0)
+      end,
+      "Move client down"
+    },
+    {
+      { mod }, "Left",
+      function()
+				AwesomeWM.client.focus:relative_move(-1 * AwesomeWM.values.client_geometry_step, 0, 0, 0)
+      end,
+      "Move client left"
+    },
+    {
+      { mod }, "Up",
+      function()
+				AwesomeWM.client.focus:relative_move(0, -1 * AwesomeWM.values.client_geometry_step, 0, 0)
+      end,
+      "Move client up"
+    },
+    {
+      { mod, "Ctrl" }, "Right",
+      function()
+				AwesomeWM.client.focus:relative_move(0, 0, AwesomeWM.values.client_geometry_step, 0)
+      end,
+      "Increase width of the client"
+    },
+    {
+      { mod, "Ctrl" }, "Left",
+      function()
+				AwesomeWM.client.focus:relative_move(0, 0, -1 * AwesomeWM.values.client_geometry_step, 0)
+      end,
+      "Decrease width of the client"
+    },
+    {
+      { mod, "Ctrl" }, "Down",
+      function()
+				AwesomeWM.client.focus:relative_move(0, 0, 0, -1 * AwesomeWM.values.client_geometry_step)
+      end,
+      "Decrease height of the client"
+    },
+    {
+      { mod, "Ctrl" }, "Up",
+      function()
+				AwesomeWM.client.focus:relative_move(0, 0, 0, AwesomeWM.values.client_geometry_step)
+      end,
+      "Increase height of the client"
+    }
+  },
+
+  ["Tag Movement"] = {},
+
+  ["Tag Management"] = {
+    {
+      { mod }, "Tab",
+      function()
+        AwesomeWM.functions.tag.cycle_layout(1)
+      end,
+      "Cycle tag layout to next"
+    },
+    {
+      { mod, "Shift"}, "Tab",
+      function()
+        AwesomeWM.functions.tag.cycle_layout(-1)
+      end,
+      "Cycle tag layout to previous"
+    }
   }
 
 }
+
+keymaps_m.get_client_buttons = function()
+  local client_buttons = AwesomeWM.gears.table.join(
+    AwesomeWM.awful.button({}, 1, function(client)
+      client:emit_signal("request::activate", "mouse_click", { raise = true })
+    end),
+    AwesomeWM.awful.button({ keymaps_m.modkey }, 1, function(client)
+      client:emit_signal("request::activate", "mouse_click", { raise = true })
+      AwesomeWM.awful.mouse.client.move(_client)
+    end),
+    AwesomeWM.awful.button({ keymaps_m.modkey }, 3, function(client)
+      client:emit_signal("request::activate", "mouse_click", { raise = true })
+      AwesomeWM.awful.mouse.client.resize(_client)
+    end),
+    AwesomeWM.awful.button({ keymaps_m.modkey }, 2, function(client)
+      -- TODO: Check if client has not_to_kill
+      if client then client:kill() end
+    end)
+  )
+
+  return client_buttons
+end
 
 keymaps_m.make_keymap = function(map, group_name)
   return AwesomeWM.awful.key(
