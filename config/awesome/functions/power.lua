@@ -1,21 +1,27 @@
 local power_sm = {}
 
 power_sm.shutdown = function()
-  -- TODO: Check if client has not_to_kill
+  if AwesomeWM.functions.clients.has_not_to_kill() then
+    return
+  end
   -- TODO: Remove restart file
 
   AwesomeWM.functions.spawn_with_shell("shutdown now")
 end
 
 power_sm.reboot = function()
-  -- TODO: Check if client has not_to_kill
+  if AwesomeWM.functions.clients.has_not_to_kill() then
+    return
+  end
   -- TODO: Remove restart file
 
   AwesomeWM.functions.spawn_with_shell("reboot")
 end
 
 power_sm.logout = function()
-  -- TODO: Check if client has not to kill
+  if AwesomeWM.functions.clients.has_not_to_kill() then
+    return
+  end
   -- TODO: Remove restart file
 
   AwesomeWM.functions.spawn_with_shell("kill -9 -1")

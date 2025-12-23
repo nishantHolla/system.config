@@ -63,5 +63,6 @@ functions_m.power = require("functions.power")
 functions_m.volume = require("functions.volume")
 functions_m.brightness = require("functions.brightness")
 functions_m.player = require("functions.player")
+functions_m.clients = require("functions.clients")
 
 return functions_m
