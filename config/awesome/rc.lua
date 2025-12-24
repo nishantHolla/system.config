@@ -40,3 +40,10 @@ AwesomeWM.functions.init_error_handling()
 AwesomeWM.functions.screens.init_screens()
 AwesomeWM.functions.clients.init_clients()
 AwesomeWM.keymaps.init_keymaps()
+
+-- Launch apps and timers
+
+AwesomeWM.functions.spawn_once("nm-applet")
+AwesomeWM.functions.spawn_once("flameshot")
+AwesomeWM.functions.spawn_once("kdeconnect-indicator")
+AwesomeWM.functions.spawn_once("picom")
