@@ -191,14 +191,14 @@ keymaps_m.list = {
     {
       { mod }, "i",
       function()
-        AwesomeWM.awful.focus.byidx(-1)
+        AwesomeWM.awful.client.focus.byidx(-1)
       end,
       "Move focus to previous client"
     },
     {
       { mod }, "o",
       function()
-        AwesomeWM.awful.focus.byidx(1)
+        AwesomeWM.awful.client.focus.byidx(1)
       end,
       "Move focus to next client"
     }
@@ -371,14 +371,14 @@ keymaps_m.list = {
     {
       { mod }, "Tab",
       function()
-        AwesomeWM.functions.tag.cycle_layout(1)
+        AwesomeWM.functions.tags.cycle_layout(1)
       end,
       "Cycle tag layout to next"
     },
     {
       { mod, "Shift"}, "Tab",
       function()
-        AwesomeWM.functions.tag.cycle_layout(-1)
+        AwesomeWM.functions.tags.cycle_layout(-1)
       end,
       "Cycle tag layout to previous"
     }
