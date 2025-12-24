@@ -68,7 +68,7 @@ notify_m.init_notifications = function()
       AwesomeWM.naughty.destroy_all_notifications()
       return nil
     elseif not notify_m.quiet then
-      -- TODO: Play notification sound
+      AwesomeWM.functions.player.play_glitter()
     end
 
     return notification
