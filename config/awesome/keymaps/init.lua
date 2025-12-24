@@ -383,8 +383,27 @@ keymaps_m.list = {
       "Cycle tag layout to previous"
     }
   }
-
 }
+
+keymaps_m.add_tag_keymaps = function()
+  for _, t in ipairs(AwesomeWM.values.tags) do
+    table.insert(keymaps_m.list["Tag Movement"], {
+      { mod }, t.key,
+      function()
+        AwesomeWM.functions.tags.move_to_tag(t)
+      end,
+      "Move to tag " .. t.name
+    })
+
+    table.insert(keymaps_m.list["Tag Movement"], {
+      { mod, "Shift" }, t.key,
+      function()
+        AwesomeWM.functions.tags.move_client_to_tag(t)
+      end,
+      "Move current client to tag " .. t.name
+    })
+  end
+end
 
 keymaps_m.get_client_buttons = function()
   local client_buttons = AwesomeWM.gears.table.join(
@@ -419,6 +438,7 @@ end
 
 keymaps_m.init_keymaps = function()
   modkey = keymaps_m.modkey
+  keymaps_m.add_tag_keymaps()
 
   local keymaps = {}
   for group_name, group_list in pairs(keymaps_m.list) do
