@@ -53,7 +53,7 @@ clients_sm.init_clients = function()
 
   AwesomeWM.client.connect_signal("unfocus", function(client)
     -- TODO: Update client properties
-    client.border_color = AwesomeWM.beautiful.border_color
+    client.border_color = AwesomeWM.beautiful.border_normal
   end)
 end
 
