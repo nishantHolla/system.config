@@ -1,12 +1,38 @@
 local assets_m = {}
 
 assets_m.asset_dir = AwesomeWM.values.awesome_dir .. "/assets"
+assets_m.layouts_dir = assets_m.asset_dir .. "/layouts"
+assets_m.sound_dir = assets_m.asset_dir .. "/sounds"
 assets_m.wallpaper_dir = assets_m.asset_dir .. "/wallpapers"
 
 if AwesomeWM.theme.is_dark_theme then
   assets_m.icon_color = "White"
 else
   assets_m.icon_color = "Black"
+end
+
+assets_m.get_image = function(image_name)
+  return assets_m.asset_dir .. "/" .. image_name .. ".png"
+end
+
+assets_m.get_sound = function(sound_name)
+  return assets_m.sound_dir .. "/" .. sound_name .. ".mp3"
+end
+
+assets_m.get_layout_icon = function(layout_name)
+	layout_name = layout_name or tostring(AwesomeWM.awful.screen.focused().selected_tag.layout.name)
+
+	if
+		layout_name ~= "spiral"
+		and layout_name ~= "fullscreen"
+		and layout_name ~= "floating"
+		and layout_name ~= "tile"
+		and layout_name ~= "tiletop"
+	then
+		AwesomeWM.notify.critical("Could not find layout icon of layout" .. layout_name)
+		return ""
+	end
+	return assets_m.layouts_dir .. "/" .. layout_name .. ".jpg"
 end
 
 assets_m.get_icon = function(icon_name)
