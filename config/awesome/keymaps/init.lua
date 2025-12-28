@@ -43,7 +43,7 @@ keymaps_m.list = {
     {
       { mod }, "4",
       function()
-        -- TODO: Toggle overlays
+        AwesomeWM.widgets.overlays.toggle()
       end,
       "Toggle overlays"
     },

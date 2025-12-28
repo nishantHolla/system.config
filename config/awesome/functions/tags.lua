@@ -5,8 +5,8 @@ tags_sm.move_to_tag = function(tag)
   AwesomeWM.sharedtags.viewonly(tag, screen)
   AwesomeWM.theme.set_wallpaper(screen)
 
-  -- TODO: Update client count
-  -- TODO: Update client properties
+  AwesomeWM.widgets.overlays.client_count.refresh()
+  -- AwesomeWM.widgets.overlays.client_properties.refresh()
   -- TODO: Show tag inidicator
 end
 

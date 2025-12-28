@@ -28,7 +28,7 @@ clients_sm.init_clients = function()
   }
 
   AwesomeWM.client.connect_signal("unmanage", function(client)
-    -- TODO: Update client count
+    AwesomeWM.widgets.overlays.client_count.refresh()
   end)
 
   AwesomeWM.client.connect_signal("manage", function(client)
@@ -37,30 +37,30 @@ clients_sm.init_clients = function()
       and not client.size_hints.program_position
     then
       AwesomeWM.awful.placement.no_offscreen(client)
-
-      -- TODO: Update client count
     end
+
+    AwesomeWM.widgets.overlays.client_count.refresh()
   end)
 
   AwesomeWM.client.connect_signal("mouse::enter", function(client)
     client:emit_signal("request::activate", "mouse_enter", {raise = false})
+    AwesomeWM.widgets.overlays.client_properties.refresh(client.screen)
   end)
 
   AwesomeWM.client.connect_signal("focus", function(client)
-    -- TODO: Update client properties
     clients_sm.apply_border_color(client)
+    AwesomeWM.widgets.overlays.client_properties.refresh(client.screen)
   end)
 
   AwesomeWM.client.connect_signal("unfocus", function(client)
-    -- TODO: Update client properties
     client.border_color = AwesomeWM.beautiful.border_normal
+    AwesomeWM.widgets.overlays.client_properties.refresh(client.screen)
   end)
 end
 
 clients_sm.get_client_count = function()
   local local_count = #(AwesomeWM.awful.screen.focused().selected_tag:clients())
   local global_count = #(AwesomeWM.client.get())
-  -- TODO: Check this
 
   return { local_count = local_count, global_count = global_count }
 end
@@ -79,7 +79,7 @@ clients_sm.toggle_client_property = function(property_name)
   end
 
   clients_sm.apply_border_color(focused_client)
-  -- TODO: Update client properties
+  AwesomeWM.widgets.overlays.client_properties.refresh(client.screen)
 end
 
 clients_sm.apply_border_color = function(client)

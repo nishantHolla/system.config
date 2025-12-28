@@ -6,6 +6,7 @@ screens_sm.init_screens = function()
   AwesomeWM.awful.screen.connect_for_each_screen(function(screen)
     AwesomeWM.sharedtags.viewonly(AwesomeWM.values.tags[1], screen)
     AwesomeWM.theme.set_wallpaper(screen)
+    AwesomeWM.widgets.init_widgets(screen)
   end)
 end
 
