@@ -2,95 +2,148 @@
 set -euo pipefail
 
 command_exists() {
-	command -v "$1" >/dev/null 2>&1
+  command -v "$1" >/dev/null 2>&1
 }
 
 ### PipeWire (wpctl) ###
 pw_get() {
-	wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'
+  wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'
 }
 
 pw_set() {
-	wpctl set-volume @DEFAULT_AUDIO_SINK@ "$1"
+  wpctl set-volume @DEFAULT_AUDIO_SINK@ "$1"
 }
 
 pw_mute() {
-	wpctl set-mute @DEFAULT_AUDIO_SINK@ 1
+  wpctl set-mute @DEFAULT_AUDIO_SINK@ 1
 }
 
 pw_unmute() {
-	wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
+  wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
 }
 
 pw_toggle() {
-	wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 }
 
 ### PulseAudio (pactl) ###
 pa_get() {
-	pactl get-sink-volume @DEFAULT_SINK@ \
-	| awk '{print $5}' | tr -d '%'
+  pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | tr -d '%'
 }
 
 pa_set() {
-	pactl set-sink-volume @DEFAULT_SINK@ "$1%"
+  pactl set-sink-volume @DEFAULT_SINK@ "$1%"
 }
 
 pa_mute() {
-	pactl set-sink-mute @DEFAULT_SINK@ 1
+  pactl set-sink-mute @DEFAULT_SINK@ 1
 }
 
 pa_unmute() {
-	pactl set-sink-mute @DEFAULT_SINK@ 0
+  pactl set-sink-mute @DEFAULT_SINK@ 0
 }
 
 pa_toggle() {
-	pactl set-sink-mute @DEFAULT_SINK@ toggle
+  pactl set-sink-mute @DEFAULT_SINK@ toggle
 }
 
 ### ALSA (amixer) ###
 alsa_get() {
-	amixer get Master | awk -F'[][]' 'END{print $2}' | tr -d '%'
+  amixer get Master | awk -F'[][]' 'END{print $2}' | tr -d '%'
 }
 
 alsa_set() {
-	amixer set Master "$1%" >/dev/null
+  amixer set Master "$1%" >/dev/null
 }
 
 alsa_mute() {
-	amixer set Master mute >/dev/null
+  amixer set Master mute >/dev/null
 }
 
 alsa_unmute() {
-	amixer set Master unmute >/dev/null
+  amixer set Master unmute >/dev/null
 }
 
 alsa_toggle() {
-	amixer set Master toggle >/dev/null
+  amixer set Master toggle >/dev/null
 }
 
 ### Backend selection ###
 if command_exists wpctl; then
-	BACKEND="pw"
+  BACKEND="pw"
 elif command_exists pactl; then
-	BACKEND="pa"
+  BACKEND="pa"
 elif command_exists amixer; then
-	BACKEND="alsa"
+  BACKEND="alsa"
 else
-	echo "No supported audio backend found" >&2
-	exit 1
+  echo "No supported audio backend found" >&2
+  exit 1
 fi
+
+### Helpers ###
+get_volume() {
+  "${BACKEND}_get"
+}
+
+set_volume() {
+  "${BACKEND}_set" "$1"
+}
+
+### Parse set argument ###
+parse_set_arg() {
+  arg="$1"
+
+  # Remove all '%' characters
+  arg="${arg//%/}"
+
+  case "$arg" in
+    *+)
+      delta="${arg%+}"
+      current="$(get_volume)"
+      echo $((current + delta))
+      ;;
+    *-)
+      delta="${arg%-}"
+      current="$(get_volume)"
+      echo $((current - delta))
+      ;;
+    *)
+      echo "$arg"
+      ;;
+  esac
+}
+
 
 ### Dispatch ###
 case "${1:-}" in
-	get)       "${BACKEND}_get" ;;
-	set)       "${BACKEND}_set" "$2" ;;
-	mute)      "${BACKEND}_mute" ;;
-	unmute)    "${BACKEND}_unmute" ;;
-	toggle)    "${BACKEND}_toggle" ;;
-	*)
-		echo "Usage: $0 {get|set <0-100>|mute|unmute|toggle}" >&2
-		exit 1
-	;;
-esac
+  get)
+    get_volume
+    ;;
+  set)
+    [ -z "${2:-}" ] && {
+      echo "Usage: $0 set <N|N%|N%+|N%->" >&2
+          exit 1
+        }
 
+      value="$(parse_set_arg "$2")"
+
+    # Clamp 0–100
+    [ "$value" -lt 0 ] && value=0
+    [ "$value" -gt 100 ] && value=100
+
+    set_volume "$value"
+    ;;
+  mute)
+    "${BACKEND}_mute"
+    ;;
+  unmute)
+    "${BACKEND}_unmute"
+    ;;
+  toggle)
+    "${BACKEND}_toggle"
+    ;;
+  *)
+    echo "Usage: $0 {get|set <N|N%|N%+|N%->|mute|unmute|toggle}" >&2
+    exit 1
+    ;;
+esac
