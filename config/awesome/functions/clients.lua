@@ -13,8 +13,16 @@ clients_sm.init_clients = function()
         buttons = AwesomeWM.keymaps.get_client_buttons(),
         screen = AwesomeWM.mouse.screen,
         placement = AwesomeWM.awful.placement.no_overlap + AwesomeWM.awful.placement.no_offscreen,
-        size_hints_honor = true
-      }
+        size_hints_honor = true,
+      },
+    },
+    {
+      rule = { class = "firefox" },
+      description = "Rule for firefox",
+      properties = {
+        floating = false,
+        maximized = false,
+      },
     },
     {
       rule = { class = "Dragon-drop" },
@@ -22,9 +30,9 @@ clients_sm.init_clients = function()
       properties = {
         floating = true,
         ontop = true,
-        placement = AwesomeWM.awful.placement.top_right
-      }
-    }
+        placement = AwesomeWM.awful.placement.top_right,
+      },
+    },
   }
 
   AwesomeWM.client.connect_signal("unmanage", function(client)
