@@ -3,7 +3,7 @@ local script = AwesomeWM.values.get_script("brightness")
 
 local run = function(cmd)
   AwesomeWM.awful.spawn.easy_async(cmd, function(stdout, stderr, error_reason, exit_code)
-    -- TODO: Update brightness indicators add required places
+    AwesomeWM.widgets.indicators.brightness.show()
   end)
 end
 

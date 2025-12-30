@@ -11,7 +11,8 @@ end
 
 brightness_indicator_sm.slider = function()
   return AwesomeWM.wibox.widget({
-    max_value = 100,
+    minimum = 0,
+    maximum = 100,
     value = 0,
     background_color = v.indicator_slider_outer_color,
     color = AwesomeWM.theme.blue,
@@ -101,7 +102,7 @@ brightness_indicator_sm.init = function(screen)
   })
 
   AwesomeWM.functions.brightness.find_max_brightness_and(function(max_value)
-    brightness_indicator_sm.instances[index].slider.max_value = max_value
+    brightness_indicator_sm.instances[index].slider.maximum = max_value
   end)
 end
 
@@ -114,12 +115,13 @@ brightness_indicator_sm.show = function(screen)
   end
 
   AwesomeWM.functions.brightness.find_brightness_and(function(icon, value)
+    local percentage = value / brightness_indicator_sm.instances[index].slider.maximum * 100
     brightness_indicator_sm.instances[index].wibox.visible = true
     brightness_indicator_sm.instances[index].icon.image = icon
     brightness_indicator_sm.instances[index].slider.value = value
-    brightness_indicator_sm.instances[index].value.text = tostring(value)
+    brightness_indicator_sm.instances[index].value.text = tostring(percentage) .. "%"
     brightness_indicator_sm.instances[index].timer:again()
-  end, brightness_indicator_sm.instances[index].slider.max_value)
+  end, brightness_indicator_sm.instances[index].slider.maximum)
 end
 
 return brightness_indicator_sm
