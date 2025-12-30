@@ -87,7 +87,6 @@ end
 assets_m.get_brightness_icon = function(brightness, max_brightness)
   local icon = nil
   max_brightness = max_brightness or 255
-  -- TODO: Find correct max_brightness
 
   if brightness > (3 * max_brightness) / 4 then
     icon = assets_m.get_icon("brightnessHigh")

@@ -3,6 +3,15 @@ local keymaps_m = {}
 local mod = "Mod4"
 keymaps_m.modkey = mod
 keymaps_m.list = {
+  ["test"] = {
+    {
+      { mod }, "t",
+      function()
+        AwesomeWM.widgets.indicators.brightness.show()
+      end,
+      "Testing"
+    }
+  },
 
   ["Awesome"] = {
     {

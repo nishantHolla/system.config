@@ -4,6 +4,8 @@ local values_m = {}
 
 values_m.awesome_dir = os.getenv("HOME") .. "/.config/awesome"
 values_m.data_dir = os.getenv("HOME") .. "/.local/share/awesome"
+values_m.system_dir = os.getenv("HOME") .. "/System"
+values_m.system_bin_dir = values_m.system_dir .. "/bin"
 
 -- Files
 
@@ -54,5 +56,8 @@ values_m.init_values = function()
   values_m.screen_height = g.height
 end
 
+values_m.get_script = function(name)
+  return values_m.system_bin_dir .. "/" .. name
+end
 
 return values_m
