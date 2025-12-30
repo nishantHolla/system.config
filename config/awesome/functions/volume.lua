@@ -1,37 +1,38 @@
 local volume_sm = {}
+local script = AwesomeWM.values.get_script("volume")
 
 local run = function(cmd)
   AwesomeWM.awful.spawn.easy_async(cmd, function(stdout, stderr, error_reason, exit_code)
-    -- TODO: Update volume in required places
+    AwesomeWM.widgets.indicators.volume.show()
   end)
 end
 
 volume_sm.increase = function()
-  run("volume set 5%+")
+  run(script .. " set 5%+")
 end
 
 volume_sm.decrease = function()
-  run("volume set 5%-")
+  run(script .. " set 5%-")
 end
 
 volume_sm.toggle = function()
-  run("volume toggle")
+  run(script .. " toggle")
 end
 
 volume_sm.mute = function()
-  run("volume mute")
+  run(script .. " mute")
 end
 
 volume_sm.unmute = function()
-  run("volume unmute")
+  run(script .. " unmute")
 end
 
-volume_sm.fund_volume_and = function(callback)
+volume_sm.find_volume_and = function(callback)
   if type(callback) ~= "function" then
     return
   end
 
-  AwesomeWM.awful.spawn.easy_async("volume get", function(stdout, stderr, error_reason, exit_code)
+  AwesomeWM.awful.spawn.easy_async(script .. " get", function(stdout, stderr, error_reason, exit_code)
     local volume = tonumber(stdout)
     local icon = AwesomeWM.assets.get_volume_icon(volume)
 
