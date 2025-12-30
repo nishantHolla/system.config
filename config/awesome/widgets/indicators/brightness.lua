@@ -118,7 +118,7 @@ brightness_indicator_sm.show = function(screen)
     local percentage = value / brightness_indicator_sm.instances[index].slider.maximum * 100
     brightness_indicator_sm.instances[index].wibox.visible = true
     brightness_indicator_sm.instances[index].icon.image = icon
-    brightness_indicator_sm.instances[index].slider.value = value
+    brightness_indicator_sm.instances[index].slider:set_value(value)
     brightness_indicator_sm.instances[index].value.text = tostring(percentage) .. "%"
     brightness_indicator_sm.instances[index].timer:again()
   end, brightness_indicator_sm.instances[index].slider.maximum)
