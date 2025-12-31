@@ -14,6 +14,7 @@ widget_values_sm.indicator_bg = "#111111"
 widget_values_sm.indicator_inner_margins = 10
 widget_values_sm.indicator_padding = 5
 widget_values_sm.indicator_slider_outer_color = AwesomeWM.theme.white
+widget_values_sm.indicator_font = AwesomeWM.theme.default_font .. " 14"
 
 widget_values_sm.indicator_shape = function(c, w, h)
   AwesomeWM.gears.shape.rounded_rect(c, w, h, 100)
