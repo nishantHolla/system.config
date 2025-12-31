@@ -41,6 +41,7 @@ values_m.tags = AwesomeWM.sharedtags({
 -- Valuse
 
 values_m.client_geometry_step = 50
+values_m.battery_low_threshold = 15
 
 -- Functions
 

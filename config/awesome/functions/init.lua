@@ -76,5 +76,6 @@ functions_m.brightness = require("functions.brightness")
 functions_m.player = require("functions.player")
 functions_m.clients = require("functions.clients")
 functions_m.tags = require("functions.tags")
+functions_m.battery = require("functions.battery")
 
 return functions_m

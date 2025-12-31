@@ -31,6 +31,7 @@ AwesomeWM.functions = require("functions")
 AwesomeWM.keymaps = require("keymaps")
 AwesomeWM.assets = require("assets")
 AwesomeWM.widgets = require("widgets")
+AwesomeWM.services = require("services")
 
 -- Init
 
@@ -42,9 +43,11 @@ AwesomeWM.functions.screens.init_screens()
 AwesomeWM.functions.clients.init_clients()
 AwesomeWM.keymaps.init_keymaps()
 
--- Launch apps and timers
+-- Launch apps and services
 
 AwesomeWM.functions.spawn_once("nm-applet")
 AwesomeWM.functions.spawn_once("flameshot")
 AwesomeWM.functions.spawn_once("kdeconnect-indicator")
 AwesomeWM.functions.spawn_once("picom")
+
+AwesomeWM.services.battery.start()

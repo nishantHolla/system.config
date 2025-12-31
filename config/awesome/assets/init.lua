@@ -35,6 +35,20 @@ assets_m.get_layout_icon = function(layout_name)
 	return assets_m.layouts_dir .. "/" .. layout_name .. ".jpg"
 end
 
+assets_m.get_battery_icon = function(value, charging_indicator)
+  if charging_indicator == "C\n" then
+    return assets_m.get_icon("batteryCharging")
+  elseif value > 95 then
+    return assets_m.get_icon("batteryFull")
+  elseif value > 70 then
+    return assets_m.get_icon("batteryHigh")
+  elseif value > 30 then
+    return assets_m.get_icon("batteryMedium")
+  else
+    return assets_m.get_icon("batteryLow")
+  end
+end
+
 assets_m.get_icon = function(icon_name)
   local location_1 = os.getenv("HOME") .. "/.local/share/icons/GI/GI_" .. icon_name .. assets_m.icon_color .. ".svg"
 
