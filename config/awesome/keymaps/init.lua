@@ -7,7 +7,7 @@ keymaps_m.list = {
     {
       { mod }, "`",
       function()
-        -- TODO: Toggle dashboard
+        AwesomeWM.widgets.dashboard.toggle()
       end,
       "Toggle dashboard"
     },

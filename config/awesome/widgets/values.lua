@@ -20,4 +20,9 @@ widget_values_sm.indicator_shape = function(c, w, h)
   AwesomeWM.gears.shape.rounded_rect(c, w, h, 100)
 end
 
+widget_values_sm.dashboard_box_padding = 10
+widget_values_sm.dashboard_box_margin = 2
+widget_values_sm.dashboard_padding = 2
+widget_values_sm.dashboard_opacity = 1.00
+
 return widget_values_sm
