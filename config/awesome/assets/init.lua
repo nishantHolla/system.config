@@ -49,6 +49,10 @@ assets_m.get_battery_icon = function(value, charging_indicator)
   end
 end
 
+assets_m.get_asset = function(asset_name)
+  return assets_m.asset_dir .. "/" .. asset_name
+end
+
 assets_m.get_icon = function(icon_name)
   local location_1 = os.getenv("HOME") .. "/.local/share/icons/GI/GI_" .. icon_name .. assets_m.icon_color .. ".svg"
 

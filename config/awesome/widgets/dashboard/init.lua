@@ -2,11 +2,18 @@ local dashboard_sm = {}
 local utils = require("widgets.dashboard.utils")
 local v = require("widgets.values")
 
+dashboard_sm.components = {
+  logo = require("widgets.dashboard.logo"),
+  systray = require("widgets.dashboard.systray"),
+  power = require("widgets.dashboard.power"),
+  media = require("widgets.dashboard.media")
+}
+
 dashboard_sm.left = function()
   return AwesomeWM.wibox.widget({
-    utils.make_box(nil, utils.make_placeholder()),
+    utils.make_box(nil, dashboard_sm.components.logo.create()),
     utils.make_box("Stats", utils.make_placeholder()),
-    utils.make_box("Media Player", utils.make_placeholder()),
+    utils.make_box("Media Player", dashboard_sm.components.media.create()),
     layout = AwesomeWM.wibox.layout.ratio.vertical
   })
 end
@@ -30,9 +37,9 @@ end
 
 dashboard_sm.right = function()
   return AwesomeWM.wibox.widget({
-    utils.make_box("Power Options", utils.make_placeholder()),
+    utils.make_box("Power Options", dashboard_sm.components.power.create()),
     utils.make_box("Notes", utils.make_placeholder()),
-    utils.make_box("Systray", utils.make_placeholder()),
+    utils.make_box("Systray", dashboard_sm.components.systray.create()),
     layout = AwesomeWM.wibox.layout.ratio.vertical
   })
 end
@@ -97,6 +104,7 @@ dashboard_sm.show = function(screen)
   end
 
   dashboard_sm.instances[index].wibox.visible = true
+  dashboard_sm.components.media.refresh(screen)
 end
 
 dashboard_sm.hide = function(screen)
@@ -118,7 +126,11 @@ dashboard_sm.toggle = function(screen)
     return
   end
 
-  dashboard_sm.instances[index].wibox.visible = not dashboard_sm.instances[index].wibox.visible
+  if dashboard_sm.instances[index].wibox.visible then
+    dashboard_sm.hide(screen)
+  else
+    dashboard_sm.show(screen)
+  end
 end
 
 return dashboard_sm

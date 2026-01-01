@@ -62,4 +62,75 @@ utils_sm.make_placeholder = function()
   })
 end
 
+utils_sm.make_icon_button = function(icon, callback)
+  local button = {}
+  local b = AwesomeWM.beautiful
+
+  button.background = AwesomeWM.wibox.widget({
+    bg = b.dashboard_inactive_button_bg,
+    fg = b.dashboard_inactive_button_fg,
+    shape = AwesomeWM.gears.shape.circle,
+    shape_border_width = AwesomeWM.theme.dashboard_button_border_width,
+    shape_border_color = AwesomeWM.theme.dashboard_inactive_button_border_bg,
+    widget = AwesomeWM.wibox.container.background
+  })
+
+  button.icon = AwesomeWM.wibox.widget({
+    image = AwesomeWM.assets.get_icon(icon),
+    resize = true,
+    widget = AwesomeWM.wibox.widget.imagebox
+  })
+
+  button.main = AwesomeWM.wibox.widget({
+    {
+      button.icon,
+      margins = 10,
+      widget = AwesomeWM.wibox.container.margin
+    },
+    widget = button.background
+  })
+
+  local enter_callback = function()
+    button.background.bg = AwesomeWM.theme.dashboard_active_button_bg
+    button.background.fg = AwesomeWM.theme.dashboard_active_button_fg
+    button.background.shape_border_color = AwesomeWM.theme.dashboard_active_button_bg
+  end
+
+  local exit_callback = function()
+    button.background.bg = AwesomeWM.theme.dashboard_inactive_button_bg
+    button.background.fg = AwesomeWM.theme.dashboard_inactive_button_fg
+    button.background.shape_border_color = AwesomeWM.theme.dashboard_inactive_button_border_bg
+  end
+
+  utils_sm.add_button_actions(button.main, callback, enter_callback, exit_callback)
+  return button
+end
+
+utils_sm.add_button_actions = function(widget, callback, enter_callback, exit_callback)
+  widget:connect_signal("mouse::enter", function()
+    local c = AwesomeWM.mouse.current_wibox
+    if c then
+      c.cursor = "hand2"
+    end
+
+    AwesomeWM.functions.player.play_tick()
+    if type(enter_callback) == "function" then
+      enter_callback()
+    end
+  end)
+
+  widget:connect_signal("mouse::leave", function()
+    local c = AwesomeWM.mouse.current_wibox
+    if c then
+      c.cursor = "left_ptr"
+    end
+
+    if type(exit_callback) == "function" then
+      exit_callback()
+    end
+  end)
+
+  widget:connect_signal("button::press", callback)
+end
+
 return utils_sm
