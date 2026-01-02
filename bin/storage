@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [[ "$1" == "get" ]]; then
+  OUTPUT=`df -h /`
+  echo "$OUTPUT" | awk 'NR==2 {print $5}' | sed 's/.$//'
+fi
