@@ -104,7 +104,7 @@ low_battery_indicator_sm.init = function(screen)
   low_battery_indicator_sm.make_wibox(index)
   low_battery_indicator_sm.instances[index].wibox.width = screen.geometry.width
   low_battery_indicator_sm.instances[index].wibox.height = screen.geometry.height
-  AwesomeWM.awful.placement.centered(low_battery_indicator_sm.instances[index].wibox, { margins = 10 })
+  AwesomeWM.awful.placement.centered(low_battery_indicator_sm.instances[index].wibox, { margins = 10, parent = screen })
 end
 
 low_battery_indicator_sm.show = function(screen)

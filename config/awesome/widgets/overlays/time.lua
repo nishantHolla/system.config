@@ -45,7 +45,7 @@ time_sm.init = function(screen)
   local index = tostring(screen.index)
 
   time_sm.make_wibox(index)
-  AwesomeWM.awful.placement.top(time_sm.instances[index].wibox, { margins = 0 })
+  AwesomeWM.awful.placement.top(time_sm.instances[index].wibox, { margins = 0, parent = screen })
 end
 
 time_sm.show = function(screen)

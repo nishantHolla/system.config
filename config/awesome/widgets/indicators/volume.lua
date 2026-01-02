@@ -92,7 +92,7 @@ volume_indicator_sm.init = function(screen)
   local index = tostring(screen.index)
 
   volume_indicator_sm.make_wibox(index)
-  AwesomeWM.awful.placement.right(volume_indicator_sm.instances[index].wibox, { margins = v.indicator_margins })
+  AwesomeWM.awful.placement.right(volume_indicator_sm.instances[index].wibox, { margins = v.indicator_margins, parent = screen })
 
   volume_indicator_sm.instances[index].timer = AwesomeWM.gears.timer({
     timeout = v.indicator_timeout,

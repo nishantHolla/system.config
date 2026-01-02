@@ -77,5 +77,6 @@ functions_m.player = require("functions.player")
 functions_m.clients = require("functions.clients")
 functions_m.tags = require("functions.tags")
 functions_m.battery = require("functions.battery")
+functions_m.storage = require("functions.storage")
 
 return functions_m

@@ -45,7 +45,7 @@ client_properties_sm.init = function(screen)
   local index = tostring(screen.index)
 
   client_properties_sm.make_wibox(index)
-  AwesomeWM.awful.placement.top_right(client_properties_sm.instances[index].wibox, { margin = 0 })
+  AwesomeWM.awful.placement.top_right(client_properties_sm.instances[index].wibox, { margin = 0, parent = screen })
 
   client_properties_sm.refresh(screen)
 end

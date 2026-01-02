@@ -43,7 +43,6 @@ player_sm.find_metadata_and = function(key, callback)
   end
 
   AwesomeWM.awful.spawn.easy_async(script .. " get-" .. key, function(stdout, stderr, error_reason, exit_code)
-    AwesomeWM.notify.normal("q", script)
     stdout = stdout:sub(1, -2)
     callback(stdout)
   end)

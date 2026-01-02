@@ -45,7 +45,7 @@ client_count_sm.init = function(screen)
   local index = tostring(screen.index)
 
   client_count_sm.make_wibox(index)
-  AwesomeWM.awful.placement.top_left(client_count_sm.instances[index].wibox, { margins = 0 })
+  AwesomeWM.awful.placement.top_left(client_count_sm.instances[index].wibox, { margins = 0, parent = screen })
 
   client_count_sm.refresh(screen)
 end

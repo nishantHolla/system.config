@@ -6,19 +6,21 @@ dashboard_sm.components = {
   logo = require("widgets.dashboard.logo"),
   systray = require("widgets.dashboard.systray"),
   power = require("widgets.dashboard.power"),
-  media = require("widgets.dashboard.media")
+  media = require("widgets.dashboard.media"),
+  actions = require("widgets.dashboard.actions"),
+  stats = require("widgets.dashboard.stats")
 }
 
-dashboard_sm.left = function()
+dashboard_sm.left = function(screen)
   return AwesomeWM.wibox.widget({
-    utils.make_box(nil, dashboard_sm.components.logo.create()),
-    utils.make_box("Stats", utils.make_placeholder()),
-    utils.make_box("Media Player", dashboard_sm.components.media.create()),
+    utils.make_box(nil, dashboard_sm.components.logo.create(screen)),
+    utils.make_box("Stats", dashboard_sm.components.stats.create(screen)),
+    utils.make_box("Media Player", dashboard_sm.components.media.create(screen)),
     layout = AwesomeWM.wibox.layout.ratio.vertical
   })
 end
 
-dashboard_sm.center = function()
+dashboard_sm.center = function(screen)
   return AwesomeWM.wibox.widget({
     utils.make_box("Current User", utils.make_placeholder()),
     utils.make_box("Date and Time", utils.make_placeholder()),
@@ -26,20 +28,20 @@ dashboard_sm.center = function()
   })
 end
 
-dashboard_sm.middle = function()
+dashboard_sm.middle = function(screen)
   return AwesomeWM.wibox.widget({
     utils.make_box("Tag Layout", utils.make_placeholder()),
-    dashboard_sm.center(),
-    utils.make_box("Actions", utils.make_placeholder()),
+    dashboard_sm.center(screen),
+    utils.make_box("Actions", dashboard_sm.components.actions.create(screen)),
     layout = AwesomeWM.wibox.layout.ratio.vertical
   })
 end
 
-dashboard_sm.right = function()
+dashboard_sm.right = function(screen)
   return AwesomeWM.wibox.widget({
-    utils.make_box("Power Options", dashboard_sm.components.power.create()),
+    utils.make_box("Power Options", dashboard_sm.components.power.create(screen)),
     utils.make_box("Notes", utils.make_placeholder()),
-    utils.make_box("Systray", dashboard_sm.components.systray.create()),
+    utils.make_box("Systray", dashboard_sm.components.systray.create(screen)),
     layout = AwesomeWM.wibox.layout.ratio.vertical
   })
 end
@@ -55,15 +57,18 @@ dashboard_sm.main = function(index)
   })
 end
 
-dashboard_sm.make_wibox = function(index)
+dashboard_sm.make_wibox = function(screen)
+  screen = screen or AwesomeWM.mouse.screen
+  local index = tostring(screen.index)
+
   if dashboard_sm.instances[index] ~= nil then
     return
   end
 
   dashboard_sm.instances[index] = {
-    left = dashboard_sm.left(),
-    middle = dashboard_sm.middle(),
-    right = dashboard_sm.right()
+    left = dashboard_sm.left(screen),
+    middle = dashboard_sm.middle(screen),
+    right = dashboard_sm.right(screen)
   }
 
   dashboard_sm.instances[index].main = dashboard_sm.main(index)
@@ -83,7 +88,7 @@ dashboard_sm.init = function(screen)
   screen = screen or AwesomeWM.mouse.screen
   local index = tostring(screen.index)
 
-  dashboard_sm.make_wibox(index)
+  dashboard_sm.make_wibox(screen)
   dashboard_sm.instances[index].wibox.width = screen.geometry.width
   dashboard_sm.instances[index].wibox.height = screen.geometry.height
 
@@ -92,7 +97,7 @@ dashboard_sm.init = function(screen)
   dashboard_sm.instances[index].middle:ajust_ratio(2, 0.1, 0.8, 0.1)
   dashboard_sm.instances[index].right:ajust_ratio(2, 0.1, 0.8, 0.1)
 
-  AwesomeWM.awful.placement.centered(dashboard_sm.instances[index].wibox, { margins = 0 })
+  AwesomeWM.awful.placement.centered(dashboard_sm.instances[index].wibox, { margins = 0, parent = screen })
 end
 
 dashboard_sm.show = function(screen)
@@ -105,6 +110,7 @@ dashboard_sm.show = function(screen)
 
   dashboard_sm.instances[index].wibox.visible = true
   dashboard_sm.components.media.refresh(screen)
+  dashboard_sm.components.stats.refresh(screen)
 end
 
 dashboard_sm.hide = function(screen)

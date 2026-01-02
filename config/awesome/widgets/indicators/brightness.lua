@@ -92,7 +92,7 @@ brightness_indicator_sm.init = function(screen)
   local index = tostring(screen.index)
 
   brightness_indicator_sm.make_wibox(index)
-  AwesomeWM.awful.placement.left(brightness_indicator_sm.instances[index].wibox, { margins = v.indicator_margins })
+  AwesomeWM.awful.placement.left(brightness_indicator_sm.instances[index].wibox, { margins = v.indicator_margins, parent = screen })
 
   brightness_indicator_sm.instances[index].timer = AwesomeWM.gears.timer({
     timeout = v.indicator_timeout,

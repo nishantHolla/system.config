@@ -99,7 +99,7 @@ tags_indicator_sm.init = function(screen)
   local index = tostring(screen.index)
 
   tags_indicator_sm.make_wibox(index)
-  AwesomeWM.awful.placement.bottom(tags_indicator_sm.instances[index].wibox, { margins = v.indicator_margins })
+  AwesomeWM.awful.placement.bottom(tags_indicator_sm.instances[index].wibox, { margins = v.indicator_margins, parent = screen })
 end
 
 tags_indicator_sm.show = function(screen)
