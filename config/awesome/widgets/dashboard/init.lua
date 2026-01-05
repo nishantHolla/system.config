@@ -8,7 +8,8 @@ dashboard_sm.components = {
   power = require("widgets.dashboard.power"),
   media = require("widgets.dashboard.media"),
   actions = require("widgets.dashboard.actions"),
-  stats = require("widgets.dashboard.stats")
+  stats = require("widgets.dashboard.stats"),
+  tags = require("widgets.dashboard.tags")
 }
 
 dashboard_sm.left = function(screen)
@@ -30,7 +31,7 @@ end
 
 dashboard_sm.middle = function(screen)
   return AwesomeWM.wibox.widget({
-    utils.make_box("Tag Layout", utils.make_placeholder()),
+    utils.make_box("Tag Layout", dashboard_sm.components.tags.create(screen)),
     dashboard_sm.center(screen),
     utils.make_box("Actions", dashboard_sm.components.actions.create(screen)),
     layout = AwesomeWM.wibox.layout.ratio.vertical
@@ -111,6 +112,7 @@ dashboard_sm.show = function(screen)
   dashboard_sm.instances[index].wibox.visible = true
   dashboard_sm.components.media.refresh(screen)
   dashboard_sm.components.stats.refresh(screen)
+  dashboard_sm.components.tags.refresh(screen)
 end
 
 dashboard_sm.hide = function(screen)
@@ -137,6 +139,17 @@ dashboard_sm.toggle = function(screen)
   else
     dashboard_sm.show(screen)
   end
+end
+
+dashboard_sm.is_visible = function(screen)
+  screen = screen or AwesomeWM.mouse.screen
+  local index = tostring(screen.index)
+
+  if dashboard_sm.instances[index] == nil then
+    return false
+  end
+
+  return dashboard_sm.instances[index].wibox.visible == true
 end
 
 return dashboard_sm

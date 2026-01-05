@@ -7,7 +7,12 @@ tags_sm.move_to_tag = function(tag)
 
   AwesomeWM.widgets.overlays.client_count.refresh()
   AwesomeWM.widgets.overlays.client_properties.refresh()
-  AwesomeWM.widgets.indicators.tags.show()
+
+  if AwesomeWM.widgets.dashboard.is_visible() then
+    AwesomeWM.widgets.dashboard.components.tags.refresh()
+  else
+    AwesomeWM.widgets.indicators.tags.show()
+  end
 end
 
 tags_sm.move_client_to_tag = function(tag)
@@ -21,7 +26,12 @@ end
 
 tags_sm.cycle_layout = function(order)
   AwesomeWM.awful.layout.inc(order)
-  AwesomeWM.widgets.indicators.tags.show()
+
+  if AwesomeWM.widgets.dashboard.is_visible() then
+    AwesomeWM.widgets.dashboard.components.tags.refresh()
+  else
+    AwesomeWM.widgets.indicators.tags.show()
+  end
 end
 
 tags_sm.get_tag_state = function(tag_name)
