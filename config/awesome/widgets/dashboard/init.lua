@@ -9,7 +9,7 @@ dashboard_sm.components = {
   media = require("widgets.dashboard.media"),
   actions = require("widgets.dashboard.actions"),
   stats = require("widgets.dashboard.stats"),
-  tags = require("widgets.dashboard.tags")
+  tags = require("widgets.dashboard.tags_layout")
 }
 
 dashboard_sm.left = function(screen)
