@@ -46,7 +46,7 @@ stats_component.make_stat = function(options)
     options.refresh(function(icon, value)
       local ratio = value / stat.bar.maximum
       stat.icon.image = icon
-      stat.value.text = tostring(value) .. "%"
+      stat.value.text = tostring(math.floor(ratio * 100)) .. "%"
       stat.bar:set_value(ratio)
     end)
   end
@@ -123,6 +123,10 @@ stats_component.create = function(screen)
     battery_stat = stats_component.battery_stat(),
     storage_stat = stats_component.storage_stat()
   }
+
+  AwesomeWM.functions.brightness.find_max_brightness_and(function(max_value)
+    stats_component.instances[index].brightness_stat.bar.maximum = max_value
+  end)
 
   stats_component.instances[index].main = stats_component.main(index)
   return stats_component.instances[index].main
