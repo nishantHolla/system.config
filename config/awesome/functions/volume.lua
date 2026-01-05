@@ -3,7 +3,14 @@ local script = AwesomeWM.values.get_script("volume")
 
 local run = function(cmd)
   AwesomeWM.awful.spawn.easy_async(cmd, function(stdout, stderr, error_reason, exit_code)
-    AwesomeWM.widgets.indicators.volume.show()
+    local screen = AwesomeWM.mouse.screen
+    local index = tostring(screen.index)
+
+    if AwesomeWM.widgets.dashboard.instances[index].wibox.visible then
+      AwesomeWM.widgets.dashboard.components.stats.refresh(screen)
+    else
+      AwesomeWM.widgets.indicators.volume.show(screen)
+    end
   end)
 end
 
