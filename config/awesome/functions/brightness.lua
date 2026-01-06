@@ -4,9 +4,9 @@ local script = AwesomeWM.values.get_script("brightness")
 local run = function(cmd)
   AwesomeWM.awful.spawn.easy_async(cmd, function(stdout, stderr, error_reason, exit_code)
     if AwesomeWM.widgets.dashboard.is_visible() then
-      AwesomeWM.widgets.dashboard.components.stats.refresh(screen)
+      AwesomeWM.widgets.dashboard.components.stats.refresh()
     else
-      AwesomeWM.widgets.indicators.brightness.show(screen)
+      AwesomeWM.widgets.indicators.brightness.show()
     end
   end)
 end

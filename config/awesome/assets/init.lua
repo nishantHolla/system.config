@@ -85,6 +85,10 @@ assets_m.get_wallpaper = function(tag_name)
 end
 
 assets_m.get_volume_icon = function(volume, max_volume)
+  if volume < 0 then
+    return assets_m.get_icon("volumeMute")
+  end
+
   local icon = nil
   max_volume = max_volume or 100
   -- TODO: Find correct max_volume

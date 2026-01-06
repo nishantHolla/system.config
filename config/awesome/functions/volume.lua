@@ -4,9 +4,9 @@ local script = AwesomeWM.values.get_script("volume")
 local run = function(cmd)
   AwesomeWM.awful.spawn.easy_async(cmd, function(stdout, stderr, error_reason, exit_code)
     if AwesomeWM.widgets.dashboard.is_visible() then
-      AwesomeWM.widgets.dashboard.components.stats.refresh(screen)
+      AwesomeWM.widgets.dashboard.components.stats.refresh()
     else
-      AwesomeWM.widgets.indicators.volume.show(screen)
+      AwesomeWM.widgets.indicators.volume.show()
     end
   end)
 end
@@ -37,8 +37,13 @@ volume_sm.find_volume_and = function(callback)
   end
 
   AwesomeWM.awful.spawn.easy_async(script .. " get", function(stdout, stderr, error_reason, exit_code)
-    local volume = tonumber(stdout)
-    local icon = AwesomeWM.assets.get_volume_icon(volume)
+    local volume = 0
+    local icon = AwesomeWM.assets.get_volume_icon(-1)
+
+    if stdout ~= "M\n" then
+      volume = tonumber(stdout)
+      icon = AwesomeWM.assets.get_volume_icon(volume)
+    end
 
     callback(icon, volume)
   end)
