@@ -10,6 +10,10 @@ pw_get() {
   wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'
 }
 
+pw_is_muted() {
+  wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q '\[MUTED\]'
+}
+
 pw_set() {
   wpctl set-volume @DEFAULT_AUDIO_SINK@ "$1"
 }
@@ -31,6 +35,10 @@ pa_get() {
   pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | tr -d '%'
 }
 
+pa_is_muted() {
+  pactl get-sink-mute @DEFAULT_SINK@ | grep -q 'yes'
+}
+
 pa_set() {
   pactl set-sink-volume @DEFAULT_SINK@ "$1%"
 }
@@ -50,6 +58,10 @@ pa_toggle() {
 ### ALSA (amixer) ###
 alsa_get() {
   amixer get Master | awk -F'[][]' 'END{print $2}' | tr -d '%'
+}
+
+alsa_is_muted() {
+  amixer get Master | grep -q '\[off\]'
 }
 
 alsa_set() {
@@ -82,7 +94,11 @@ fi
 
 ### Helpers ###
 get_volume() {
-  "${BACKEND}_get"
+  if "${BACKEND}_is_muted"; then
+    echo "M"
+  else
+    "${BACKEND}_get"
+  fi
 }
 
 set_volume() {
@@ -92,19 +108,17 @@ set_volume() {
 ### Parse set argument ###
 parse_set_arg() {
   arg="$1"
-
-  # Remove all '%' characters
   arg="${arg//%/}"
 
   case "$arg" in
     *+)
       delta="${arg%+}"
-      current="$(get_volume)"
+      current="$("${BACKEND}_get")"
       echo $((current + delta))
       ;;
     *-)
       delta="${arg%-}"
-      current="$(get_volume)"
+      current="$("${BACKEND}_get")"
       echo $((current - delta))
       ;;
     *)
@@ -112,7 +126,6 @@ parse_set_arg() {
       ;;
   esac
 }
-
 
 ### Dispatch ###
 case "${1:-}" in
@@ -127,23 +140,23 @@ case "${1:-}" in
 
       value="$(parse_set_arg "$2")"
 
-    # Clamp 0–100
-    [ "$value" -lt 0 ] && value=0
-    [ "$value" -gt 100 ] && value=100
+      [ "$value" -lt 0 ] && value=0
+      [ "$value" -gt 100 ] && value=100
 
-    set_volume "$value"
-    ;;
-  mute)
-    "${BACKEND}_mute"
-    ;;
-  unmute)
-    "${BACKEND}_unmute"
-    ;;
-  toggle)
-    "${BACKEND}_toggle"
-    ;;
-  *)
-    echo "Usage: $0 {get|set <N|N%|N%+|N%->|mute|unmute|toggle}" >&2
-    exit 1
-    ;;
-esac
+      set_volume "$value"
+      ;;
+    mute)
+      "${BACKEND}_mute"
+      ;;
+    unmute)
+      "${BACKEND}_unmute"
+      ;;
+    toggle)
+      "${BACKEND}_toggle"
+      ;;
+    *)
+      echo "Usage: $0 {get|set <N|N%|N%+|N%->|mute|unmute|toggle}" >&2
+      exit 1
+      ;;
+  esac
+
