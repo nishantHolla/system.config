@@ -10,7 +10,8 @@ dashboard_sm.components = {
   actions = require("widgets.dashboard.actions"),
   stats = require("widgets.dashboard.stats"),
   tags = require("widgets.dashboard.tags_layout"),
-  date_time = require("widgets.dashboard.date_time")
+  date_time = require("widgets.dashboard.date_time"),
+  user = require("widgets.dashboard.user")
 }
 
 dashboard_sm.left = function(screen)
@@ -24,7 +25,7 @@ end
 
 dashboard_sm.center = function(screen)
   return AwesomeWM.wibox.widget({
-    utils.make_box("Current User", utils.make_placeholder()),
+    utils.make_box("Current User", dashboard_sm.components.user.create(screen)),
     utils.make_box("Date and Time", dashboard_sm.components.date_time.create(screen)),
     layout = AwesomeWM.wibox.layout.ratio.vertical
   })
@@ -115,6 +116,7 @@ dashboard_sm.show = function(screen)
   dashboard_sm.components.stats.refresh(screen)
   dashboard_sm.components.tags.refresh(screen)
   dashboard_sm.components.date_time.refresh(screen)
+  dashboard_sm.components.user.refresh(screen)
 end
 
 dashboard_sm.hide = function(screen)

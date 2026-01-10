@@ -78,5 +78,6 @@ functions_m.clients = require("functions.clients")
 functions_m.tags = require("functions.tags")
 functions_m.battery = require("functions.battery")
 functions_m.storage = require("functions.storage")
+functions_m.user = require("functions.user")
 
 return functions_m
