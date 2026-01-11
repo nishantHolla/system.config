@@ -14,6 +14,21 @@ image() {
 	fi
 }
 
+extract_audio_cover() {
+  file="$1"
+  out="$2"
+
+  if ffmpeg -loglevel error -y -i "$file" -an -vcodec copy "$out" 2>/dev/null; then
+    return 0
+  fi
+
+  exiftool -b -Picture "$file" > "$out" 2>/dev/null && return 0
+  exiftool -b -CoverArt "$file" > "$out" 2>/dev/null && return 0
+
+  return 1
+}
+
+
 batorcat() {
 	file="$1"
 	shift
@@ -71,7 +86,11 @@ case "$(printf "%s\n" "$(readlink -f "$1")" | awk '{print tolower($0)}')" in
 	*.xls|*.xlsx)
 		ssconvert --export-type=Gnumeric_stf:stf_csv "$1" "fd://1" | batorcat --language=csv
 		;;
+<<<<<<< Updated upstream
 	*.wav|*.mp3|*.flac|*.m4a|*.wma|*.ape|*.ac3|*.og[agx]|*.spx|*.opus|*.as[fx]|*.mka)
+=======
+  *.wav|*.mp3|*.flac|*.m4a|*.wma|*.ape|*.ac3|*.og[agx]|*.spx|*.opus|*.as[fx]|*.mka)
+>>>>>>> Stashed changes
     COVER="${CACHE}.jpg"
 
     if [ ! -f "$COVER" ]; then
