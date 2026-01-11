@@ -10,6 +10,7 @@ values_m.system_bin_dir = values_m.system_dir .. "/bin"
 -- Files
 
 values_m.notification_history_file = values_m.data_dir .. "/notification_history.txt"
+values_m.notes_file = values_m.data_dir .. "/notes.txt"
 
 -- Applications
 
