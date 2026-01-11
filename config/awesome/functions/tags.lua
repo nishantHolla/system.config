@@ -1,41 +1,34 @@
 local tags_sm = {}
 
-tags_sm.move_to_tag = function(tag_name)
-  local focused_screen = AwesomeWM.awful.screen.focused()
-  local tag = AwesomeWM.awful.tag.find_by_name(focused_screen, tag_name)
+tags_sm.move_to_tag = function(tag)
+  local screen = AwesomeWM.mouse.screen or AwesomeWM.awful.screen.focused()
+  AwesomeWM.sharedtags.viewonly(tag, screen)
+  AwesomeWM.theme.set_wallpaper(screen)
 
-  if tag_name == "next" then
-    AwesomeWM.awful.tag.viewnext(focused_screen)
-  elseif tag_name == "previous" then
-    AwesomeWM.awful.tag.viewprev(focused_screen)
-  elseif tag_name then
-    tag:view_only()
-  end
-
-  AwesomeWM.theme.set_wallpaper()
   AwesomeWM.widgets.overlays.client_count.refresh()
   AwesomeWM.widgets.overlays.client_properties.refresh()
 
-  if AwesomeWM.widgets.dashboard.wibox.visible then
-    AwesomeWM.widgets.dashboard.components.tag_layout.refresh()
+  if AwesomeWM.widgets.dashboard.is_visible() then
+    AwesomeWM.widgets.dashboard.components.tags.refresh()
   else
     AwesomeWM.widgets.indicators.tags.show()
   end
 end
 
-tags_sm.move_client_to_tag = function(tag_name)
-  local focused_screen = AwesomeWM.awful.screen.focused()
-  local tag = AwesomeWM.awful.tag.find_by_name(focused_screen, tag_name)
-  if AwesomeWM.client.focus == nil then return end
+tags_sm.move_client_to_tag = function(tag)
+  if AwesomeWM.client.focus == nil then
+    return
+  end
+  local screen = AwesomeWM.mouse.screen or AwesomeWM.awful.screen.focused()
   AwesomeWM.client.focus:move_to_tag(tag)
-  tags_sm.move_to_tag(tag_name)
+  tags_sm.move_to_tag(tag)
 end
 
 tags_sm.cycle_layout = function(order)
   AwesomeWM.awful.layout.inc(order)
 
-  if AwesomeWM.widgets.dashboard.wibox.visible then
-    AwesomeWM.widgets.dashboard.components.tag_layout.refresh()
+  if AwesomeWM.widgets.dashboard.is_visible() then
+    AwesomeWM.widgets.dashboard.components.tags.refresh()
   else
     AwesomeWM.widgets.indicators.tags.show()
   end
@@ -56,7 +49,6 @@ tags_sm.get_tag_state = function(tag_name)
   else
     return "alive"
   end
-
 end
 
 return tags_sm

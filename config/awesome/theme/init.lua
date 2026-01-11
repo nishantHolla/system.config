@@ -6,13 +6,6 @@ theme_m.xresources = require("beautiful.xresources")
 theme_m.dpi = theme_m.xresources.apply_dpi
 theme_m.is_dark_theme = true
 
-theme_m.set_wallpaper = function(screen, wallpaper_path)
-  screen = screen or AwesomeWM.awful.screen.focused()
-  wallpaper_path = wallpaper_path or AwesomeWM.assets.get_wallpaper()
-
-  AwesomeWM.gears.wallpaper.maximized(wallpaper_path, screen, false)
-end
-
 theme_m.white = "#F0F1DF"
 theme_m.gray = "#2A2D30"
 theme_m.black = "#0D0D0D"
@@ -42,19 +35,19 @@ theme_m.dashboard_active_button_border_bg = theme_m.red
 
 theme_m.init_theme = function()
   b.default_font = theme_m.default_font
-  b.font = theme_m.font
+  b.font =  theme_m.font
   b.nerd_font = b.default_font
 
   b.white = theme_m.white
-	b.gray = theme_m.gray
-	b.black = theme_m.black
+  b.gray = theme_m.gray
+  b.black = theme_m.black
 
-	b.red = theme_m.red
-	b.purple = theme_m.purple
-	b.blue = theme_m.blue
-	b.green = theme_m.green
-	b.yellow = theme_m.yellow
-	b.orange = theme_m.orange
+  b.red = theme_m.red
+  b.purple = theme_m.purple
+  b.blue = theme_m.blue
+  b.green = theme_m.green
+  b.yellow = theme_m.yellow
+  b.orange = theme_m.orange
 
   b.useless_gap = theme_m.dpi(3)
   b.border_width = theme_m.dpi(3)
@@ -69,13 +62,13 @@ theme_m.init_theme = function()
   b.notification_font = b.font
   b.notification_bg = b.black
   b.notification_fg = b.white
-  b.notification_opacity = 0.7
   b.notification_critical_bg = b.red
   b.notification_critical_fg = b.black
-  b.notification_width = AwesomeWM.values.screen_width * 0.3
-  b.notification_height = AwesomeWM.values.screen_height * 0.15
   b.notification_border_color = b.white
   b.notification_border_width = theme_m.dpi(20)
+  b.notification_opacity = 0.7
+  b.notification_width = AwesomeWM.values.screen_width * 0.3
+  b.notification_height = AwesomeWM.values.screen_height * 0.15
 
   b.tag_indicator_dead_border_color = b.gray
   b.tag_indicator_dead_background = b.gray
@@ -88,6 +81,13 @@ theme_m.init_theme = function()
 
   b.bg_systray = "#00000000"
   b.systray_icon_spacing = theme_m.dpi(15)
+end
+
+theme_m.set_wallpaper = function(screen, wallpaper_path)
+  screen = screen or AwesomeWM.awful.screen.focused()
+  wallpaper_path = wallpaper_path or AwesomeWM.assets.get_wallpaper()
+
+  AwesomeWM.gears.wallpaper.maximized(wallpaper_path, screen, false)
 end
 
 return theme_m

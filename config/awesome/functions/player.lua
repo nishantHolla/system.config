@@ -1,21 +1,42 @@
 local player_sm = {}
-
-player_sm.script = AwesomeWM.values.get_script("player")
+local script = AwesomeWM.values.get_script("player")
 
 local run = function(cmd)
-  AwesomeWM.awful.spawn.easy_async(cmd)
+  AwesomeWM.awful.spawn.easy_async(cmd, function(stdout, stderr, error_reason, exit_code)
+    if AwesomeWM.widgets.dashboard.is_visible() then
+      AwesomeWM.widgets.dashboard.components.stats.refresh()
+    end
+  end)
 end
 
 player_sm.previous = function()
-  run(player_sm.script .. " previous")
+  run(script .. " previous")
 end
 
 player_sm.next = function()
-  run(player_sm.script .. " next")
+  run(script .. " next")
 end
 
 player_sm.toggle = function()
-  run(player_sm.script .. " toggle")
+  run(script .. " toggle")
+end
+
+player_sm.play = function()
+  run(script .. " play")
+end
+
+player_sm.pause = function()
+  run(script .. " pause")
+end
+
+player_sm.play_tick = function()
+  AwesomeWM.awful.spawn.easy_async("paplay " .. AwesomeWM.assets.get_sound("tick_sound") .. " --volume=30000", function()
+  end)
+end
+
+player_sm.play_glitter = function()
+  AwesomeWM.awful.spawn.easy_async("paplay " .. AwesomeWM.assets.get_sound("glitter_sound") .. " --volume=30000", function()
+  end)
 end
 
 player_sm.find_metadata_and = function(key, callback)
@@ -23,19 +44,9 @@ player_sm.find_metadata_and = function(key, callback)
     return
   end
 
-  AwesomeWM.awful.spawn.easy_async(player_sm.script .. " get-" .. key, function(stdout, stderr, error_reason, exit_code)
+  AwesomeWM.awful.spawn.easy_async(script .. " get-" .. key, function(stdout, stderr, error_reason, exit_code)
     stdout = stdout:sub(1, -2)
     callback(stdout)
-  end)
-end
-
-player_sm.play_tick = function()
-	AwesomeWM.awful.spawn.easy_async("paplay " .. AwesomeWM.assets.get_sound("tick_sound") .. " --volume=30000", function()
-  end)
-end
-
-player_sm.play_glitter = function()
-	AwesomeWM.awful.spawn.easy_async("paplay " .. AwesomeWM.assets.get_sound("glitter_sound") .. " --volume=30000", function()
   end)
 end
 

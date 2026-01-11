@@ -1,9 +1,8 @@
 local keymaps_m = {}
-local mod = "Mod4"
 
+local mod = "Mod4"
 keymaps_m.modkey = mod
 keymaps_m.list = {
-
   ["Awesome"] = {
     {
       { mod }, "`",
@@ -34,18 +33,18 @@ keymaps_m.list = {
       "Turn off screen"
     },
     {
+      { mod, "Shitf" }, "3",
+      function()
+        AwesomeWM.functions.power.lock(false)
+      end,
+      "Lock the computer"
+    },
+    {
       { mod }, "4",
       function()
         AwesomeWM.widgets.overlays.toggle()
       end,
       "Toggle overlays"
-    },
-    {
-      { mod, "Shift" }, "3",
-      function()
-        AwesomeWM.functions.power.lock(false)
-      end,
-      "Lock the computer"
     },
     {
       { mod }, "Escape",
@@ -73,20 +72,20 @@ keymaps_m.list = {
     }
   },
 
-  ["Volumn Controls"] = {
+  ["Volume Controls"] = {
     {
       {}, "XF86AudioRaiseVolume",
       function()
         AwesomeWM.functions.volume.increase()
       end,
-      "Increase vloume"
+      "Increase volume"
     },
     {
       {}, "XF86AudioLowerVolume",
       function()
         AwesomeWM.functions.volume.decrease()
       end,
-      "Decrase volume"
+      "Decrease volume"
     },
     {
       {}, "XF86AudioMute",
@@ -206,37 +205,9 @@ keymaps_m.list = {
 
   ["Client Management"] = {
     {
-      { mod, "Shift" }, "h",
-      function()
-        AwesomeWM.awful.client.swap.bydirection("left")
-      end,
-      "Swap client with left"
-    },
-    {
-      { mod, "Shift" }, "j",
-      function()
-        AwesomeWM.awful.client.swap.bydirection("down")
-      end,
-      "Swap client with bottom"
-    },
-    {
-      { mod, "Shift" }, "k",
-      function()
-        AwesomeWM.awful.client.swap.bydirection("up")
-      end,
-      "Swap client with top"
-    },
-    {
-      { mod, "Shift" }, "l",
-      function()
-        AwesomeWM.awful.client.swap.bydirection("right")
-      end,
-      "Swap client with right"
-    },
-    {
       { mod }, "c",
       function()
-        AwesomeWM.functions.clients.close()
+        AwesomeWM.functions.clients.close_focused_client()
       end,
       "Close client"
     },
@@ -275,6 +246,35 @@ keymaps_m.list = {
       end,
       "Toggle fullscreen property"
     },
+    {
+      { mod, "Shift" }, "h",
+      function()
+        AwesomeWM.awful.client.swap.bydirection("left")
+      end,
+      "Swap client with left"
+    },
+    {
+      { mod, "Shift" }, "j",
+      function()
+        AwesomeWM.awful.client.swap.bydirection("down")
+      end,
+      "Swap client with bottom"
+    },
+    {
+      { mod, "Shift" }, "k",
+      function()
+        AwesomeWM.awful.client.swap.bydirection("up")
+      end,
+      "Swap client with top"
+    },
+    {
+      { mod, "Shift" }, "l",
+      function()
+        AwesomeWM.awful.client.swap.bydirection("right")
+      end,
+      "Swap client with right"
+    },
+
     {
       { mod }, "minus",
       function()
@@ -364,7 +364,7 @@ keymaps_m.list = {
     }
   },
 
-  ["Tag Movement"] = { },
+  ["Tag Movement"] = {},
 
   ["Tag Management"] = {
     {
@@ -375,7 +375,7 @@ keymaps_m.list = {
       "Cycle tag layout to next"
     },
     {
-      { mod, "Shift" }, "Tab",
+      { mod, "Shift"}, "Tab",
       function()
         AwesomeWM.functions.tags.cycle_layout(-1)
       end,
@@ -385,11 +385,11 @@ keymaps_m.list = {
 }
 
 keymaps_m.add_tag_keymaps = function()
-  for _, t in pairs(AwesomeWM.values.tags) do
+  for _, t in ipairs(AwesomeWM.values.tags) do
     table.insert(keymaps_m.list["Tag Movement"], {
       { mod }, t.key,
       function()
-        AwesomeWM.functions.tags.move_to_tag(t.name)
+        AwesomeWM.functions.tags.move_to_tag(t)
       end,
       "Move to tag " .. t.name
     })
@@ -397,7 +397,7 @@ keymaps_m.add_tag_keymaps = function()
     table.insert(keymaps_m.list["Tag Movement"], {
       { mod, "Shift" }, t.key,
       function()
-        AwesomeWM.functions.tags.move_client_to_tag(t.name)
+        AwesomeWM.functions.tags.move_client_to_tag(t)
       end,
       "Move current client to tag " .. t.name
     })
@@ -418,6 +418,7 @@ keymaps_m.get_client_buttons = function()
       AwesomeWM.awful.mouse.client.resize(_client)
     end),
     AwesomeWM.awful.button({ keymaps_m.modkey }, 2, function(client)
+      if client.not_to_kill then return end
       if client then client:kill() end
     end)
   )

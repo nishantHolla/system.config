@@ -11,22 +11,12 @@ else
   assets_m.icon_color = "Black"
 end
 
-assets_m.get_icon = function(icon_name)
-  local location_1 = os.getenv("HOME") .. "/.local/share/icons/GI/GI_" .. icon_name .. assets_m.icon_color .. ".svg"
-
-  if AwesomeWM.functions.is_file(location_1) then
-    return location_1
-  end
-
-  return ""
-end
-
-assets_m.get_asset = function(asset_path)
-  return (assets_m.asset_dir .. "/" .. asset_path)
+assets_m.get_image = function(image_name)
+  return assets_m.asset_dir .. "/" .. image_name .. ".png"
 end
 
 assets_m.get_sound = function(sound_name)
-  return (assets_m.sound_dir .. "/" .. sound_name .. ".mp3")
+  return assets_m.sound_dir .. "/" .. sound_name .. ".mp3"
 end
 
 assets_m.get_layout_icon = function(layout_name)
@@ -42,58 +32,92 @@ assets_m.get_layout_icon = function(layout_name)
 		AwesomeWM.notify.critical("Could not find layout icon of layout" .. layout_name)
 		return ""
 	end
-	return (assets_m.layouts_dir .. "/" .. layout_name .. ".jpg")
+	return assets_m.layouts_dir .. "/" .. layout_name .. ".jpg"
 end
 
-assets_m.get_volume_icon = function(volume)
-  local icon = nil
-
-  if volume > 75 then
-    icon = AwesomeWM.assets.get_icon("volumeHigh")
-  elseif volume > 25 then
-    icon = AwesomeWM.assets.get_icon("volumeMedium")
-  elseif volume > 0 then
-    icon = AwesomeWM.assets.get_icon("volumeLow")
+assets_m.get_battery_icon = function(value, charging_indicator)
+  if charging_indicator == "C\n" then
+    return assets_m.get_icon("batteryCharging")
+  elseif value > 95 then
+    return assets_m.get_icon("batteryFull")
+  elseif value > 70 then
+    return assets_m.get_icon("batteryHigh")
+  elseif value > 30 then
+    return assets_m.get_icon("batteryMedium")
   else
-    icon = AwesomeWM.assets.get_icon("volumeMute")
+    return assets_m.get_icon("batteryLow")
   end
-
-  return icon
 end
 
-assets_m.get_brightness_icon = function(brightness)
-  local icon = nil
+assets_m.get_asset = function(asset_name)
+  return assets_m.asset_dir .. "/" .. asset_name
+end
 
-  if brightness > 180 then
-    icon = AwesomeWM.assets.get_icon("brightnessHigh")
-  elseif brightness > 80 then
-    icon = AwesomeWM.assets.get_icon("brightnessMedium")
-  else
-    icon = AwesomeWM.assets.get_icon("brightnessLow")
+assets_m.get_icon = function(icon_name)
+  local location_1 = os.getenv("HOME") .. "/.local/share/icons/GI/GI_" .. icon_name .. assets_m.icon_color .. ".svg"
+
+  if AwesomeWM.functions.is_file(location_1) then
+    return location_1
   end
 
-  return icon
+  return ""
 end
 
 assets_m.get_wallpaper = function(tag_name)
-  local focused_screen = AwesomeWM.awful.screen.focused()
+  local screen = AwesomeWM.awful.screen.focused()
   local wallpaper_path = nil
 
   if tag_name then
-    local tag = AwesomeWM.awful.tag.find_by_name(focused_screen, tag_name)
+    local tag = AwesomeWM.awful.tag.find_by_name(screen, tag_name)
     if tag then
-      wallpaper_path = (assets_m..walpaper_dir .. "/" .. tag_name)
+      wallpaper_path = (assets_m.wallpaper_dir .. "/" .. tag_name)
     end
-  elseif focused_screen.selected_tag then
-    wallpaper_path = (assets_m.wallpaper_dir .. "/" .. focused_screen.selected_tag.name)
+  elseif screen.selected_tag then
+    wallpaper_path = (assets_m.wallpaper_dir .. "/" .. screen.selected_tag.name)
   end
 
-  if AwesomeWM.functions.is_file(wallpaper_path) then
+
+  if wallpaper_path ~= nil and AwesomeWM.functions.is_file(wallpaper_path) then
     return wallpaper_path
   else
     return (assets_m.wallpaper_dir .. "/default")
   end
+end
 
+assets_m.get_volume_icon = function(volume, max_volume)
+  if volume < 0 then
+    return assets_m.get_icon("volumeMute")
+  end
+
+  local icon = nil
+  max_volume = max_volume or 100
+
+  if volume > (3 * max_volume) / 4 then
+    icon = assets_m.get_icon("volumeHigh")
+  elseif volume > max_volume / 4 then
+    icon = assets_m.get_icon("volumeMedium")
+  elseif volume > 0 then
+    icon = assets_m.get_icon("volumeLow")
+  else
+    icon = assets_m.get_icon("volumeMute")
+  end
+
+  return icon
+end
+
+assets_m.get_brightness_icon = function(brightness, max_brightness)
+  local icon = nil
+  max_brightness = max_brightness or 255
+
+  if brightness > (3 * max_brightness) / 4 then
+    icon = assets_m.get_icon("brightnessHigh")
+  elseif brightness > max_brightness / 4 then
+    icon = assets_m.get_icon("brightnessMedium")
+  else
+    icon = assets_m.get_icon("brightnessLow")
+  end
+
+  return icon
 end
 
 return assets_m

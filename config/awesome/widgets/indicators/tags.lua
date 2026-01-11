@@ -1,105 +1,129 @@
 local tags_indicator_sm = {}
-local base = require("widgets.indicators.base")
+local v = require("widgets.values")
 
-tags_indicator_sm.height = base.width
+tags_indicator_sm.height = v.indicator_width
 tags_indicator_sm.width = (60 * #AwesomeWM.values.tags) + 60
-tags_indicator_sm.margins = base.margins
-tags_indicator_sm.padding = 10
-tags_indicator_sm.timeout = base.timeout
-tags_indicator_sm.opacity = base.opacity
+tags_indicator_sm.margins = v.indicator_margins
+tags_indicator_sm.padding = v.indicator_padding
+tags_indicator_sm.timeout = v.indicator_timeout
+tags_indicator_sm.opacity = v.indicator_opacity
 
 tags_indicator_sm.tag_indicator_dead = AwesomeWM.theme.tag_dead_color
 tags_indicator_sm.tag_indicator_alive = AwesomeWM.theme.tag_alive_color
 tags_indicator_sm.tag_indicator_active = AwesomeWM.theme.tag_active_color
 
-tags_indicator_sm.layout_icon = AwesomeWM.wibox.widget({
-  image = AwesomeWM.assets.get_layout_icon("fullscreen"),
-  resize = true,
-  forced_width = tags_indicator_sm.height,
-  forced_height = tags_indicator_sm.height,
-  widget = AwesomeWM.wibox.widget.imagebox
-})
+tags_indicator_sm.layout_icon = function()
+  return AwesomeWM.wibox.widget({
+    image = AwesomeWM.assets.get_layout_icon("fullscreen"),
+    resize = true,
+    forced_width = tags_indicator_sm.height,
+    forced_height = tags_indicator_sm.height,
+    widget = AwesomeWM.wibox.widget.imagebox
+  })
+end
 
-tags_indicator_sm.tags = {}
+tags_indicator_sm.instances = {}
 
-for _, t in pairs(AwesomeWM.values.tags) do
-  table.insert(
-    tags_indicator_sm.tags,
-    AwesomeWM.wibox.widget({
-      {
-        text = t.name,
-        font = AwesomeWM.theme.default_font .. ' 12',
-        align = "center",
-        valign = "center",
-        widget = AwesomeWM.wibox.widget.textbox
-      },
+tags_indicator_sm.main = function(index)
+  return AwesomeWM.wibox.widget({
+    {
+      tags_indicator_sm.instances[index].layout_icon,
+      margins = tags_indicator_sm.padding,
+      widget = AwesomeWM.wibox.container.margin,
+    },
+    layout = AwesomeWM.wibox.layout.flex.horizontal,
+  })
+end
+
+tags_indicator_sm.make_wibox = function(index)
+  if tags_indicator_sm.instances[index] ~= nil then
+    return
+  end
+
+  tags_indicator_sm.instances[index] = {}
+  tags_indicator_sm.instances[index].layout_icon = tags_indicator_sm.layout_icon()
+  tags_indicator_sm.instances[index].main = tags_indicator_sm.main(index)
+  tags_indicator_sm.instances[index].tags = {}
+
+  for _, t in ipairs(AwesomeWM.values.tags) do
+    tags_indicator_sm.instances[index].tags[t.name] = {}
+
+    tags_indicator_sm.instances[index].tags[t.name].text = AwesomeWM.wibox.widget({
+      text = t.name,
+      font = v.indicator_font,
+      align = "center",
+      valign = "center",
+      widget = AwesomeWM.wibox.widget.textbox,
+    })
+
+    tags_indicator_sm.instances[index].tags[t.name].background = AwesomeWM.wibox.widget({
+      tags_indicator_sm.instances[index].tags[t.name].text,
       shape = AwesomeWM.gears.shape.rounded_rect,
       shape_border_width = 3,
       shape_border_color = tags_indicator_sm.tag_indicator_dead,
       fg = tags_indicator_sm.tag_indicator_dead,
       widget = AwesomeWM.wibox.container.background,
-      tag_name = t.name
     })
-  )
-end
 
-tags_indicator_sm.main = AwesomeWM.wibox.widget({
-  {
-    tags_indicator_sm.layout_icon,
-    margins = tags_indicator_sm.padding,
-    widget = AwesomeWM.wibox.container.margin
-  },
-  layout = AwesomeWM.wibox.layout.flex.horizontal
-})
+    tags_indicator_sm.instances[index].tags[t.name].margins = AwesomeWM.wibox.widget({
+      tags_indicator_sm.instances[index].tags[t.name].background,
+      margins = v.indicator_margins,
+      widget = AwesomeWM.wibox.container.margin
+    })
 
-for _, t in pairs(tags_indicator_sm.tags) do
-  tags_indicator_sm.main:add(AwesomeWM.wibox.widget({
-    t,
-    margins = tags_indicator_sm.padding,
-    widget = AwesomeWM.wibox.container.margin
-  }))
-end
-
-tags_indicator_sm.wibox = AwesomeWM.wibox({
-  widget = tags_indicator_sm.main,
-  visible = true,
-  opacity = tags_indicator_sm.opacity,
-  ontop = true,
-  type = "dock",
-  bg = AwesomeWM.theme.black,
-  height = tags_indicator_sm.height,
-  width = tags_indicator_sm.width,
-  shape = AwesomeWM.gears.shape.rounded_rect
-})
-
-tags_indicator_sm.init = function()
-  AwesomeWM.awful.placement.bottom(tags_indicator_sm.wibox, { margins = base.margins })
-end
-
-tags_indicator_sm.timer = AwesomeWM.gears.timer({
-  timeout = tags_indicator_sm.timeout,
-  callback = function()
-    tags_indicator_sm.wibox.visible = false
+    tags_indicator_sm.instances[index].main:add(tags_indicator_sm.instances[index].tags[t.name].margins)
   end
-})
 
-tags_indicator_sm.show = function()
-  tags_indicator_sm.layout_icon.image = AwesomeWM.assets.get_layout_icon()
-  for _, t in pairs(tags_indicator_sm.tags) do
-    local state = AwesomeWM.functions.tags.get_tag_state(t.tag_name)
+  tags_indicator_sm.instances[index].wibox = AwesomeWM.wibox({
+    widget = tags_indicator_sm.instances[index].main,
+    visible = false,
+    opacity = tags_indicator_sm.opacity,
+    ontop = true,
+    type = "dock",
+    bg = AwesomeWM.theme.black,
+    height = tags_indicator_sm.height,
+    width = tags_indicator_sm.width,
+    shape = AwesomeWM.gears.shape.rounded_rect
+  })
+
+  tags_indicator_sm.instances[index].timer = AwesomeWM.gears.timer({
+    timeout = tags_indicator_sm.timeout,
+    callback = function()
+      tags_indicator_sm.instances[index].wibox.visible = false
+    end
+  })
+end
+
+tags_indicator_sm.init = function(screen)
+  screen = screen or AwesomeWM.mouse.screen
+  local index = tostring(screen.index)
+
+  tags_indicator_sm.make_wibox(index)
+  AwesomeWM.awful.placement.bottom(tags_indicator_sm.instances[index].wibox, { margins = v.indicator_margins, parent = screen })
+end
+
+tags_indicator_sm.show = function(screen)
+  screen = screen or AwesomeWM.mouse.screen
+  local index = tostring(screen.index)
+
+  tags_indicator_sm.instances[index].layout_icon.image = AwesomeWM.assets.get_layout_icon()
+  for _, t in ipairs(AwesomeWM.values.tags) do
+    local state = AwesomeWM.functions.tags.get_tag_state(t.name)
+    local tag_background = tags_indicator_sm.instances[index].tags[t.name].background
     if state == "active" then
-      t.shape_border_color = tags_indicator_sm.tag_indicator_active
-      t.fg = tags_indicator_sm.tag_indicator_active
+      tag_background.shape_border_color = tags_indicator_sm.tag_indicator_active
+      tag_background.fg = tags_indicator_sm.tag_indicator_active
     elseif state == "alive" then
-      t.shape_border_color = tags_indicator_sm.tag_indicator_alive
-      t.fg = tags_indicator_sm.tag_indicator_alive
+      tag_background.shape_border_color = tags_indicator_sm.tag_indicator_alive
+      tag_background.fg = tags_indicator_sm.tag_indicator_alive
     elseif state == "dead" then
-      t.shape_border_color = tags_indicator_sm.tag_indicator_dead
-      t.fg = tags_indicator_sm.tag_indicator_dead
+      tag_background.shape_border_color = tags_indicator_sm.tag_indicator_dead
+      tag_background.fg = tags_indicator_sm.tag_indicator_dead
     end
   end
-  tags_indicator_sm.wibox.visible = true
-  tags_indicator_sm.timer:again()
+
+  tags_indicator_sm.instances[index].wibox.visible = true
+  tags_indicator_sm.instances[index].timer:again()
 end
 
 return tags_indicator_sm

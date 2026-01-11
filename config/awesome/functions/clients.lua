@@ -11,10 +11,18 @@ clients_sm.init_clients = function()
         focus = AwesomeWM.awful.client.focus.filter,
         raise = true,
         buttons = AwesomeWM.keymaps.get_client_buttons(),
-        screen = AwesomeWM.awful.screen.preferred,
+        screen = AwesomeWM.mouse.screen,
         placement = AwesomeWM.awful.placement.no_overlap + AwesomeWM.awful.placement.no_offscreen,
-        size_hints_honor = true
-      }
+        size_hints_honor = true,
+      },
+    },
+    {
+      rule = { class = "firefox" },
+      description = "Rule for firefox",
+      properties = {
+        floating = false,
+        maximized = false,
+      },
     },
     {
       rule = { class = "Dragon-drop" },
@@ -22,18 +30,17 @@ clients_sm.init_clients = function()
       properties = {
         floating = true,
         ontop = true,
-        placement = AwesomeWM.awful.placement.top_right
-      }
-    }
-  },
+        placement = AwesomeWM.awful.placement.top_right,
+      },
+    },
+  }
 
   AwesomeWM.client.connect_signal("unmanage", function(client)
     AwesomeWM.widgets.overlays.client_count.refresh()
   end)
 
   AwesomeWM.client.connect_signal("manage", function(client)
-    if
-      AwesomeWM.awesome.startup
+    if AwesomeWM.awesome.startup
       and not client.size_hints.user_position
       and not client.size_hints.program_position
     then
@@ -44,28 +51,24 @@ clients_sm.init_clients = function()
   end)
 
   AwesomeWM.client.connect_signal("mouse::enter", function(client)
-    client:emit_signal("request::activate", "mouse_enter", { raise = false })
+    client:emit_signal("request::activate", "mouse_enter", {raise = false})
+    AwesomeWM.widgets.overlays.client_properties.refresh(client.screen)
   end)
 
   AwesomeWM.client.connect_signal("focus", function(client)
-    AwesomeWM.widgets.overlays.client_properties.refresh()
     clients_sm.apply_border_color(client)
+    AwesomeWM.widgets.overlays.client_properties.refresh(client.screen)
   end)
 
   AwesomeWM.client.connect_signal("unfocus", function(client)
-    AwesomeWM.widgets.overlays.client_properties.refresh()
-    client.border_color  = AwesomeWM.beautiful.border_normal
+    client.border_color = AwesomeWM.beautiful.border_normal
+    AwesomeWM.widgets.overlays.client_properties.refresh(client.screen)
   end)
-
-  -- Startup applications
 end
 
 clients_sm.get_client_count = function()
   local local_count = #(AwesomeWM.awful.screen.focused().selected_tag:clients())
-  local global_count = 0
-  for _, _ in ipairs(AwesomeWM.client.get()) do
-    global_count = global_count + 1
-  end
+  local global_count = #(AwesomeWM.client.get())
 
   return { local_count = local_count, global_count = global_count }
 end
@@ -74,19 +77,24 @@ clients_sm.toggle_client_property = function(property_name)
   local focused_client = AwesomeWM.client.focus
   local focused_tag = AwesomeWM.awful.screen.focused().selected_tag
 
-  focused_client[property_name] = not focused_client[property_name]
+  if focused_client == nil or focused_tag == nil then
+    return
+  end
 
+  focused_client[property_name] = not focused_client[property_name]
   if focused_client.sticky == false then
     focused_client:move_to_tag(focused_tag)
   end
 
   clients_sm.apply_border_color(focused_client)
-  AwesomeWM.widgets.overlays.client_properties.refresh(focused_client)
+  AwesomeWM.widgets.overlays.client_properties.refresh(client.screen)
 end
 
 clients_sm.apply_border_color = function(client)
   client = client or AwesomeWM.client.focus
-  if client == nil then return end
+  if client == nil then
+    return
+  end
 
   if client.not_to_kill then
     client.border_color = AwesomeWM.beautiful.white
@@ -101,7 +109,7 @@ clients_sm.apply_border_color = function(client)
   end
 end
 
-clients_sm.close = function()
+clients_sm.close_focused_client = function()
   if not AwesomeWM.client.focus then
     return
   end
@@ -114,13 +122,12 @@ clients_sm.close = function()
 end
 
 clients_sm.has_not_to_kill = function()
-	for _, c in ipairs(AwesomeWM.client.get()) do
-		if c.not_to_kill then
-			return true
-		end
-	end
+  for _, c in ipairs(AwesomeWM.client.get()) do
+    if c.not_to_kill then
+      return true
+    end
+  end
 
-	return false
+  return false
 end
-
 return clients_sm

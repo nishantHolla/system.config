@@ -1,43 +1,84 @@
 local time_sm = {}
+local v = require("widgets.values")
 
-time_sm.background_color = "#000000"
-time_sm.opacity = 0.8
-time_sm.height = 15
+time_sm.background_color = v.overlays_bg
+time_sm.opacity = v.overlays_opacity
+time_sm.height = v.overlays_height
 time_sm.width = 70
+time_sm.font = v.overlays_font
 
-time_sm.main = AwesomeWM.wibox.widget({
-  align = "center",
-  valign = "center",
-  format = "%I : %M %p",
-  font = AwesomeWM.theme.default_font .. " 7",
-  widget = AwesomeWM.wibox.widget.textclock
-})
-
-time_sm.wibox = AwesomeWM.wibox({
-  widget = time_sm.main,
-  visible = true,
-  opacity = time_sm.opacity,
-  ontop = true,
-  type = "desktop",
-  bg = time_sm.background_color,
-  height = time_sm.height,
-  width = time_sm.width
-})
-
-time_sm.init = function()
-  AwesomeWM.awful.placement.top(time_sm.wibox, { margins = 0 })
+time_sm.main = function()
+  return AwesomeWM.wibox.widget({
+    align = "center",
+    valign = "center",
+    format = "%I : %M %p",
+    font = time_sm.font,
+    widget = AwesomeWM.wibox.widget.textclock
+  })
 end
 
-time_sm.show = function()
-  time_sm.wibox.visible = true
+time_sm.instances = {}
+
+time_sm.make_wibox = function(index)
+  if time_sm.instances[index] ~= nil then
+    return
+  else
+    time_sm.instances[index] = {}
+  end
+
+  time_sm.instances[index].main = time_sm.main()
+
+  time_sm.instances[index].wibox = AwesomeWM.wibox({
+    widget = time_sm.instances[index].main,
+    visible = true,
+    opacity = time_sm.opacity,
+    ontop = true,
+    type = "desktop",
+    bg = time_sm.background_color,
+    height = time_sm.height,
+    width = time_sm.width
+  })
 end
 
-time_sm.hide = function()
-  time_sm.wibox.visible = false
+time_sm.init = function(screen)
+  screen = screen or AwesomeWM.mouse.screen
+  local index = tostring(screen.index)
+
+  time_sm.make_wibox(index)
+  AwesomeWM.awful.placement.top(time_sm.instances[index].wibox, { margins = 0, parent = screen })
 end
 
-time_sm.toggle = function()
-  time_sm.wibox.visible = not time_sm.wibox.visible
+time_sm.show = function(screen)
+  screen = screen or AwesomeWM.mouse.screen
+  local index = tostring(screen.index)
+
+  if time_sm.instances[index] == nil then
+    return
+  end
+
+  time_sm.instances[index].wibox.visible = true
+end
+
+time_sm.hide = function(screen)
+  screen = screen or AwesomeWM.mouse.screen
+  local index = tostring(screen.index)
+
+  if time_sm.instances[index] == nil then
+    return
+  end
+
+  time_sm.instances[index].wibox.visible = false
+end
+
+time_sm.toggle = function(screen)
+  screen = screen or AwesomeWM.mouse.screen
+  local index = tostring(screen.index)
+
+  if time_sm.instances[index] == nil then
+    return
+  end
+
+  time_sm.instances[index].wibox.visible = not time_sm.instances[index].wibox.visible
 end
 
 return time_sm

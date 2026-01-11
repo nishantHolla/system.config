@@ -2,13 +2,16 @@ local values_m = {}
 
 -- Directories
 
-values_m.awesome_dir = os.getenv("HOME") .. '/.config/awesome'
-values_m.data_dir = os.getenv("HOME") .. '/.local/share/awesome'
+values_m.awesome_dir = os.getenv("HOME") .. "/.config/awesome"
+values_m.data_dir = os.getenv("HOME") .. "/.local/share/awesome"
+values_m.system_dir = os.getenv("HOME") .. "/System"
+values_m.system_bin_dir = values_m.system_dir .. "/bin"
 
 -- Files
 
-values_m.notification_history_file = values_m.data_dir .. '/notification_history.txt'
+values_m.notification_history_file = values_m.data_dir .. "/notification_history.txt"
 values_m.notes_file = values_m.data_dir .. "/notes.txt"
+values_m.restart_file = values_m.data_dir .. "/restart.txt"
 
 -- Applications
 
@@ -21,13 +24,6 @@ values_m.editor_cmd = values_m.terminal .. " -e " .. values_m.editor
 -- Layouts and Tags
 
 values_m.layout_suit = AwesomeWM.awful.layout.suit
-values_m.tags = {
-  { name = "1", key = "a" },
-  { name = "2", key = "s" },
-  { name = "3", key = "d" },
-  { name = "4", key = "f" },
-  { name = "5", key = "g" },
-}
 values_m.tag_layouts = {
   values_m.layout_suit.max.fullscreen,
   values_m.layout_suit.tile.right,
@@ -36,17 +32,29 @@ values_m.tag_layouts = {
   values_m.layout_suit.floating
 }
 
--- Config
+values_m.tags = AwesomeWM.sharedtags({
+  { name = "1", layout = values_m.tag_layouts[1], key = "a" },
+  { name = "2", layout = values_m.tag_layouts[1], key = "s" },
+  { name = "3", layout = values_m.tag_layouts[1], key = "d" },
+  { name = "4", layout = values_m.tag_layouts[1], key = "f" },
+  { name = "5", layout = values_m.tag_layouts[1], key = "g" },
+})
+
+
+values_m.layout_map = {
+  ["fullscreen"] = values_m.layout_suit.max.fullscreen,
+  ["tile"] = values_m.layout_suit.tile.right,
+  ["tiletop"] = values_m.layout_suit.tile.top,
+  ["spiral"] = values_m.layout_suit.spiral,
+  ["floating"] = values_m.layout_suit.floating,
+}
+
+-- Valuse
 
 values_m.client_geometry_step = 50
-values_m.low_battery_warned = false
-values_m.low_battery_threshold = 15
+values_m.battery_low_threshold = 15
 
 -- Functions
-
-values_m.get_script = function(name)
-  return (values_m.awesome_dir .. "/scripts/" .. name .. ".sh")
-end
 
 values_m.init_values = function()
   terminal = values_m.terminal
@@ -58,6 +66,10 @@ values_m.init_values = function()
   local g = AwesomeWM.awful.screen.focused().geometry
   values_m.screen_width = g.width
   values_m.screen_height = g.height
+end
+
+values_m.get_script = function(name)
+  return values_m.system_bin_dir .. "/" .. name
 end
 
 return values_m

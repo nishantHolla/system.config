@@ -1,39 +1,34 @@
 local volume_sm = {}
-
-volume_sm.script = AwesomeWM.values.get_script("volume")
+local script = AwesomeWM.values.get_script("volume")
 
 local run = function(cmd)
   AwesomeWM.awful.spawn.easy_async(cmd, function(stdout, stderr, error_reason, exit_code)
-    if AwesomeWM.widgets.dashboard.wibox.visible then
-      AwesomeWM.widgets.dashboard.components.stats.refresh()
+    if AwesomeWM.widgets.dashboard.is_visible() then
+      AwesomeWM.widgets.dashboard.components.media.refresh()
     else
       AwesomeWM.widgets.indicators.volume.show()
     end
   end)
 end
 
-volume_sm.get = function()
-  return (volume_sm.script .. " get")
-end
-
 volume_sm.increase = function()
-  run(volume_sm.script .. " set 5%+")
+  run(script .. " set 5%+")
 end
 
 volume_sm.decrease = function()
-  run(volume_sm.script .. " set 5%-")
+  run(script .. " set 5%-")
 end
 
 volume_sm.toggle = function()
-  run(volume_sm.script .. " toggle")
+  run(script .. " toggle")
 end
 
 volume_sm.mute = function()
-  run(volume_sm.script .. " mute")
+  run(script .. " mute")
 end
 
 volume_sm.unmute = function()
-  run(volume_sm.script .. " unmute")
+  run(script .. " unmute")
 end
 
 volume_sm.find_volume_and = function(callback)
@@ -41,9 +36,14 @@ volume_sm.find_volume_and = function(callback)
     return
   end
 
-  AwesomeWM.awful.spawn.easy_async(volume_sm.get(), function(stdout, stderr, error_reason, exit_code)
-    local volume = tonumber(stdout)
-    local icon = AwesomeWM.assets.get_volume_icon(volume)
+  AwesomeWM.awful.spawn.easy_async(script .. " get", function(stdout, stderr, error_reason, exit_code)
+    local volume = 0
+    local icon = AwesomeWM.assets.get_volume_icon(-1)
+
+    if stdout ~= "M\n" then
+      volume = tonumber(stdout)
+      icon = AwesomeWM.assets.get_volume_icon(volume)
+    end
 
     callback(icon, volume)
   end)

@@ -4,9 +4,8 @@ AwesomeWM = {}
 
 AwesomeWM.luarocks = pcall(require, "luarocks.loader")
 AwesomeWM.awesome = awesome
-AwesomeWM.screen = screen
 AwesomeWM.root = root
-AwesomeWM.tag = tag
+AwesomeWM.screen = screen
 AwesomeWM.client = client
 AwesomeWM.mouse = mouse
 AwesomeWM.gears = require("gears")
@@ -19,15 +18,20 @@ AwesomeWM.menubar = require("menubar")
 AwesomeWM.hotkeys_popup = require("awful.hotkeys_popup")
 AwesomeWM.hotkeys_popup_keys = require("awful.hotkeys_popup.keys")
 
+-- External modules
+
+AwesomeWM.sharedtags = require("external.sharedtags")
+
 -- User modules
 
-AwesomeWM.values = require("values.init")
-AwesomeWM.notify = require("notify.init")
-AwesomeWM.theme = require("theme.init")
-AwesomeWM.functions = require("functions.init")
-AwesomeWM.keymaps = require("keymaps.init")
-AwesomeWM.assets = require("assets.init")
-AwesomeWM.widgets = require("widgets.init")
+AwesomeWM.values = require("values")
+AwesomeWM.notify = require("notify")
+AwesomeWM.theme = require("theme")
+AwesomeWM.functions = require("functions")
+AwesomeWM.keymaps = require("keymaps")
+AwesomeWM.assets = require("assets")
+AwesomeWM.widgets = require("widgets")
+AwesomeWM.services = require("services")
 
 -- Init
 
@@ -38,12 +42,13 @@ AwesomeWM.functions.init_error_handling()
 AwesomeWM.functions.screens.init_screens()
 AwesomeWM.functions.clients.init_clients()
 AwesomeWM.keymaps.init_keymaps()
-AwesomeWM.widgets.init_widgets()
 
--- Launch apps and timers
+-- Launch apps and services
 
-AwesomeWM.functions.battery.timer:start()
 AwesomeWM.functions.spawn_once("nm-applet")
 AwesomeWM.functions.spawn_once("flameshot")
 AwesomeWM.functions.spawn_once("kdeconnect-indicator")
 AwesomeWM.functions.spawn_once("picom")
+
+AwesomeWM.services.battery.start()
+AwesomeWM.functions.check_restart_file()

@@ -47,11 +47,11 @@ notify_m.init_notifications = function()
       return nil
     end
 
-    local notification_file = io.open(AwesomeWM.values.notification_history_file, "a")
+    local file = io.open(AwesomeWM.values.notification_history_file, "a")
     local section = "---\n"
 
-    if notification_file then
-      notification_file:write(
+    if file then
+      file:write(
         string.format(
           "Title: %s\nMessage: %s\nApp name: %s\nTime: %s\n%s",
           notification.title,
@@ -61,7 +61,7 @@ notify_m.init_notifications = function()
 					section
         )
       )
-      notification_file:close()
+      file:close()
     end
 
     if notify_m.silence then
