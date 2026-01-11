@@ -91,7 +91,6 @@ assets_m.get_volume_icon = function(volume, max_volume)
 
   local icon = nil
   max_volume = max_volume or 100
-  -- TODO: Find correct max_volume
 
   if volume > (3 * max_volume) / 4 then
     icon = assets_m.get_icon("volumeHigh")

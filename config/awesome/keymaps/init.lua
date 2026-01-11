@@ -418,7 +418,7 @@ keymaps_m.get_client_buttons = function()
       AwesomeWM.awful.mouse.client.resize(_client)
     end),
     AwesomeWM.awful.button({ keymaps_m.modkey }, 2, function(client)
-      -- TODO: Check if client has not_to_kill
+      if client.not_to_kill then return end
       if client then client:kill() end
     end)
   )

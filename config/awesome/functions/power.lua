@@ -4,7 +4,7 @@ power_sm.shutdown = function()
   if AwesomeWM.functions.clients.has_not_to_kill() then
     return
   end
-  -- TODO: Remove restart file
+  os.remove(AwesomeWM.values.restart_file)
 
   AwesomeWM.functions.spawn_with_shell("shutdown now")
 end
@@ -13,7 +13,7 @@ power_sm.reboot = function()
   if AwesomeWM.functions.clients.has_not_to_kill() then
     return
   end
-  -- TODO: Remove restart file
+  os.remove(AwesomeWM.values.restart_file)
 
   AwesomeWM.functions.spawn_with_shell("reboot")
 end
@@ -22,7 +22,7 @@ power_sm.logout = function()
   if AwesomeWM.functions.clients.has_not_to_kill() then
     return
   end
-  -- TODO: Remove restart file
+  os.remove(AwesomeWM.values.restart_file)
 
   AwesomeWM.functions.spawn_with_shell("kill -9 -1")
 end

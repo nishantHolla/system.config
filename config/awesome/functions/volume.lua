@@ -4,7 +4,7 @@ local script = AwesomeWM.values.get_script("volume")
 local run = function(cmd)
   AwesomeWM.awful.spawn.easy_async(cmd, function(stdout, stderr, error_reason, exit_code)
     if AwesomeWM.widgets.dashboard.is_visible() then
-      AwesomeWM.widgets.dashboard.components.stats.refresh()
+      AwesomeWM.widgets.dashboard.components.media.refresh()
     else
       AwesomeWM.widgets.indicators.volume.show()
     end

@@ -51,3 +51,4 @@ AwesomeWM.functions.spawn_once("kdeconnect-indicator")
 AwesomeWM.functions.spawn_once("picom")
 
 AwesomeWM.services.battery.start()
+AwesomeWM.functions.check_restart_file()

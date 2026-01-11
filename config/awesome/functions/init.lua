@@ -25,8 +25,65 @@ functions_m.init_error_handling = function()
 end
 
 functions_m.restart = function()
-  -- TODO: Save state for restart
+  local restart_content = ""
+  restart_content = restart_content .. AwesomeWM.awful.screen.focused().selected_tag.name .. "\n"
+  for _, t in ipairs(AwesomeWM.values.tags) do
+    restart_content = restart_content .. t.name
+    restart_content = restart_content .. " " .. t.layout.name .. "\n"
+  end
+
+  local f = io.open(AwesomeWM.values.restart_file, "w")
+  if f then
+    f:write(restart_content)
+    f:close()
+  end
   AwesomeWM.awesome.restart()
+end
+
+functions_m.check_restart_file = function()
+  local f = io.open(AwesomeWM.values.restart_file, "r")
+  if not f then return end
+
+  local focused_tag
+  local tag_state = {}
+
+  for line in f:lines() do
+    -- trim whitespace
+    line = line:match("^%s*(.-)%s*$")
+
+    -- first line: focused tag
+    if not focused_tag then
+      focused_tag = line
+    else
+      -- remaining lines: "<tag> <state>"
+      local tag, state = line:match("^(%S+)%s+(%S+)$")
+      if tag and state then
+        tag_state[tag] = state
+      end
+    end
+  end
+
+  f:close()
+
+  local screen = AwesomeWM.awful.screen.focused()
+  for k, v in pairs(tag_state) do
+    local tag = AwesomeWM.awful.tag.find_by_name(screen, k)
+    tag.layout = AwesomeWM.values.layout_map[v]
+  end
+
+  local t = nil
+  for k, v in ipairs(AwesomeWM.values.tags) do
+    if v.name == focused_tag then
+      t = v
+      break
+    end
+  end
+
+  if t then
+    AwesomeWM.functions.tags.move_to_tag(t)
+  end
+
+  os.remove(AwesomeWM.values.restart_file)
 end
 
 functions_m.spawn = function(application, options)

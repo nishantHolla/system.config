@@ -3,7 +3,9 @@ local script = AwesomeWM.values.get_script("player")
 
 local run = function(cmd)
   AwesomeWM.awful.spawn.easy_async(cmd, function(stdout, stderr, error_reason, exit_code)
-    -- TODO: Update player in required places
+    if AwesomeWM.widgets.dashboard.is_visible() then
+      AwesomeWM.widgets.dashboard.components.stats.refresh()
+    end
   end)
 end
 
