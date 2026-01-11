@@ -1,0 +1,10 @@
+#!/bin/sh
+
+
+if [[ "$1" == "uptime" ]]; then
+  UPTIME=$(uptime | sed -E 's/^.*up +([^,]+),.*/\1/')
+  echo "$UPTIME"
+elif [[ "$1" == "process_count" ]]; then
+  PROCESS_COUNT=$(ps -e --no-headers | wc -l)
+  echo "$PROCESS_COUNT"
+fi
