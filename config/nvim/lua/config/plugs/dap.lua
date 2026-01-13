@@ -24,11 +24,18 @@ end
 
 -- C/C++
 
+local codelldb_dir = vim.fn.glob('/nix/store/*-vscode-extension-vadimcn-vscode-lldb-*/share/vscode/extensions/vadimcn.vscode-lldb')
+if codelldb_dir ~= "" then
+  codelldb_dir = codelldb_dir .. "/adapter"
+else
+  codelldb_dir = "/usr/bin"
+end
+
 dap.adapters.codelldb = {
   type = 'server',
   port = "${port}",
   executable = {
-    command = "/usr/bin/codelldb",
+    command = codelldb_dir .. '/codelldb',
     args = {"--port", "${port}"},
   }
 }
