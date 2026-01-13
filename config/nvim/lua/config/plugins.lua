@@ -87,5 +87,15 @@ require('lazy').setup({
 
   {
     'tpope/vim-fugitive',
+  },
+
+  {
+    "mfussenegger/nvim-dap",
+    config = plugin("dap"),
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
+      "theHamsta/nvim-dap-virtual-text",
+    },
   }
 })

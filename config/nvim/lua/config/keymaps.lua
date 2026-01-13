@@ -57,3 +57,6 @@ Key({"n", "v", "o"}, "<a-;>", "0", K_Opt("Press 0"))
 -- Shared Clipboard
 Key("n", "<leader>sc", function() sc.copy() end, K_Opt("Send text to shared clipboard"))
 Key("n", "<leader>sp", function() sc.paste() end, K_Opt("Paste text from shared clipboard"))
+
+-- Terminal
+Key("t", "<esc>", "<c-\\><C-n>", K_Opt("Move from terminal mode to normal mode"))
