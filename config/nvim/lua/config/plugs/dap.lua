@@ -57,6 +57,33 @@ dap.configurations.cpp = {
 
 dap.configurations.c = dap.configurations.cpp
 
+-- Python
+
+dap.adapters.python = {
+  type = "executable",
+  command = "python",
+  args = { "-m", "debugpy.adapter" },
+}
+
+dap.configurations.python = {
+  {
+    type = "python",
+    request = "launch",
+    name = "Launch file",
+
+    program = "${file}",
+    pythonPath = function()
+      -- Use virtualenv if present
+      local venv = os.getenv("VIRTUAL_ENV")
+      if venv then
+        return venv .. "/bin/python"
+      end
+      return "python"
+    end,
+  },
+}
+
+
 -- Keymaps
 
 Key("n", "<leader>1", dap.continue, K_Opt("Dap continue"))
