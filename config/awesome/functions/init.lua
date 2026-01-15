@@ -42,7 +42,7 @@ end
 
 functions_m.check_restart_file = function()
   local f = io.open(AwesomeWM.values.restart_file, "r")
-  if not f then return end
+  if not f then return false end
 
   local focused_tag
   local tag_state = {}
@@ -84,6 +84,7 @@ functions_m.check_restart_file = function()
   end
 
   os.remove(AwesomeWM.values.restart_file)
+  return true
 end
 
 functions_m.spawn = function(application, options)
@@ -136,5 +137,6 @@ functions_m.tags = require("functions.tags")
 functions_m.battery = require("functions.battery")
 functions_m.storage = require("functions.storage")
 functions_m.user = require("functions.user")
+functions_m.network = require("functions.network")
 
 return functions_m
