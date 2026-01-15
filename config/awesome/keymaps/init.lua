@@ -33,7 +33,7 @@ keymaps_m.list = {
       "Turn off screen"
     },
     {
-      { mod, "Shitf" }, "3",
+      { mod, "Shift" }, "3",
       function()
         AwesomeWM.functions.power.lock(false)
       end,

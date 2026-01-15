@@ -29,9 +29,9 @@ end
 
 power_sm.lock = function(display_off)
   if display_off then
-    AwesomeWM.functions.spawn_with_shell("xsecurelock & sleep 0.5 && xset dpms force off")
+    AwesomeWM.functions.spawn_with_shell("XSECURELOCK_BLANK_TIMEOUT=0 XSECURELOCK_DPMS_TIMEOUT=0 xsecurelock")
   else
-    AwesomeWM.functions.spawn_with_shell("xsecurelock")
+    AwesomeWM.functions.spawn_with_shell("XSECURELOCK_NO_DPMS=1 XSECURELOCK_NO_BLANK=1 xsecurelock")
   end
 end
 
