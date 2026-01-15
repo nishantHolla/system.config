@@ -46,7 +46,9 @@
     pcmanfm                    # File manager with GTK interface
     playerctl                  # Command-line utility and library for controlling media players that implement MPRIS
     poppler_utils              # PDF rendering library
+    pyright                    # Type checker for the Python language
     python313                  # High-level dynamically-typed programming language
+    python313Packages.debugpy  # Implementation of the Debug Adapter Protocol for Python
     qalculate-qt               # Ultimate desktop calculator
     ripgrep                    # Utility that combines the usability of The Silver Searcher with the raw speed of grep
     rofi                       # Window switcher, run dialog and dmenu replacement
@@ -56,6 +58,7 @@
     tmux                       # Terminal multiplexer
     trash-cli                  # Command line interface to the freedesktop.org trashcan
     ueberzugpp                 # Drop in replacement for ueberzug written in C++
+    unzip                      # Extraction utility for archives compressed in .zip format
     vimiv-qt                   # Image viewer with Vim-like keybindings (Qt port)
     vimv-rs                    # Command line utility for batch-renaming files
     virtualbox                 # PC emulator
