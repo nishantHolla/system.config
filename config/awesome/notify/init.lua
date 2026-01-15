@@ -4,7 +4,7 @@ notify_m.silence = false
 notify_m.quiet = true
 
 notify_m.blacklist = {
-  { title = "Firefox", app_name = "KDE Connect" }
+  { title = "Firefox", appname = "KDE Connect" }
 }
 
 notify_m.normal = function(title, text)
@@ -33,7 +33,7 @@ end
 
 notify_m.is_blacklisted = function(notification)
   for _, item in ipairs(notify_m.blacklist) do
-    if item.title == notification.title and item.app_name == notification.app_name then
+    if item.title == notification.title and item.appname == notification.appname then
       return true
     end
   end
@@ -56,7 +56,7 @@ notify_m.init_notifications = function()
           "Title: %s\nMessage: %s\nApp name: %s\nTime: %s\n%s",
           notification.title,
           notification.text,
-          notification.app_name,
+          notification.appname,
 					os.date("%Y-%m-%d %H:%M:%S"),
 					section
         )
