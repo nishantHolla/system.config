@@ -48,6 +48,10 @@ dap.configurations.cpp = {
     program = function()
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     end,
+    args = function()
+      local input = vim.fn.input('Program arguments: ')
+      return vim.fn.split(input, " ")
+    end,
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
     terminal = 'integrated',
@@ -70,6 +74,11 @@ dap.configurations.python = {
     type = "python",
     request = "launch",
     name = "Launch file",
+
+    args = function()
+      local args = vim.fn.input("Args: ")
+      return vim.split(args, " +")
+    end,
 
     program = "${file}",
     pythonPath = function()
