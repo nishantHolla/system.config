@@ -71,9 +71,9 @@ cmd open ${{
     jpg|jpeg|png|webp|gif|ppm) APP="$IMAGE_VIEWER";;
     mp4|mpg|mkv) APP="$VIDEO_VIEWER";;
     pdf) APP="$PDF_VIEWER";;
-    doc|docx) APP="$WORD_EDITOR";;
+    doc|docx|odt) APP="$WORD_EDITOR";;
     ppt|pptx) APP="$PRESENTATION_EDITOR";;
-    xls|xlsx) APP="$SPREADSHEET_EDITOR";;
+    xls|xlsx|ods) APP="$SPREADSHEET_EDITOR";;
     *) lf -remote "send $id \$$EDITOR \"$fx\""; exit 0;;
   esac
 
