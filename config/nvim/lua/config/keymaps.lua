@@ -60,3 +60,9 @@ Key("n", "<leader>sp", function() sc.paste() end, K_Opt("Paste text from shared 
 
 -- Terminal
 Key("t", "<esc>", "<c-\\><C-n>", K_Opt("Move from terminal mode to normal mode"))
+
+-- Tabs
+Key("n", "<leader>=", ":tabnew %<cr>", K_Opt("Expand current buffer to a new tab"))
+Key("n", "<leader>+", ":tabclose<cr>", K_Opt("Close expanded tab"))
+Key("n", "<a-I>", ":tabprevious<cr>", K_Opt("Switch to previous tab"))
+Key("n", "<a-O>", ":tabnext<cr>", K_Opt("Switch to next tab"))
