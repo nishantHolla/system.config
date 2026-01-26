@@ -49,8 +49,10 @@ AwesomeWM.functions.spawn_once("nm-applet")
 AwesomeWM.functions.spawn_once("flameshot")
 AwesomeWM.functions.spawn_once("kdeconnect-indicator")
 AwesomeWM.functions.spawn_once("picom")
+AwesomeWM.functions.spawn_once("blueman-applet")
 
 AwesomeWM.services.battery.start()
+
 local is_resrart = AwesomeWM.functions.check_restart_file()
 if is_resrart == false then
   AwesomeWM.functions.network.refresh()
