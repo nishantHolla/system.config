@@ -1,68 +1,61 @@
-local sc = require('config.utils.shared_clip')
-local b = require('config.utils.buffer')
-
-Key = vim.keymap.set
-K_Opt = function(desc, silent, noremap, buffer)
-  if silent == nil then silent = true end
-  if noremap == nil then noremap = true end
-  if buffer then
-    return { silent = silent, noremap = noremap, desc = desc, buffer = buffer }
-  else
-    return { silent = silent, noremap = noremap, desc = desc }
-  end
-end
+local utils = require("config.utils")
+local key = utils.key
+local k_opt = utils.k_opt
 
 vim.g.mapleader = ","
 
--- Text Movement
-Key("i", "<a-h>", "<left>", K_Opt("Move left"))
-Key("i", "<a-j>", "<down>", K_Opt("Move down"))
-Key("i", "<a-k>", "<up>", K_Opt("Move up"))
-Key("i", "<a-l>", "<right>", K_Opt("Move right"))
-Key("i", "<leader><leader>", "<esc>", K_Opt("Go to normal mode"))
+-- Text movement
+key("i", "<a-h>", "<left>", k_opt("Move left"))
+key("i", "<a-j>", "<down>", k_opt("Move down"))
+key("i", "<a-k>", "<up>", k_opt("Move up"))
+key("i", "<a-l>", "<right>", k_opt("Move right"))
+key("i", "<leader><leader>", "<esc>", k_opt("Move to normal mode"))
 
--- Local Clipboard
-Key({"n", "v"}, "d", '"_d', K_Opt("Delete without changing clipboard"))
-Key({"n", "v"}, "c", '"_c', K_Opt("Change without changing clipboard"))
-Key({"n", "v"}, "x", '"_x', K_Opt("Delete character without changing clipboard"))
+-- Local clipboard
+key({"n", "v"}, "d", '"_d', k_opt("Delete text without changing the clipboard content"))
+key({"n", "v"}, "c", '"_c', k_opt("Change text without changing the clipboard content"))
+key({"n", "v"}, "x", '"_x', k_opt("Delete character without changing the clipboard content"))
 
-Key({"n", "v"}, "<leader>d", 'd', K_Opt("Delete with changing clipboard"))
-Key({"n", "v"}, "<leader>c", 'c', K_Opt("Change with changing clipboard"))
-Key({"n", "v"}, "<leader>x", 'x', K_Opt("Delete character with changing clipboard"))
+key({"n", "v"}, "<leader>d", "d", k_opt("Delete text with changing the clipboard content"))
+key({"n", "v"}, "<leader>c", "c", k_opt("Change text with changing the clipboard content"))
+key({"n", "v"}, "<leader>x", "x", k_opt("Delete character with changing the clipboard content"))
+
+key({"n", "v"}, "<leader>y", '"+y', k_opt("Copy to global clipboard"))
+key("n", "<leader>p", '"+p', k_opt("Paste from global clipboard"))
+
+-- Shared clipboard
+key("n", "<leader>sc", function() utils.shared_copy() end, k_opt("Send text to shared clipboard"))
+key("n", "<leader>sp", function() utils.shared_paste() end, k_opt("Paste text from shared clipboard"))
 
 -- File
-Key("n", "<leader>ss", ":w<cr>", K_Opt("Write current buffer"))
-Key("n", "<leader>sa", ":w<cr>", K_Opt("Write all buffers"))
-Key("n", "<leader>qq", function() b.close_buffer() end, K_Opt("Close current buffer"))
-Key("n", "<leader>qa", ":qa<cr>", K_Opt("Close all buffers"))
+key("n", "<leader>ss", ":w<cr>", k_opt("Write current buffer"))
+key("n", "<leader>sa", ":wa<cr>", k_opt("Write all buffers"))
+key("n", "<leader>qq", function() utils.close_buffer() end, k_opt("Close current buffer"))
+key("n", "<leader>qa", ":qa<cr>", k_opt("Close all buffers"))
 
 -- Buffer
-Key("n", "<a-i>", ":bp<cr>", K_Opt("Go to previous buffer"))
-Key("n", "<a-o>", ":bn<cr>", K_Opt("Go to next buffer"))
+key("n", "<a-i>", ":bp<cr>", k_opt("Go to previous buffer"))
+key("n", "<a-o>", ":bn<cr>", k_opt("Go to next buffer"))
 
-Key("n", "<esc>", ":nohl<cr>", K_Opt("Clear highlights"))
+key("n", "<esc>", ":nohl<cr>", k_opt("Clear highlights"))
 
 -- Numbers
-Key({"n", "v", "o"}, "<a-a>", "1", K_Opt("Press 1"))
-Key({"n", "v", "o"}, "<a-s>", "2", K_Opt("Press 2"))
-Key({"n", "v", "o"}, "<a-d>", "3", K_Opt("Press 3"))
-Key({"n", "v", "o"}, "<a-f>", "4", K_Opt("Press 4"))
-Key({"n", "v", "o"}, "<a-g>", "5", K_Opt("Press 5"))
-Key({"n", "v", "o"}, "<a-h>", "6", K_Opt("Press 6"))
-Key({"n", "v", "o"}, "<a-j>", "7", K_Opt("Press 7"))
-Key({"n", "v", "o"}, "<a-k>", "8", K_Opt("Press 8"))
-Key({"n", "v", "o"}, "<a-l>", "9", K_Opt("Press 9"))
-Key({"n", "v", "o"}, "<a-;>", "0", K_Opt("Press 0"))
+key({"n", "v", "o"}, "<a-a>", "1", k_opt("Press 1"))
+key({"n", "v", "o"}, "<a-s>", "2", k_opt("Press 2"))
+key({"n", "v", "o"}, "<a-d>", "3", k_opt("Press 3"))
+key({"n", "v", "o"}, "<a-f>", "4", k_opt("Press 4"))
+key({"n", "v", "o"}, "<a-g>", "5", k_opt("Press 5"))
+key({"n", "v", "o"}, "<a-h>", "6", k_opt("Press 6"))
+key({"n", "v", "o"}, "<a-j>", "7", k_opt("Press 7"))
+key({"n", "v", "o"}, "<a-k>", "8", k_opt("Press 8"))
+key({"n", "v", "o"}, "<a-l>", "9", k_opt("Press 9"))
+key({"n", "v", "o"}, "<a-;>", "0", k_opt("Press 0"))
 
--- Shared Clipboard
-Key("n", "<leader>sc", function() sc.copy() end, K_Opt("Send text to shared clipboard"))
-Key("n", "<leader>sp", function() sc.paste() end, K_Opt("Paste text from shared clipboard"))
-
--- Terminal
-Key("t", "<esc>", "<c-\\><C-n>", K_Opt("Move from terminal mode to normal mode"))
+-- Terimnal
+key("t", "<leader><leader>", "<c-\\><c-n>", k_opt("Move from terminal mode to normal mode"))
 
 -- Tabs
-Key("n", "<leader>=", ":tabnew %<cr>", K_Opt("Expand current buffer to a new tab"))
-Key("n", "<leader>+", ":tabclose<cr>", K_Opt("Close expanded tab"))
-Key("n", "<a-I>", ":tabprevious<cr>", K_Opt("Switch to previous tab"))
-Key("n", "<a-O>", ":tabnext<cr>", K_Opt("Switch to next tab"))
+key("n", "<leader>=", ":tabnew %<cr>", k_opt("Expand current buffer"))
+key("n", "<leader>+", ":tabclose<cr>", k_opt("Close expanded tab"))
+key("n", "<a-I>", ":tabprevious<cr>", k_opt("Go to previous tab"))
+key("n", "<a-O>", ":tabnext<cr>", k_opt("Go to next tab"))

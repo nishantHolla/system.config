@@ -1,6 +1,10 @@
-Key('n', '<c-h>', '<cmd>TmuxNavigateLeft<cr>', K_Opt('Tmux move left'))
-Key('n', '<c-j>', '<cmd>TmuxNavigateDown<cr>', K_Opt('Tmux move down'))
-Key('n', '<c-k>', '<cmd>TmuxNavigateUp<cr>', K_Opt('Tmux move up'))
-Key('n', '<c-l>', '<cmd>TmuxNavigateRight<cr>', K_Opt('Tmux move right'))
-Key('n', '<leader>th', ':execute "silent !tmux split-window -c" shellescape(expand("%:p:h"), 1)<cr>', K_Opt("Tmux open horizontal split"))
-Key('n', '<leader>tv', ':execute "silent !tmux split-window -h -c" shellescape(expand("%:p:h"), 1)<cr>', K_Opt("Tmux open vertical split"))
+local utils = require("config.utils")
+local key = utils.key
+local k_opt = utils.k_opt
+
+key("n", "<c-h>", ":TmuxNavigateLeft<cr>", k_opt("Tmux move left"))
+key("n", "<c-j>", ":TmuxNavigateDown<cr>", k_opt("Tmux move down"))
+key("n", "<c-k>", ":TmuxNavigateUp<cr>", k_opt("Tmux move up"))
+key("n", "<c-l>", ":TmuxNavigateRight<cr>", k_opt("Tmux move right"))
+key("n", "<leader>th", ':execute "silent !tmux split-window -c" shellescape(expand("%:p:h"), 1)<cr>', k_opt("Tmux horizontal split"))
+key("n", "<leader>tv", ':execute "silent !tmux split-window -h -c" shellescape(expand("%:p:h"), 1)<cr>', k_opt("Tmux vertical split"))
