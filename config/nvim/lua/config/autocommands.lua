@@ -24,6 +24,14 @@ autocommand("BufWinLeave", {
     group = usergroup,
 })
 
+
+-- Autoformat on save for python
+autocommand('BufWritePre', {
+    pattern = "?*.py",
+    command = "lua vim.lsp.buf.format()",
+    group = usergroup
+})
+
 -- Remove trailing whitespace on save
 autocommand("BufWritePre", {
     pattern = '?*',
