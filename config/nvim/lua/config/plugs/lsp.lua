@@ -3,6 +3,7 @@ local key = utils.key
 local k_opt = utils.k_opt
 
 vim.lsp.enable("clangd")
+vim.lsp.enable("ruff")
 vim.lsp.enable("pyright")
 
 vim.diagnostic.enable = true

@@ -29,6 +29,7 @@ require("oil").setup({
 })
 
 key("n", "<leader><leader>", ":Oil<cr>", k_opt("Open oil"))
+vim.cmd("highlight OilDir guibg=none guifg=#66d9ef")
 
 function CopyOilPath(global)
     local oil = require("oil")
@@ -45,5 +46,3 @@ function CopyOilPath(global)
 
     vim.notify("Copied " .. path)
 end
-
-

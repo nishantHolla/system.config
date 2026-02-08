@@ -31,6 +31,7 @@ require("lazy").setup({
 
     {
         "nvim-treesitter/nvim-treesitter",
+        event = { "BufReadPost", "BufNewFile" },
         build = ":TSUpdate",
         config = plugin("treesitter"),
     },
@@ -70,5 +71,9 @@ require("lazy").setup({
 
     {
         "tpope/vim-sleuth",
+    },
+
+    {
+        "loctvl842/monokai-pro.nvim"
     },
 })
