@@ -3,7 +3,7 @@ local opt = vim.opt
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-opt.colorcolumn = "80"
+opt.colorcolumn = "100"
 opt.confirm = true
 opt.expandtab = true
 opt.ignorecase = true
@@ -18,4 +18,5 @@ opt.swapfile = false
 opt.tabstop = 4
 opt.termguicolors = true
 opt.undofile = true
+opt.viewoptions:remove("curdir")
 opt.wrap = false
