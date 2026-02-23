@@ -11,25 +11,30 @@ opacity = 1
 draw_bold_text_with_bright_colors = true
 
 [colors.primary]
-background = "#2D2A2E"
-foreground = "#fff1f3"
+background = "#272822"
+foreground = "#f8f8f2"
+
+[colors.cursor]
+text = "#272822"
+cursor = "#f8f8f2"
 
 [colors.normal]
-black = "#2c2525"
-red = "#fd6883"
-green = "#adda78"
-yellow = "#f9cc6c"
-blue = "#a8a9eb"
-magenta = "#f38d70"
-cyan = "#85dacc"
-white = "#fff1f3"
+black = "#272822"
+red = "#f92672"
+green = "#a6e22e"
+yellow = "#f4bf75"
+blue = "#66d9ef"
+magenta = "#ae81ff"
+cyan = "#a1efe4"
+white = "#f8f8f2"
 
 [colors.bright]
-black = "#72696a"
-red = "#fd6883"
-green = "#adda78"
-yellow = "#f9cc6c"
-blue = "#a8a9eb"
-magenta = "#f38d70"
-cyan = "#85dacc"
-white = "#fff1f3"
+black = "#75715e"
+red = "#f92672"
+green = "#a6e22e"
+yellow = "#f4bf75"
+blue = "#66d9ef"
+magenta = "#ae81ff"
+cyan = "#a1efe4"
+white = "#f9f8f5"
+
