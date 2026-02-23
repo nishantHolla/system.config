@@ -31,6 +31,7 @@
     git                        # Distributed version control system
     glow                       # Render markdown on the CLI, with pizzazz!
     gnumake                    # Tool to control the generation of non-source files from sources
+    imv                        # Command line image viewer for tiling window managers
     inkscape                   # Vector graphics editor
     kdePackages.filelight      # Quickly visualize your disk space usage
     kdePackages.kdeconnect-kde # Multi-platform app that allows your devices to communicate
@@ -59,7 +60,6 @@
     trash-cli                  # Command line interface to the freedesktop.org trashcan
     ueberzugpp                 # Drop in replacement for ueberzug written in C++
     unzip                      # Extraction utility for archives compressed in .zip format
-    vimiv-qt                   # Image viewer with Vim-like keybindings (Qt port)
     vimv-rs                    # Command line utility for batch-renaming files
     virtualbox                 # PC emulator
     xorg.xev                   # Log xserver events

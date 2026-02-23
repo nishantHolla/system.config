@@ -37,7 +37,7 @@
     FILE_MANAGER = "pcmanfm";
     CLI_FILE_MANAGER = "lf";
     PDF_VIEWER = "zathura";
-    IMAGE_VIEWER = "vimiv";
+    IMAGE_VIEWER = "imv";
     VIDEO_VIEWER = "mpv";
     WORD_EDITOR = "libreoffice";
     PRESENTATION_EDITOR = "libreoffice";
