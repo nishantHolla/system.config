@@ -1,0 +1,86 @@
+#!/bin/sh
+
+VM_DIR=$HOME/VMs
+
+if [ "$#" -lt "1" ]; then
+    echo "Usage: $(basename "$0") [create|launch|remove|list] <args>" >&2
+    exit 1
+fi
+
+if [ "$1" == "create" ]; then
+    if [ "$#" -lt "2" ]; then
+        echo "Usage: $(basename "$0") create <vm-name>" >&2
+        exit 1
+    fi
+
+    if [ "$2" == "debian-base" ]; then
+        echo "Invalid vm name debian-base" >&2
+        exit 1
+    fi
+
+    BASE_IMAGE=$VM_DIR/debian-base.qcow2
+    COPY_IMAGE=$VM_DIR/$2.qcow2
+
+    if [ -f "$COPY_IMAGE" ]; then
+        echo "$2 vm already exists" >&2
+        exit 1
+    fi
+
+    echo "Creating vm $2..."
+    cp $BASE_IMAGE $COPY_IMAGE
+
+elif [ "$1" == "launch" ]; then
+    if [ "$#" -lt "2" ]; then
+        echo "Usage: $(basename "$0") launch <vm-name>" >&2
+        exit 1
+    fi
+
+    TARGET_IMAGE=$VM_DIR/$2.qcow2
+
+    if [ ! -f $TARGET_IMAGE ]; then
+        echo "Could not find vm $1" >&2
+        exit 1
+    fi
+
+    echo "Launching vm $2..."
+    qemu-system-x86_64 \
+        -enable-kvm \
+        -cpu host \
+        -m 1G \
+        -drive if=pflash,format=raw,readonly=on,file=/usr/share/OVMF/x64/OVMF_CODE.4m.fd \
+        -drive if=pflash,format=raw,file=$VM_DIR/OVMF_VARS.4m.fd \
+        -drive if=virtio,file=$TARGET_IMAGE \
+        -netdev user,id=net0,hostfwd=tcp::2222-:22 \
+        -device virtio-net-pci,netdev=net0 \
+        -nographic
+
+elif [ "$1" == "remove" ]; then
+    if [ "$#" -lt "2" ]; then
+        echo "Usage: $(basename "$0") remove <vm-name>" >&2
+        exit 1
+    fi
+
+    TARGET_IMAGE=$VM_DIR/$2.qcow2
+
+    if [ ! -f $TARGET_IMAGE ]; then
+        echo "Could not find vm $1" >&2
+        exit 1
+    fi
+
+    echo "Removing vm $2..."
+    rm $TARGET_IMAGE
+
+elif [ "$1" == "list" ]; then
+    for file in $VM_DIR/*.qcow2; do
+        name=$(basename -s .qcow2 $file)
+
+        if [ $name == "debian-base" ]; then
+            continue
+        fi
+
+        echo $name
+    done
+else
+    echo "Unknown command $1" >&2
+    exit 1
+fi
