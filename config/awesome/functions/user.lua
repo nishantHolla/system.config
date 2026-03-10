@@ -22,4 +22,15 @@ user_sm.find_process_count_and = function(callback)
   end)
 end
 
+user_sm.find_os_name_and = function(callback)
+  if type(callback) ~= "function" then
+    return
+  end
+
+  AwesomeWM.awful.spawn.easy_async("grep '^ID=' /etc/os-release", function(stdout, stderr, error_reason, exit_code)
+    local value = stdout:match("ID=(.+)"):gsub("\n", "")
+    callback(value)
+  end)
+end
+
 return user_sm
