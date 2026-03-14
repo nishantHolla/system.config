@@ -1,5 +1,5 @@
 __pycache__/
 config/tmux/plugins/
-/config/zsh/.zcompdump
-config/awesome/assets/wallpapers
+config/zsh/.zcompdump
+config/awesome/assets/wallpapers/*
 !config/awesome/assets/wallpapers/default
