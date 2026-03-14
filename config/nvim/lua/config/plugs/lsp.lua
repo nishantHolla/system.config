@@ -5,7 +5,7 @@ local k_opt = utils.k_opt
 vim.lsp.enable("clangd")
 vim.lsp.enable("ruff")
 vim.lsp.enable("pyright")
-
+vim.lsp.enable("rust_analyzer")
 vim.diagnostic.enable = true
 
 vim.diagnostic.config({
@@ -17,11 +17,18 @@ vim.diagnostic.config({
 
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+        if client and client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = args.bufnr })
+            -- key("n", "gh", vim.lsp.e)
+        end
+
         key('n', 'grn', vim.lsp.buf.rename, k_opt('LSP: Rename symbol', true, true, args.buf))
         key('n', 'gra', vim.lsp.buf.code_action, k_opt('LSP: Code actions', true, true, args.buf))
         key('n', 'grr', vim.lsp.buf.references, k_opt('LSP: References', true, true, args.buf))
         key('n', 'gri', vim.lsp.buf.implementation, k_opt('LSP: Implementation', true, true, args.buf))
-        key('n', 'gO', vim.lsp.buf.document_symbol, k_opt('LSP: Document symbols', true, true, args.buf))
+        key('n', 'go', vim.lsp.buf.document_symbol, k_opt('LSP: Document symbols', true, true, args.buf))
         key('n', 'gD', vim.lsp.buf.declaration, k_opt('LSP: Declaration', true, true, args.buf))
         key('n', 'gd', vim.lsp.buf.definition, k_opt('LSP: Defintion', true, true, args.buf))
         key('n', 'gl', vim.diagnostic.open_float, k_opt('LSP: Diagnostics', true, true, args.buf))
