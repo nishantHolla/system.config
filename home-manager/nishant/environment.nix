@@ -40,7 +40,7 @@
     # fzf
 
     FZF_KEYBINDINGS = "alt-j:down,alt-k:up,alt-l:accept,alt-h:cancel";
-    FZF_DEFAULT_OPTS = "--bind=alt-j:down,alt-k:up,alt-l:accept,alt-h:cancel"
+    FZF_DEFAULT_OPTS = "--bind=alt-j:down,alt-k:up,alt-l:accept,alt-h:cancel";
 
     # git
 
