@@ -2,11 +2,16 @@
 { config, pkgs, ...}:
 
 {
+
+  home.sessionPath = [
+    "$SYSTEM_DIR/bin"
+    "$CARGO_HOME/bin"
+  ];
+
   home.sessionVariables = {
     # System
 
     SYSTEM_DIR = "$HOME/System";
-    PATH = "$PATH:$SYSTEM_DIR/bin";
 
     # XDG Paths
 
@@ -50,7 +55,6 @@
 
     RUSTUP_HOME = "$XDG_CONFIG_HOME/rustup";
     CARGO_HOME = "$XDG_CONFIG_HOME/cargo";
-    PATH = "$PATH:$CARGO_HOME/bin";
 
     # starship
 
