@@ -13,6 +13,7 @@
     bitwarden-cli              # Secure and free password manager for all of your devices
     brightnessctl              # This program allows you read and control device brightness
     btop                       # Monitor of resources
+    cargo                      # Downloads your Rust project's dependencies and builds your project
     clang-tools                # Standalone command line tools for C++ development
     dconf                      # Low level configuration system
     docker_28                  # Open source project to pack, ship and run any application as a lightweight container
@@ -54,6 +55,9 @@
     ripgrep                    # Utility that combines the usability of The Silver Searcher with the raw speed of grep
     rofi                       # Window switcher, run dialog and dmenu replacement
     ruff                       # Extremely fast Python linter and code formatter
+    rust-analyzer              # Language server for the Rust language
+    rustc                      # Safe, concurrent, practical language (wrapper script)
+    snixembed                  # Proxy StatusNotifierItems as XEmbedded systemtray-spec icons
     spotify                    # Play music from the Spotify music service
     starship                   # Minimal, blazing fast, and extremely customizable prompt for any shell
     tmux                       # Terminal multiplexer
