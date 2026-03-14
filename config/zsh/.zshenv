@@ -1,1 +1,1 @@
-. "/home/nishant/.config/cargo/env"
+[[ -f "$HOME/.config/cargo/env" ]] && . "$HOME/.config/cargo/env"
