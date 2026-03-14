@@ -254,6 +254,13 @@ def setup():
     return 0
 
 
+def link():
+    ec = setup_links()
+    if ec:
+        Log.error("link", "Linking failed")
+        return ec
+
+
 def switch():
     USER = os.getenv("USER")
     if not USER:
@@ -290,6 +297,11 @@ def run(args):
 
     elif sub_command == "switch":
         ec = switch()
+        if ec:
+            return ec
+
+    elif sub_command == "link":
+        ec = link()
         if ec:
             return ec
 

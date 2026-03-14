@@ -75,4 +75,8 @@ sub-command:
     switch:
 
         Switch to new configuration by rebuilding using home-manager.
+
+    link:
+
+        Relink config files and directories to .config
 """
