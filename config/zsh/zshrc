@@ -84,6 +84,10 @@ export FD_IGNORE="$HOME/.config/fd/ignore"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+# sops
+
+export SOPS_AGE_KEY_FILE="$HOME/Sops/age/keys.txt"
+
 # zsh syntax hilighting
 
 if [ -f ~/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
