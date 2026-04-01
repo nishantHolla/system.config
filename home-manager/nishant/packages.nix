@@ -57,6 +57,7 @@
     ruff                       # Extremely fast Python linter and code formatter
     rust-analyzer              # Language server for the Rust language
     rustc                      # Safe, concurrent, practical language (wrapper script)
+    sops                       # Simple and flexible tool for managing secrets
     spotify                    # Play music from the Spotify music service
     starship                   # Minimal, blazing fast, and extremely customizable prompt for any shell
     tmux                       # Terminal multiplexer
