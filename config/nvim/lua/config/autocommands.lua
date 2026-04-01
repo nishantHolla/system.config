@@ -32,6 +32,13 @@ autocommand('BufWritePre', {
     group = usergroup
 })
 
+-- Autoformat on save for rust
+autocommand('BufWritePre', {
+    pattern = "?*.rs",
+    command = "lua vim.lsp.buf.format()",
+    group = usergroup
+})
+
 -- Remove trailing whitespace on save
 autocommand("BufWritePre", {
     pattern = '?*',
