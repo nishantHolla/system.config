@@ -9,6 +9,5 @@
     htop
     vim
     wget
-    xclip
   ];
 }

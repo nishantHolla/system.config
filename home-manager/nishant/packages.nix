@@ -66,6 +66,7 @@
     unzip                      # Extraction utility for archives compressed in .zip format
     vimv-rs                    # Command line utility for batch-renaming files
     virtualbox                 # PC emulator
+    xclip                      # Tool to access the X clipboard from a console application
     xorg.xev                   # Log xserver events
     zathura                    # Highly customizable and functional PDF viewer
   ];
