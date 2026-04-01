@@ -227,7 +227,7 @@ cmd new ${{
 
 }}
 
-map n push :new<space>
+map <a-n> push :new<space>
 
 # Rename
 
