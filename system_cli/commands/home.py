@@ -132,8 +132,11 @@ def setup() -> Result:
         critical=True,
     )
 
-    session, ec, err = utils.runner.run(
-        "setup", f"bw unlock --raw {BW_PASSWORD}", capture=True, critical=True
+    session, _, _ = utils.runner.run(
+        "setup",
+        f"bw unlock --raw {shlex.quote(BW_PASSWORD)}",
+        capture=True,
+        critical=True,
     )
 
     utils.runner.run(
