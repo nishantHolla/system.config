@@ -18,7 +18,7 @@ def setup_fonts() -> Result:
         utils.runner.run(
             "setup",
             f"git clone git@github.com:nishantHolla/fonts.git {v.HOME_FONTS_DIR}",
-            capture=False,
+            capture=True,
             critical=True,
         )
 
@@ -38,7 +38,7 @@ def setup_icons() -> Result:
         utils.runner.run(
             "setup",
             f"git clone git@github.com:nishantHolla/icons.git {v.HOME_ICONS_DIR}",
-            capture=False,
+            capture=True,
             critical=True,
         )
 
@@ -57,7 +57,7 @@ def setup_wallpapers() -> Result:
         utils.runner.run(
             "setup",
             f"git clone git@github.com:nishantHolla/wallpapers.git {v.HOME_WALLPAPERS_DIR}",
-            capture=False,
+            capture=True,
             critical=True,
         )
 
@@ -128,7 +128,7 @@ def setup() -> Result:
     utils.runner.run(
         "setup",
         f"bw login {shlex.quote(BW_USERNAME)} {shlex.quote(BW_PASSWORD)}",
-        capture=False,
+        capture=True,
         critical=True,
     )
 
@@ -147,7 +147,7 @@ def setup() -> Result:
     note, _, _ = utils.runner.run(
         "setup",
         f'bw get item --session {session} "GithubSSH"',
-        capture=False,
+        capture=True,
         critical=True,
     )
 
@@ -167,7 +167,7 @@ def setup() -> Result:
     note, _, _ = utils.runner.run(
         "setup",
         f'bw get item --session {session} "GithubGPG-Public"',
-        capture=False,
+        capture=True,
         critical=True,
     )
     j = json.loads(note)
@@ -180,7 +180,7 @@ def setup() -> Result:
     note, _, _ = utils.runner.run(
         "setup",
         f'bw get item --session {session} "GithubGPG-Private"',
-        capture=False,
+        capture=True,
         critical=True,
     )
     j = json.loads(note)
