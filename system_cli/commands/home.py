@@ -128,7 +128,7 @@ def setup() -> Result:
     utils.runner.run(
         "setup",
         f"bw login {shlex.quote(BW_USERNAME)} {shlex.quote(BW_PASSWORD)}",
-        capture=True,
+        capture=False,
         critical=True,
     )
 
