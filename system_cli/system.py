@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from log import Log
-import values as v
+import utils
+from config import usage as u
 
 import sys
 
@@ -10,33 +10,32 @@ if __name__ == "__main__":
     program = args.pop(0)
 
     if len(args) == 0:
-        Log.info("system", v.SYSTEM_USAGE, new_line=True)
+        utils.io.info("system", u.SYSTEM_USAGE)
         exit(1)
 
     command = args.pop(0)
 
     if command == "help":
-        Log.info("system", v.SYSTEM_USAGE, new_line=True)
+        utils.io.info("system", u.SYSTEM_USAGE)
 
     elif command == "nixos":
-        from nixos import run
+        from commands import nixos
 
-        ec = run(args)
+        ec = nixos.run(args)
         if ec:
             exit(ec)
 
     elif command == "home":
-        from home import run
+        from commands import home
 
-        ec = run(args)
+        ec = home.run(args)
         if ec:
             exit(ec)
 
     else:
-        Log.error(
+        utils.io.error(
             "system",
-            f"Unknown command '{command}'\nRun 'system help' for list of commands",
+            f"Unknown command \"{command}\"\nRun 'system help' for list of commands",
         )
-        exit(1)
 
     exit(0)
