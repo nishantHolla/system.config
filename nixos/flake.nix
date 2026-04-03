@@ -8,13 +8,13 @@
   };
   outputs = inputs@{ self, nixpkgs, ... }: {
 
-    nixosConfigurations.template = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.template = nixpkgs.lib.nixosSystem { ## --START--
       modules = [
         ./template/config.nix
         ./template/packages.nix
         ./template/hardware.nix
       ];
-    };
+    }; ## --END--
 
   };
 }
