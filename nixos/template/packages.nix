@@ -6,9 +6,9 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     distrobox
-    docker-compose
     git
     htop
+    podman-compose
     vim
     wget
     xsecurelock
