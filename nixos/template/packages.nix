@@ -5,9 +5,10 @@
   # System packages
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    xsecurelock
+    git
     htop
     vim
     wget
+    xsecurelock
   ];
 }
