@@ -45,10 +45,16 @@
   programs.zsh.enable = true;
   security.pam.services.i3lock = {};
 
+  # Virtualization
+  virtualisation.podman.enable = true;
+  virtualisation.podman.dockerCompat = true;
+
+  virtualisation.docker.enable = true;
+
   # Users
   users.users.nishant = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "podman" "docker"];
     packages = with pkgs; [ ];
     shell = pkgs.zsh;
   };
