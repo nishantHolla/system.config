@@ -75,6 +75,12 @@ require("lazy").setup({
     },
 
     {
+        "goolord/alpha-nvim",
+        config = plugin("alpha"),
+        dependencies = {"nvim-mini/mini.icons"}
+    },
+
+    {
         "tpope/vim-sleuth",
     },
 })
