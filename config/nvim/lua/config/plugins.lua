@@ -70,10 +70,11 @@ require("lazy").setup({
     },
 
     {
-        "tpope/vim-sleuth",
+        "loctvl842/monokai-pro.nvim",
+        config = plugin("monokai_pro"),
     },
 
     {
-        "loctvl842/monokai-pro.nvim"
+        "tpope/vim-sleuth",
     },
 })

@@ -15,6 +15,8 @@ require('nvim-treesitter.configs').setup({
         'rust',
         'tsx',
         'typescript',
+        'markdown',
+        'markdown_inline'
     },
     highlight = {
         enable = true,
