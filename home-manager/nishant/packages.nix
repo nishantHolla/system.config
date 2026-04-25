@@ -47,7 +47,7 @@
     papirus-icon-theme         # Pixel perfect icon theme for Linux
     pcmanfm                    # File manager with GTK interface
     playerctl                  # Command-line utility and library for controlling media players that implement MPRIS
-    poppler_utils              # PDF rendering library
+    poppler-utils              # PDF rendering library
     pyright                    # Type checker for the Python language
     python313                  # High-level dynamically-typed programming language
     python313Packages.debugpy  # Implementation of the Debug Adapter Protocol for Python
