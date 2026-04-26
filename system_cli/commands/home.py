@@ -87,6 +87,11 @@ def setup_links() -> Result:
             link_path.symlink_to(p)
             utils.io.info("setup", f"Linking {link_path} to {p}")
 
+    # Temporary solution: Git config is not being identified at $XDG_CONFIG_HOME/git/config
+    GIT_SRC_CONFIG = Path("~/.config/git/config").expanduser()
+    GIT_DEST_CONFIG = Path("~/.gitconfig").expanduser()
+    GIT_SRC_CONFIG.symlink_to(GIT_DEST_CONFIG)
+
     return Result(0, "Ok")
 
 
