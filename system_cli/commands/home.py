@@ -90,7 +90,7 @@ def setup_links() -> Result:
     # Temporary solution: Git config is not being identified at $XDG_CONFIG_HOME/git/config
     GIT_SRC_CONFIG = Path("~/.config/git/config").expanduser()
     GIT_DEST_CONFIG = Path("~/.gitconfig").expanduser()
-    GIT_SRC_CONFIG.symlink_to(GIT_DEST_CONFIG)
+    GIT_DEST_CONFIG.symlink_to(GIT_SRC_CONFIG)
 
     return Result(0, "Ok")
 
