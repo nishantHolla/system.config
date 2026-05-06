@@ -6,6 +6,7 @@ local parsers = {
   'c',
   'cpp',
   'css',
+  'gitcommit',
   'go',
   'html',
   'java',
@@ -25,7 +26,8 @@ ts.install(parsers)
 vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     -- syntax highlighting, provided by Neovim
-    vim.treesitter.start()
+    local ok = pcall(vim.treesitter.start)
+    if not ok then return end
 
     -- folds, provided by Neovim
     -- vim.opt.foldmethod = 'expr'
