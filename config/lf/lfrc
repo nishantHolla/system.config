@@ -55,7 +55,7 @@ cmd trash ${{
   echo "y/n :"
   read confirm
   if [[ "$confirm" == "y" ]] ; then
-    echo "$fx" | while IFS= read -r line ; do trash-put "$line"; done
+    echo "$fx" | while IFS= read -r line ; do trashy put "$line"; done
   fi
 }}
 
