@@ -1,5 +1,6 @@
 local usergroup = vim.api.nvim_create_augroup("UserGroup", { clear = true})
 local autocommand = vim.api.nvim_create_autocmd
+local utils = require("config.utils")
 
 -- Set formatoptions
 autocommand("FileType", {
@@ -68,37 +69,7 @@ autocommand("Filetype", {
 -- Winbar with the file name
 autocommand("BufWinEnter", {
     callback = function()
-        local bt = vim.bo.buftype
-        local ft = vim.bo.filetype
-
-        local ignore = {
-            "help",
-            "nofile",
-            "quickfix",
-        }
-
-        local ignore_ft = {
-            "TelescopePrompt",
-            "oil",
-        }
-
-        if vim.tbl_contains(ignore, bt) or vim.tbl_contains(ignore_ft, ft) then
-            vim.wo.winbar = ""
-        else
-            local project_root = vim.fs.root(0, {".git"})
-            if project_root == nil then
-                vim.wo.winbar = "%F"
-            else
-                project_root = vim.fn.resolve(vim.fn.expand(project_root))
-                local parent = vim.fn.fnamemodify(project_root, ":h")
-                local path = vim.api.nvim_buf_get_name(0)
-
-                if path:sub(1, #parent) == parent then
-                    path = path:sub(#parent + 1)
-                end
-                vim.wo.winbar = "Git: " .. path
-            end
-        end
+        vim.wo.winbar = utils.winbar_text()
     end,
     group = usergroup,
 })

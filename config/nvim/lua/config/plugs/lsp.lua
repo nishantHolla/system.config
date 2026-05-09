@@ -21,7 +21,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if client and client.server_capabilities.inlayHintProvider then
             vim.lsp.inlay_hint.enable(true, { bufnr = args.bufnr })
-            -- key("n", "gh", vim.lsp.e)
+
+            key('n', '<leader>e', function()
+                if vim.lsp.inlay_hint.is_enabled() then
+                    vim.lsp.inlay_hint.enable(false)
+                else
+                    vim.lsp.inlay_hint.enable(true, { bufnr = args.bufnr })
+                end
+            end, k_opt("LSP: Toggle inlay hints", true, true, args.buf))
         end
 
         key('n', 'grn', vim.lsp.buf.rename, k_opt('LSP: Rename symbol', true, true, args.buf))
