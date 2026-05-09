@@ -1,0 +1,88 @@
+#!/bin/sh
+
+set -e
+
+CMD="$1"
+TMP=$(mktemp)
+
+cleanup() {
+    rm -f "$TMP"
+}
+trap cleanup EXIT
+
+prepare_tmp() {
+    trashy list --rev > "$1"
+}
+
+open_editor() {
+    $EDITOR "$1"
+}
+
+get_selected_files() {
+    cat "$1" | grep -E -o "/.*"
+}
+
+confirm() {
+    echo "Selected files:" >&2
+    printf '%s\n\n' "$1" >&2
+
+    printf "Are you sure you want to %s these files? [y/N]: " "$2" >&2
+    read ans
+
+    case "$ans" in
+        y|Y) return 0 ;;  # success
+        *)   return 1 ;;
+    esac
+}
+
+wrap() {
+    printf '%s' "$1" | sed 's/^/"/; s/[[:space:]]*$/"/'
+}
+
+case "$CMD" in
+    list)
+        prepare_tmp "$TMP"
+        open_editor "$TMP"
+        ;;
+
+    restore)
+        prepare_tmp "$TMP"
+        open_editor "$TMP"
+        selected=$(get_selected_files "$TMP")
+
+        if [ -z "$selected" ]; then
+            echo "No files selected."
+            exit 0
+        fi
+
+        if confirm "$selected" "restore"; then
+            echo "Restoring $selected"
+            wrap "$selected" | xargs -r trashy restore --match=exact --force
+        else
+            echo "Aborted"
+        fi
+        ;;
+
+    remove)
+        prepare_tmp "$TMP"
+        open_editor "$TMP"
+        selected=$(get_selected_files "$TMP")
+
+        if [ -z "$selected" ]; then
+            echo "No files selected."
+            exit 0
+        fi
+
+        if confirm "$selected" "remove"; then
+            echo "Removing $selected"
+            wrap "$selected" | xargs -r trashy empty --match=exact --force
+        else
+            echo "Aborted."
+        fi
+        ;;
+
+    *)
+        echo "Usage: trash {list|restore|remove}"
+        exit 1
+        ;;
+esac
