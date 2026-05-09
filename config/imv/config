@@ -15,15 +15,15 @@ overlay_position_bottom = true
 # alias = command to run
 
 [binds]
-# Define some key bindings
 q = quit
-y = exec echo working!
 
 # Image navigation
 <Left> = prev
+p = prev
 <bracketleft> = prev
 <Right> = next
 <bracketright> = next
+n = next
 gg = goto 1
 <Shift+G> = goto -1
 
@@ -48,7 +48,7 @@ o = zoom -1
 x = close
 f = fullscreen
 d = overlay
-p = exec echo $imv_current_file
+# p = exec echo $imv_current_file
 c = center
 s = scaling next
 <Shift+S> = upscaling next
