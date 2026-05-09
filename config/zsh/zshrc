@@ -72,8 +72,8 @@ fi
 # fzf
 
 source <(fzf --zsh)
-export FZF_KEYBINDINGS="alt-j:down,alt-k:up,alt-l:accept,alt-h:cancel"
-export FZF_DEFAULT_OPTS="--bind=alt-j:down,alt-k:up,alt-l:accept,alt-h:cancel"
+export FZF_KEYBINDINGS="alt-j:down,alt-k:up,alt-l:accept,alt-h:cancel,alt-space:toggle"
+export FZF_DEFAULT_OPTS="--bind=$FZF_KEYBINDINGS"
 
 # fd
 
