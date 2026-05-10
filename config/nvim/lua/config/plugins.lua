@@ -65,12 +65,6 @@ require("lazy").setup({
     },
 
     {
-        "numToStr/Comment.nvim",
-        config = plugin("comment"),
-        event = "VeryLazy",
-    },
-
-    {
         "loctvl842/monokai-pro.nvim",
         config = plugin("monokai_pro"),
     },
