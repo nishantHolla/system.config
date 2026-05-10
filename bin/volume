@@ -32,7 +32,7 @@ pw_toggle() {
 
 ### PulseAudio (pactl) ###
 pa_get() {
-  pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | tr -d '%'
+  pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | tr -d '%\n'
 }
 
 pa_is_muted() {
@@ -57,7 +57,7 @@ pa_toggle() {
 
 ### ALSA (amixer) ###
 alsa_get() {
-  amixer get Master | awk -F'[][]' 'END{print $2}' | tr -d '%'
+  amixer get Master | awk -F'[][]' 'END{print $2}' | tr -d '%\n'
 }
 
 alsa_is_muted() {
@@ -135,28 +135,27 @@ case "${1:-}" in
   set)
     [ -z "${2:-}" ] && {
       echo "Usage: $0 set <N|N%|N%+|N%->" >&2
-          exit 1
-        }
-
-      value="$(parse_set_arg "$2")"
-
-      [ "$value" -lt 0 ] && value=0
-      [ "$value" -gt 100 ] && value=100
-
-      set_volume "$value"
-      ;;
-    mute)
-      "${BACKEND}_mute"
-      ;;
-    unmute)
-      "${BACKEND}_unmute"
-      ;;
-    toggle)
-      "${BACKEND}_toggle"
-      ;;
-    *)
-      echo "Usage: $0 {get|set <N|N%|N%+|N%->|mute|unmute|toggle}" >&2
       exit 1
-      ;;
-  esac
+    }
 
+    value="$(parse_set_arg "$2")"
+
+    [ "$value" -lt 0 ] && value=0
+    [ "$value" -gt 100 ] && value=100
+
+    set_volume "$value"
+    ;;
+  mute)
+    "${BACKEND}_mute"
+    ;;
+  unmute)
+    "${BACKEND}_unmute"
+    ;;
+  toggle)
+    "${BACKEND}_toggle"
+    ;;
+  *)
+    echo "Usage: $0 {get|set <N|N%|N%+|N%->|mute|unmute|toggle}" >&2
+    exit 1
+    ;;
+esac
