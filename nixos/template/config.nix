@@ -35,8 +35,12 @@
   services.printing.enable = true;
 
   # Sound
-  services.pulseaudio.enable = true;
-  services.pipewire.enable = false;
+  services.pulseaudio.enable = false;
+  services.pipewire.enable = true;
+  services.pipewire.pulse.enable = true;
+  services.pipewire.alsa.enable = true;
+  services.pipewire.alsa.support32Bit = true;
+  security.rtkit.enable = true;
 
   # Touchpad
   services.libinput.enable = true;
