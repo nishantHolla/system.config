@@ -10,5 +10,5 @@ Personal NixOS + Home Manager configuration, AwesomeWM setup, helper shell utili
 - **Home Manager configuration** under `home-manager/`.
 - **User config files** under `config/` (AwesomeWM, Neovim, tmux, rofi, zsh, etc.).
 - **Shell helpers** under `bin/` used by widgets/keybinds and daily workflow.
-- **`system` Python CLI** under `system_cli/` for setup/switch operations.
+- **`system` Python CLI** under `cli/` for setup/switch operations.
 - **`journal.md`** with manual installation notes and system bring-up steps.

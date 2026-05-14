@@ -1,5 +1,5 @@
 {
-  description = "Shell for system_cli";
+  description = "Shell for system";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";

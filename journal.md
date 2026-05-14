@@ -44,10 +44,10 @@ mount /dev/disk/by-label/BOOT /mnt/boot
 ```bash
 cd /mnt
 git clone https://github.com/nishantHolla/system.config System
-cd System/system_cli
+cd System/cli
 ```
 
-- Setup nixos using system_cli
+- Setup nixos using system
 ```bash
 nix-shell -p python313
 python system.py nixos setup
@@ -59,10 +59,10 @@ python system.py nixos setup
 ```bash
 sudo mv /System .
 sudo chown -R nishant System
-cd System/system_cli
+cd System/cli
 ```
 
-- Setup home-manager using system_cli
+- Setup home-manager using system
 ```bash
 nix-shell -p python313 bitwarden-cli
 python system.py home setup
