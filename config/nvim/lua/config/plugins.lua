@@ -44,14 +44,10 @@ require("lazy").setup({
     },
 
     {
-        "hrsh7th/nvim-cmp",
-        config = plugin("nvim_cmp"),
-        dependencies = {
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "L3MON4D3/LuaSnip",
-        },
-        event = "VeryLazy"
+        'saghen/blink.cmp',
+        version = '1.*',
+        config = plugin("blink-cmp"),
+        opts_extend = { "sources.default" }
     },
 
     {
@@ -73,6 +69,11 @@ require("lazy").setup({
         "goolord/alpha-nvim",
         config = plugin("alpha"),
         dependencies = {"nvim-mini/mini.icons"}
+    },
+
+    {
+        "saghen/blink.indent",
+        config = plugin("blink-indent")
     },
 
     {

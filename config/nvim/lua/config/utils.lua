@@ -3,13 +3,13 @@ local M = {}
 -- Buffer
 
 M.count_buffers = function()
-  local count = 0
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
-      count = count + 1
+    local count = 0
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
+            count = count + 1
+        end
     end
-  end
-  return count
+    return count
 end
 
 M.close_buffer = function()
