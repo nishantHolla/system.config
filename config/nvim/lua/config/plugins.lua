@@ -66,12 +66,6 @@ require("lazy").setup({
     },
 
     {
-        "goolord/alpha-nvim",
-        config = plugin("alpha"),
-        dependencies = {"nvim-mini/mini.icons"}
-    },
-
-    {
         "saghen/blink.indent",
         config = plugin("blink-indent")
     },
