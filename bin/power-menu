@@ -11,21 +11,21 @@ OPTIONS="$SHUTDOWN_OPTION$RESTART_OPTION$LOCK_OPTION$SLEEP_OPTION$LOGOUT_OPTION"
 SELECTED=`echo -en "$OPTIONS" | rofi -dmenu -i -p "Powermenu: " -icon-theme GI`
 
 if [[ -z "$SELECTED" ]] ; then
-	exit 1
+    exit 1
 fi
 
 confirm
 if [[ "$?" == "1" ]] ; then
-	exit 2
+    exit 2
 fi
 
 case "$SELECTED" in
 
-	"shutdown") awesome-client "AwesomeWM.functions.power.shutdown()";;
-	"restart") awesome-client "AwesomeWM.functions.power.reboot()";;
-	"logout") awesome-client "AwesomeWM.functions.power.logout()";;
-	"sleep") awesome-client "AwesomeWM.functions.power.sleep()";;
-	"lock") awesome-client "AwesomeWM.functions.power.lock()";;
-	*) exit 3;
+    "shutdown") awesome-client "AwesomeWM.functions.power.shutdown()";;
+    "restart") awesome-client "AwesomeWM.functions.power.reboot()";;
+    "logout") awesome-client "AwesomeWM.functions.power.logout()";;
+    "sleep") awesome-client "AwesomeWM.functions.power.sleep()";;
+    "lock") awesome-client "AwesomeWM.functions.power.lock()";;
+    *) exit 3;
 
 esac

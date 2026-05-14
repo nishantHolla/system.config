@@ -10,6 +10,6 @@ SELECTION=`echo -en $OPTIONS | rofi -dmenu -i -p "Are you sure? : " -icon-theme 
 
 echo "$SELECTION"
 if [[ $SELECTION == "yes" ]] ; then
-	exit 0
+    exit 0
 fi
 exit 1

@@ -8,25 +8,25 @@ OUTPUT_DIR="$HOME/backups"
 
 # List your directories here
 INCLUDE_PATHS=(
-    "/home/nishant/Academics"
-    "/home/nishant/Books"
-    "/home/nishant/Code"
-    "/home/nishant/Colors"
-    "/home/nishant/Documents"
-    "/home/nishant/Downloads"
-    "/home/nishant/Job"
-    "/home/nishant/Pictures"
-    "/home/nishant/Videos"
-    "/home/nishant/Applications"
-    "/home/nishant/Sops"
-    "/home/nishant/.config"
+"/home/nishant/Academics"
+"/home/nishant/Books"
+"/home/nishant/Code"
+"/home/nishant/Colors"
+"/home/nishant/Documents"
+"/home/nishant/Downloads"
+"/home/nishant/Job"
+"/home/nishant/Pictures"
+"/home/nishant/Videos"
+"/home/nishant/Applications"
+"/home/nishant/Sops"
+"/home/nishant/.config"
 )
 
 # Optional: exclude patterns
 EXCLUDES=(
-  "*.cache"
-  "node_modules"
-  ".venv"
+"*.cache"
+"node_modules"
+".venv"
 )
 
 # -------- PREP --------
@@ -34,7 +34,7 @@ mkdir -p "$OUTPUT_DIR"
 
 TMP_EXCLUDE_FILE=$(mktemp)
 for pattern in "${EXCLUDES[@]}"; do
-  echo "$pattern" >> "$TMP_EXCLUDE_FILE"
+    echo "$pattern" >> "$TMP_EXCLUDE_FILE"
 done
 
 ARCHIVE_PATH="$OUTPUT_DIR/$BACKUP_NAME"
@@ -43,13 +43,13 @@ echo "Creating backup: $ARCHIVE_PATH"
 
 # -------- BACKUP --------
 tar \
-  --create \
-  --gzip \
-  --file="$ARCHIVE_PATH" \
-  --preserve-permissions \
-  --numeric-owner \
-  --exclude-from="$TMP_EXCLUDE_FILE" \
-  "${INCLUDE_PATHS[@]}"
+--create \
+--gzip \
+--file="$ARCHIVE_PATH" \
+--preserve-permissions \
+--numeric-owner \
+--exclude-from="$TMP_EXCLUDE_FILE" \
+"${INCLUDE_PATHS[@]}"
 
 # -------- CLEANUP --------
 rm "$TMP_EXCLUDE_FILE"

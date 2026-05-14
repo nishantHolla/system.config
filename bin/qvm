@@ -44,15 +44,15 @@ elif [ "$1" == "launch" ]; then
 
     echo "Launching vm $2..."
     qemu-system-x86_64 \
-        -enable-kvm \
-        -cpu host \
-        -m 1G \
-        -drive if=pflash,format=raw,readonly=on,file=/usr/share/OVMF/x64/OVMF_CODE.4m.fd \
-        -drive if=pflash,format=raw,file=$VM_DIR/OVMF_VARS.4m.fd \
-        -drive if=virtio,file=$TARGET_IMAGE \
-        -netdev user,id=net0,hostfwd=tcp::2222-:22 \
-        -device virtio-net-pci,netdev=net0 \
-        -nographic
+    -enable-kvm \
+    -cpu host \
+    -m 1G \
+    -drive if=pflash,format=raw,readonly=on,file=/usr/share/OVMF/x64/OVMF_CODE.4m.fd \
+    -drive if=pflash,format=raw,file=$VM_DIR/OVMF_VARS.4m.fd \
+    -drive if=virtio,file=$TARGET_IMAGE \
+    -netdev user,id=net0,hostfwd=tcp::2222-:22 \
+    -device virtio-net-pci,netdev=net0 \
+    -nographic
 
 elif [ "$1" == "remove" ]; then
     if [ "$#" -lt "2" ]; then

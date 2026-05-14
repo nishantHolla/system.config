@@ -2,25 +2,25 @@
 { config, pkgs, ... }:
 
 {
-  gtk = {
-    enable = true;
+    gtk = {
+        enable = true;
 
-    theme = {
-      name = "Adwaita-dark";
+        theme = {
+            name = "Adwaita-dark";
+        };
+
+        iconTheme = {
+            name = "Papirus-Dark";
+            package = pkgs.papirus-icon-theme;
+        };
+
+        cursorTheme = {
+            name = "Bibata-Modern-Classic";
+            package = pkgs.bibata-cursors;
+        };
     };
 
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
+    xresources.properties = {
+        "Xcursor.theme" = "Bibata-Modern-Classic";
     };
-
-    cursorTheme = {
-      name = "Bibata-Modern-Classic";
-      package = pkgs.bibata-cursors;
-    };
-  };
-
-  xresources.properties = {
-    "Xcursor.theme" = "Bibata-Modern-Classic";
-  };
 }
