@@ -8,13 +8,13 @@ theme_m.is_dark_theme = true
 
 theme_m.white = "#F0F1DF"
 theme_m.gray = "#2A2D30"
-theme_m.black = "#0D0D0D"
+theme_m.black = "#080808"
 
-theme_m.red = "#ff005c"
-theme_m.purple = "#ddaaff"
-theme_m.blue = "#60a3d9"
-theme_m.green = "#9aeba3"
-theme_m.yellow = "#ffe06a"
+theme_m.red = "#ff5189"
+theme_m.purple = "#ae81ff"
+theme_m.blue = "#74b2ff"
+theme_m.green = "#36c692"
+theme_m.yellow = "#e3c78a"
 theme_m.orange = "#F5793B"
 
 theme_m.default_font = "Inconsolata LGC Nerd Font Mono"
