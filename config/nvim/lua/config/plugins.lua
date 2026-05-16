@@ -71,6 +71,11 @@ require("lazy").setup({
     },
 
     {
+        "3rd/image.nvim",
+        config = plugin("image")
+    },
+
+    {
         "tpope/vim-sleuth",
     },
 })

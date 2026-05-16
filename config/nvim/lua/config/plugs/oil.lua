@@ -16,7 +16,7 @@ require("oil").setup({
         ['<a-v>'] = { 'actions.select', opts = { vertical = true } },
         ['<a-h>'] = { 'actions.select', opts = { horizontal = true } },
         ['<a-t>'] = { 'actions.select', opts = { tab = true } },
-        ['<a-p>'] = 'actions.preview',
+        ['<a-p>'] = { 'actions.preview', opts = { split = 'belowright' } },
         ['<leader><leader>'] = { 'actions.close', mode = 'n' },
         ['<a-r>'] = 'actions.refresh',
         ['<a-k>'] = { 'actions.parent', mode = 'n' },
