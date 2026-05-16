@@ -61,11 +61,6 @@ require("lazy").setup({
     },
 
     {
-        "loctvl842/monokai-pro.nvim",
-        config = plugin("monokai_pro"),
-    },
-
-    {
         "saghen/blink.indent",
         config = plugin("blink-indent")
     },
@@ -78,4 +73,10 @@ require("lazy").setup({
     {
         "tpope/vim-sleuth",
     },
+
+    {
+        "bluz71/vim-moonfly-colors",
+        config = plugin("moonfly")
+    }
+
 })
