@@ -32,6 +32,7 @@
         git                        # Distributed version control system
         glow                       # Render markdown on the CLI, with pizzazz!
         gnumake                    # Tool to control the generation of non-source files from sources
+        imagemagick                # Software suite to create, edit, compose, or convert bitmap images
         imv                        # Command line image viewer for tiling window managers
         inkscape                   # Vector graphics editor
         kdePackages.filelight      # Quickly visualize your disk space usage
