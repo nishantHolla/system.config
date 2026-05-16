@@ -14,3 +14,4 @@ indent.setup({
 })
 
 key("n", "<leader>i", function() indent.enable(not indent.is_enabled()) end, k_opt("Toggle indent guides"))
+vim.cmd("highlight BlinkIndent guifg=#3e4036")
