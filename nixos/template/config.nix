@@ -54,7 +54,7 @@
     virtualisation.podman.dockerCompat = true;
 
     # Users
-    users.users.nishant = {
+    users.users.$TEMPLATE_USERNAME = {
         isNormalUser = true;
         extraGroups = [ "wheel" "podman" ];
         packages = with pkgs; [ ];
