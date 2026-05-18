@@ -31,7 +31,7 @@ key("n", "<leader>sp", function() utils.shared_paste() end, k_opt("Paste text fr
 key("n", "<leader>ss", ":w<cr>", k_opt("Write current buffer"))
 key("n", "<leader>sa", ":wa<cr>", k_opt("Write all buffers"))
 key("n", "<leader>qq", function() utils.close_buffer() end, k_opt("Close current buffer"))
-key("n", "<leader>qa", ":qa<cr>", k_opt("Close all buffers"))
+key("n", "<leader>qa", function() utils.close_all_buffers() end, k_opt("Close all buffers"))
 
 -- Buffer
 key("n", "<a-i>", ":bp<cr>", k_opt("Go to previous buffer"))
@@ -55,7 +55,7 @@ key({"n", "v", "o"}, "<a-;>", "0", k_opt("Press 0"))
 key("t", "<leader><leader>", "<c-\\><c-n>", k_opt("Move from terminal mode to normal mode"))
 
 -- Tabs
-key("n", "<leader>=", ":tabnew %<cr>", k_opt("Expand current buffer"))
-key("n", "<leader>+", ":tabclose<cr>", k_opt("Close expanded tab"))
+key({"n", "t"}, "<a-/>", "<cmd>tabnew %<cr>", k_opt("Expand current buffer"))
+key({"n", "t"}, "<a-?>", "<cmd>tabclose<cr>", k_opt("Close expanded tab"))
 key("n", "<a-I>", ":tabprevious<cr>", k_opt("Go to previous tab"))
 key("n", "<a-O>", ":tabnext<cr>", k_opt("Go to next tab"))

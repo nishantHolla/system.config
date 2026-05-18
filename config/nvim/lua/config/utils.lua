@@ -24,6 +24,53 @@ M.close_buffer = function()
     end
 end
 
+M.close_all_buffers = function()
+    if M.has_terminal_with_running_job() then
+        local choice = vim.fn.confirm(
+            "Terminal processes are still running. Quit anyway?",
+            "&Yes\n&No",
+            2
+        )
+
+        if choice ~= 1 then
+            return
+        end
+    end
+
+    vim.cmd("qa")
+end
+
+-- Terminal
+
+M.has_terminal_with_running_job = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.bo[buf].buftype == "terminal" then
+            local job_id = vim.b[buf].terminal_job_id
+            if not job_id then
+                goto continue
+            end
+
+            local pid = vim.fn.jobpid(job_id)
+            if pid <= 0 then
+                goto continue
+            end
+
+            local children = vim.fn.systemlist({
+                "pgrep",
+                "-P",
+                tostring(pid),
+            })
+
+            if #children > 0 then
+                return true
+            end
+        end
+        ::continue::
+    end
+
+    return false
+end
+
 -- Keymaps
 
 M.key = vim.keymap.set
