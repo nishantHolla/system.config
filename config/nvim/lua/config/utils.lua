@@ -158,4 +158,12 @@ M.winbar_text = function()
     end
 end
 
+-- User commands
+
+vim.api.nvim_create_user_command("BytePos", function()
+    local pos = vim.api.nvim_win_get_cursor(0)
+    local offset = vim.api.nvim_buf_get_offset(0, pos[1] - 1) + pos[2]
+    print(offset)
+end, {})
+
 return M
