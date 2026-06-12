@@ -1,6 +1,0 @@
-[project]
-name = "system-cli"
-version = "0.1.0"
-description = "CLI tool for managing the system"
-requires-python = ">=3.13"
-dependencies = []
