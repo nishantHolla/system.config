@@ -15,19 +15,19 @@ sudo su
     - `nixos`: nGB Linux Filesystem
 ```bash
 lsblk
-fdisk /dev/<partition-name>
+fdisk /dev/{disk-name}
 ```
 
-- Setup LUKS encryption on `nixos` partition
+- Setup LUKS encryption on `nixos` partiton
 ```bash
-cryptsetup luksFormat /dev/<nixos-partition>
-cryptsetup luksOpen /dev/<nixos-partition> crypted
+cryptsetup luksFormat /dev/{nixos-partion}
+cryptsetup luksOpen /dev/{nixos-partion} crypted
 ```
 
-- Format partitions
+- Format paartitions
 ```bash
-mkfs.fat -F 32 -n BOOT /dev/<boot-parition>
-mkswap -L swap /dev/<swap-parition>
+mkfs.fat -F 32 -n BOOT /dev/{BOOT}
+mkswap -L swap /dev/{SWAP}
 mkfs.ext4 -L nixos /dev/mapper/crypted
 ```
 
@@ -39,7 +39,6 @@ mkdir -p /mnt/boot
 mount /dev/disk/by-label/BOOT /mnt/boot
 ```
 
-
 - Clone `System` repository
 ```bash
 cd /mnt
@@ -49,16 +48,18 @@ cd System/cli
 
 - Setup nixos using system
 ```bash
-nix-shell -p python313
+nix --experimental-features "nix-command flakes" develop
 python system.py nixos setup
 ```
 
-- Shutdown and remove iso
+- Shutdown and remove the install medium
+
+- Power on the system and login with the user account
 
 - Bring system to home directory
 ```bash
 sudo mv /System .
-sudo chown -R nishant System
+sudo chown -R $(whoami) System
 cd System/cli
 ```
 
