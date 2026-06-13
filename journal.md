@@ -11,32 +11,40 @@ sudo su
 
 - Setup partitions
     - `BOOT`: 1GB FAT 32
-    - `swap`: 8GB Linux Swap
-    - `nixos`: nGB Linux Filesystem
+    - `SWAP`: 8GB Linux Swap
+    - `DISK`: nGB Linux Filesystem
 ```bash
 lsblk
 fdisk /dev/{disk-name}
 ```
 
+- Setup variables for disy by partuuid
+```bash
+blkid
+BOOT=/dev/disk/by-partuuid/{id-of-BOOT-partition}
+SWAP=/dev/disk/by-partuuid/{id-of-SWAP-partition}
+DISK=/dev/disk/by-partuuid/{id-of-DISK-partition}
+```
+
 - Setup LUKS encryption on `nixos` partiton
 ```bash
-cryptsetup luksFormat /dev/{nixos-partion}
-cryptsetup luksOpen /dev/{nixos-partion} crypted
+cryptsetup luksFormat ${DISK}
+cryptsetup luksOpen ${DISK} crypted
 ```
 
 - Format paartitions
 ```bash
-mkfs.fat -F 32 -n BOOT /dev/{BOOT}
-mkswap -L swap /dev/{SWAP}
+mkfs.fat -F 32 -n BOOT ${BOOT}
+mkswap -L swap ${SWAP}
 mkfs.ext4 -L nixos /dev/mapper/crypted
 ```
 
 - Mount partitions
 ```bash
 mount /dev/mapper/crypted /mnt
-swapon /dev/disk/by-label/swap
+swapon ${SWAP}
 mkdir -p /mnt/boot
-mount /dev/disk/by-label/BOOT /mnt/boot
+mount ${BOOT} /mnt/boot
 ```
 
 - Clone `System` repository
