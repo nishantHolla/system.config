@@ -166,10 +166,31 @@ def _setup_wallpapers() -> Result[None, str]:
 
 
 def _setup_config() -> Result[None, str]:
+    DEST_DIR = Path("~/.config").expanduser()
+
+    for item in v.SYSTEM_CONFIG_DIR.iterdir():
+        link_path = DEST_DIR / item.name
+
+        if link_path.exists():
+            utils.io.warning(f"{link_path} already exists. Skipping linking")
+        else:
+            p = item.resolve()
+            link_path.symlink_to(p)
+            utils.io.info(f"Linking {link_path} to {p}")
+
+    # Temporary solution: Git config is not being identified at $XDG_CONFIG_HOME/git/config
+    GIT_SRC_CONFIG = Path("~/.config/git/config").expanduser()
+    GIT_DEST_CONFIG = Path("~/.gitconfig").expanduser()
+    GIT_DEST_CONFIG.symlink_to(GIT_SRC_CONFIG)
+
     return Ok(None)
 
 
 def _setup_awesome() -> Result[None, str]:
+    v.AWESOME_DIR.mkdir(parents=True, exist_ok=True)
+    open(v.AWESOME_DIR / "notification_history.txt", "a").close()
+    open(v.AWESOME_DIR / "notes.txt", "a").close()
+
     return Ok(None)
 
 
