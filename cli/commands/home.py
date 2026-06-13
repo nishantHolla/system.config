@@ -208,7 +208,7 @@ def setup_home() -> Result[None, str]:
     utils.io.info("Checking if bitwarden is setup")
     setup_bw = True
     result = utils.runner.run(
-        'bw status | grep -q \'"status":"unauthenticated"\'',
+        r'bw status | grep -q "\"status\":\"unauthenticated\""',
         capture=True,
         critical=False,
     ).unwrap()
