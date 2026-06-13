@@ -57,7 +57,7 @@
         vimv-rs                    # Command line utility for batch-renaming files
         virtualbox                 # PC emulator
         xclip                      # Tool to access the X clipboard from a console application
-        xorg.xev                   # Log xserver events
+        xev                        # Log xserver events
         zathura                    # Highly customizable and functional PDF viewer
     ];
 }
