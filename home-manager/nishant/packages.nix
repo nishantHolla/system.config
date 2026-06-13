@@ -16,7 +16,7 @@
         cargo                      # Downloads your Rust project's dependencies and builds your project
         clang-tools                # Standalone command line tools for C++ development
         dconf                      # Low level configuration system
-        docker_28                  # Open source project to pack, ship and run any application as a lightweight container
+        docker                     # Open source project to pack, ship and run any application as a lightweight container
         dragon-drop                # Simple drag-and-drop source/sink for X or Wayland (called dragon in upstream)
         eza                        # Modern, maintained replacement for ls
         fd                         # Simple, fast and user-friendly alternative to find
