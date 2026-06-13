@@ -72,7 +72,7 @@ def setup_nixos() -> Result[None, str]:
 
     utils.io.info("Updating hardware file for host")
     utils.runner.run(
-        f"cp -r {ROOT_HARDWARE_FILE} {HOST_HARDWARE_FILE}",
+        f"cp -f {ROOT_HARDWARE_FILE} {HOST_HARDWARE_FILE}",
         capture=True,
         critical=True,
     )
@@ -107,7 +107,7 @@ def setup_nixos() -> Result[None, str]:
         except Exception as e:
             return Err(f"Failed to write flake file. Error: {e}")
 
-    utils.io.info("Adding new conig to git")
+    utils.io.info("Adding new config to git")
     utils.runner.run(f"git add {v.NIXOS_DIR}", capture=True, critical=True)
 
     utils.io.info("Installing system")
