@@ -9,5 +9,5 @@
         python313                  # High-level dynamically-typed programming language
         python313Packages.debugpy  # Implementation of the Debug Adapter Protocol for Python
         ruff                       # Extremely fast Python linter and code formatter
-    ]
+    ];
 }

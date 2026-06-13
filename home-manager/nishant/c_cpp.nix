@@ -9,5 +9,5 @@
         gcc                        # GNU Compiler Collection, version 14.2.1.20250322 (wrapper script)
         gdb                        # GNU Project debugger
         libgcc                     # GNU Compiler Collection, version 14.2.1.20250322
-    ]
+    ];
 }
