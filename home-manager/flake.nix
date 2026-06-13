@@ -20,12 +20,15 @@
                 inherit pkgs;
 
                 modules = [
+                    ./nishant/c_cpp.nix
                     ./nishant/dconf.nix
                     ./nishant/environment.nix
                     ./nishant/gtk.nix
                     ./nishant/home.nix
                     ./nishant/packages.nix
                     ./nishant/picom.nix
+                    ./nishant/python.nix
+                    ./nishant/rust.nix
                     ./nishant/zsh.nix
                 ];
             };

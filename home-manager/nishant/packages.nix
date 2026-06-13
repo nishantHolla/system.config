@@ -13,8 +13,6 @@
         bitwarden-cli              # Secure and free password manager for all of your devices
         brightnessctl              # This program allows you read and control device brightness
         btop                       # Monitor of resources
-        cargo                      # Downloads your Rust project's dependencies and builds your project
-        clang-tools                # Standalone command line tools for C++ development
         dconf                      # Low level configuration system
         docker                     # Open source project to pack, ship and run any application as a lightweight container
         dragon-drop                # Simple drag-and-drop source/sink for X or Wayland (called dragon in upstream)
@@ -26,8 +24,6 @@
         flowblade                  # Multitrack Non-Linear Video Editor
         font-manager               # Simple font management for GTK desktop environments
         fzf                        # Command-line fuzzy finder written in Go
-        gcc                        # GNU Compiler Collection, version 14.2.1.20250322 (wrapper script)
-        gdb                        # GNU Project debugger
         gimp3                      # GNU Image Manipulation Program
         git                        # Distributed version control system
         glow                       # Render markdown on the CLI, with pizzazz!
@@ -38,7 +34,6 @@
         kdePackages.filelight      # Quickly visualize your disk space usage
         kdePackages.kdeconnect-kde # Multi-platform app that allows your devices to communicate
         lf                         # Terminal file manager written in Go and heavily inspired by ranger
-        libgcc                     # GNU Compiler Collection, version 14.2.1.20250322
         libreoffice-qt6            # Comprehensive, professional-quality productivity suite, a variant of openoffice.org
         mpv                        # General-purpose media player, fork of MPlayer and mplayer2
         neovim                     # Vim text editor fork focused on extensibility and agility
@@ -49,15 +44,9 @@
         pcmanfm                    # File manager with GTK interface
         playerctl                  # Command-line utility and library for controlling media players that implement MPRIS
         poppler-utils              # PDF rendering library
-        pyright                    # Type checker for the Python language
-        python313                  # High-level dynamically-typed programming language
-        python313Packages.debugpy  # Implementation of the Debug Adapter Protocol for Python
         qalculate-qt               # Ultimate desktop calculator
         ripgrep                    # Utility that combines the usability of The Silver Searcher with the raw speed of grep
         rofi                       # Window switcher, run dialog and dmenu replacement
-        ruff                       # Extremely fast Python linter and code formatter
-        rust-analyzer              # Language server for the Rust language
-        rustc                      # Safe, concurrent, practical language (wrapper script)
         sops                       # Simple and flexible tool for managing secrets
         spotify                    # Play music from the Spotify music service
         starship                   # Minimal, blazing fast, and extremely customizable prompt for any shell
