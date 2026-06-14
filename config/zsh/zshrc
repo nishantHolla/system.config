@@ -38,6 +38,10 @@ bindkey '^e' edit-command-line
 
 [ -f "$ZDOTDIR/aliasrc" ] && source "$ZDOTDIR/aliasrc"
 
+# Environment
+
+[ -f "$ZDOTDIR/envrc" ] && source "$ZDOTDIR/envrc"
+
 # Starship
 
 eval "$(starship init zsh)"
