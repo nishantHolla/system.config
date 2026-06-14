@@ -6,6 +6,10 @@
     home.username = "nishant";
     home.homeDirectory = "/home/nishant";
 
+    # Environment Variables
+    home.sessionPath = [ "$SYSTEM_DIR/bin" ];
+    home.sessionVariables = { SYSTEM_DIR = "$HOME/System"; };
+
     # State Version
     home.stateVersion = "26.05";
 
