@@ -13,7 +13,7 @@
         bitwarden-cli              # Secure and free password manager for all of your devices
         brightnessctl              # This program allows you read and control device brightness
         btop                       # Monitor of resources
-        # dconf                      # Low level configuration system
+        dconf                      # Low level configuration system
         docker                     # Open source project to pack, ship and run any application as a lightweight container
         dragon-drop                # Simple drag-and-drop source/sink for X or Wayland (called dragon in upstream)
         eza                        # Modern, maintained replacement for ls
