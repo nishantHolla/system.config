@@ -227,21 +227,30 @@ def setup_home() -> Result[None, str]:
     ## Bitwarden
 
     utils.io.info("Checking if bitwarden is setup")
-    setup_bw = True
     result = utils.runner.run(
         r'bw status | grep -q "\"status\":\"unauthenticated\""',
         capture=True,
         critical=False,
-    ).unwrap()
+    )
 
-    if result == "1":
-        setup_bw = False
+    match result:
+        case Err(_):
+            is_unauthenticated = False
+        case Ok(_):
+            is_unauthenticated = True
+
+    if is_unauthenticated:
+        setup_bw = True
+    else:
         confirm = utils.io.get_confirmation(
             "Bitwarden is already setup. Do you want to log out?"
         )
+
         if confirm:
             utils.runner.run("bw logout", capture=True, critical=True)
             setup_bw = True
+        else:
+            setup_bw = False
 
     if setup_bw:
         utils.io.info("Setting up bitwarden")
