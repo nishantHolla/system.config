@@ -1,0 +1,58 @@
+#!/bin/sh
+
+# System
+
+export SYSTEM_DIR="$HOME/System"
+
+# XDG Paths
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
+# GTK
+
+export XCURSOR_THEME="Bibata-Modern-Classic"
+
+# Applications
+
+export EDITOR="nvim"
+export TERMINAL="alacritty"
+export BROWSER="firefox"
+export FILE_MANAGER="pcmanfm"
+export CLI_FILE_MANAGER="lf"
+export PDF_VIEWER="zathura"
+export IMAGE_VIEWER="imv"
+export VIDEO_VIEWER="mpv"
+export WORD_EDITOR="libreoffice"
+export PRESENTATION_EDITOR="libreoffice"
+export SPREADSHEET_EDITOR="libreoffice"
+export MANPAGER="nvim +Man!"
+
+# fd
+
+export FD_IGNORE="$XDG_CONFIG_HOME/fd/ignore"
+
+# fzf
+
+export FZF_KEYBINDINGS="alt-j:down,alt-k:up,alt-l:accept,alt-h:cancel"
+export FZF_DEFAULT_OPTS="--bind=alt-j:down,alt-k:up,alt-l:accept,alt-h:cancel"
+
+# git
+
+export GIT_CONFIG_GLOBAL="$XDG_CONFIG_HOME/git/.gitconfig"
+
+# rust
+
+export RUSTUP_HOME="$XDG_CONFIG_HOME/rustup"
+export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
+
+# starship
+
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
+
+# xsecurelock
+
+export XSECURELOCK_BLANK_DPMS_STATE="off"
+export XSECURELOCK_FONT="Inconsolata LGC Nerd Font Mono"
+export XSECURELOCK_SHOW_DATETIME="1"

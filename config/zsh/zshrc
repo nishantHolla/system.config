@@ -36,7 +36,7 @@ bindkey '^e' edit-command-line
 
 # Aliases
 
-[ -f "$HOME/.config/zsh/aliasrc" ] && source "$HOME/.config/zsh/aliasrc"
+[ -f "$ZDOTDIR/aliasrc" ] && source "$ZDOTDIR/aliasrc"
 
 # Starship
 
