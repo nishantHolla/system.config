@@ -260,14 +260,21 @@ def setup_home() -> Result[None, str]:
 
     ## Github SSH keys
 
-    utils.io.info("Pulling down SSH keys from bitwarden")
-    SSH_DIR.mkdir(parents=True, exist_ok=True)
-    _setup_ssh(SSH_FILE, SSH_PUB_FILE, session)
+    if SSH_DIR.is_dir():
+        confirm = utils.io.get_confirmation(
+            f"{SSH_DIR} is already present. Do you want to pull down ssh key?"
+        )
+        if confirm:
+            utils.io.info("Pulling down SSH keys from bitwarden")
+            SSH_DIR.mkdir(parents=True, exist_ok=True)
+            _setup_ssh(SSH_FILE, SSH_PUB_FILE, session)
 
     ## Github GPG keys
 
-    utils.io.info("Pulling dow GPG keys from bitwarden")
-    _setup_gpg(TEMP_GPG_FILE, session)
+    confirm = utils.io.get_confirmation("Do you want to pull down gpg key?")
+    if confirm:
+        utils.io.info("Pulling dow GPG keys from bitwarden")
+        _setup_gpg(TEMP_GPG_FILE, session)
 
     ## Git repo
 
