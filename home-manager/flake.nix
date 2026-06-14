@@ -25,6 +25,7 @@
                     ./nishant/environment.nix
                     ./nishant/gtk.nix
                     ./nishant/home.nix
+                    ./nishant/lua.nix
                     ./nishant/packages.nix
                     ./nishant/picom.nix
                     ./nishant/python.nix
