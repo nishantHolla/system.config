@@ -181,7 +181,9 @@ def _setup_config() -> Result[None, str]:
     # Temporary solution: Git config is not being identified at $XDG_CONFIG_HOME/git/config
     GIT_SRC_CONFIG = Path("~/.config/git/config").expanduser()
     GIT_DEST_CONFIG = Path("~/.gitconfig").expanduser()
-    GIT_DEST_CONFIG.symlink_to(GIT_SRC_CONFIG)
+
+    if not GIT_DEST_CONFIG.exists():
+        GIT_DEST_CONFIG.symlink_to(GIT_SRC_CONFIG)
 
     return Ok(None)
 
