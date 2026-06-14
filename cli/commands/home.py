@@ -115,7 +115,7 @@ def _setup_fonts() -> Result[None, str]:
         utils.io.info("Pulling down fonts repo")
         utils.runner.run(
             f"git clone {v.FONTS_REPO_URL} {v.HOME_FONTS_DIR}",
-            capture=True,
+            capture=False,
             critical=True,
         )
     else:
@@ -136,8 +136,8 @@ def _setup_icons() -> Result[None, str]:
         utils.io.info("Pulling down icons repo")
         utils.runner.run(
             f"git clone {v.ICONS_REPO_URL} {v.HOME_ICONS_DIR}",
+            capture=False,
             critical=True,
-            capture=True,
         )
     else:
         utils.io.warning(f"{v.HOME_ICONS_DIR} already exists. Skipping pull")
@@ -156,7 +156,7 @@ def _setup_wallpapers() -> Result[None, str]:
         utils.io.info("Pulling down wallpapers repo")
         utils.runner.run(
             f"git clone {v.WALLPAPERS_REPO_URL} {v.HOME_WALLPAPERS_DIR}",
-            capture=True,
+            capture=False,
             critical=True,
         )
     else:
