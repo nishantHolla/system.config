@@ -10,7 +10,7 @@ BITWARDEN_GPG_PRIVATE_KEY_NOTE_NAME = "GithubGPG-Private"
 SYSTEM_REPO_URL = "git@github.com:nishantHolla/system.config.git"
 FONTS_REPO_URL = "git@github.com:nishantHolla/fonts.git"
 ICONS_REPO_URL = "git@github.com:nishantHolla/icons.git"
-WALLPAPERS_REPO_URL = "git@github.com:nishantHolla/icons.git"
+WALLPAPERS_REPO_URL = "git@github.com:nishantHolla/wallpapers.git"
 
 ## Paths
 
