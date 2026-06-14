@@ -52,6 +52,7 @@
         starship                   # Minimal, blazing fast, and extremely customizable prompt for any shell
         tmux                       # Terminal multiplexer
         trash-cli                  # Command line interface to the freedesktop.org trashcan
+        tree-sitter                # Parser generator tool and an incremental parsing library
         ueberzugpp                 # Drop in replacement for ueberzug written in C++
         unzip                      # Extraction utility for archives compressed in .zip format
         vimv-rs                    # Command line utility for batch-renaming files
