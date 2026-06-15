@@ -37,6 +37,9 @@
         # fd
 
         FD_IGNORE = "${config.home.sessionVariables.XDG_CONFIG_HOME}/fd/ignore";
+
+        # fzf
+
         FZF_KEYBINDINGS = "alt-j:down,alt-k:up,alt-l:accept,alt-h:cancel,alt-space:toggle";
         FZF_DEFAULT_OPTS = ''
     --bind=${config.home.sessionVariables.FZF_KEYBINDINGS}
@@ -58,7 +61,7 @@
 
         # git
 
-        GIT_CONFIG_GLOBAL = "${config.home.sessionVariables.XDG_CONFIG_HOME}/git/.gitignore";
+        GIT_CONFIG_GLOBAL = "${config.home.sessionVariables.XDG_CONFIG_HOME}/git/config";
 
         # rust
 
