@@ -268,8 +268,10 @@ def setup_home() -> Result[None, str]:
         )
         if confirm:
             utils.io.info("Pulling down SSH keys from bitwarden")
-            SSH_DIR.mkdir(parents=True, exist_ok=True)
             _setup_ssh(SSH_FILE, SSH_PUB_FILE, session)
+    else:
+        SSH_DIR.mkdir(parents=True, exist_ok=True)
+        _setup_ssh(SSH_FILE, SSH_PUB_FILE, session)
 
     ## Github GPG keys
 
