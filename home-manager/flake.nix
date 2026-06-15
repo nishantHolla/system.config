@@ -22,6 +22,7 @@
                 modules = [
                     ./nishant/c_cpp.nix
                     ./nishant/dconf.nix
+                    ./nishant/env.nix
                     ./nishant/gtk.nix
                     ./nishant/home.nix
                     ./nishant/lua.nix

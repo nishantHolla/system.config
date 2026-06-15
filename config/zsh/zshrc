@@ -2,7 +2,7 @@
 
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=~/.cache/zsh/history
+HISTFILE=$XDG_CACHE_HOME/zsh/history
 setopt appendhistory
 setopt inc_append_history
 
@@ -36,11 +36,13 @@ bindkey '^e' edit-command-line
 
 # Aliases
 
-[ -f "$HOME/.config/zsh/aliasrc" ] && source "$HOME/.config/zsh/aliasrc"
+alias ls='eza -lh --color=auto'
+alias lf='lfcd'
+alias valgrind-check='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes'
 
-# Environment
+# fzf
 
-[ -f "$HOME/.config/zsh/envrc" ] && source "$HOME/.config/zsh/envrc"
+source <(fzf --zsh)
 
 # Starship
 
@@ -55,6 +57,10 @@ if [ ! -d "$TPM_DIR" ]; then
   echo "TPM not found. Cloning Tmux Plugin Manager..."
   git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"
 fi
+
+# Cargo
+
+[[ -f "$CARGO_HOME/env" ]] && . "$CARGO_HOME/env"
 
 # lf
 
@@ -75,8 +81,8 @@ fi
 
 # zsh syntax hilighting
 
-if [ -f ~/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source ~/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f $XDG_DATA_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source $XDG_DATA_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 fpath+=~/.zfunc; autoload -Uz compinit; compinit

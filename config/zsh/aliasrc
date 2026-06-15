@@ -1,5 +1,0 @@
-#!/bin/sh
-
-alias ls='eza -lh --color=auto'
-alias lf='lfcd'
-alias valgrind-check='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes'
