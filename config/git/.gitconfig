@@ -4,7 +4,7 @@
 	signingkey = 3D2F01C42414FBDE
 [core]
 	editor = nvim
-	excludesfile = /home/nishant/.config/git/gitignore
+	excludesfile = ~/.config/git/gitignore
 [init]
 	defaultBranch = main
 [commit]
