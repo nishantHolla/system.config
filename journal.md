@@ -32,7 +32,7 @@ cryptsetup luksFormat ${DISK}
 cryptsetup luksOpen ${DISK} crypted
 ```
 
-- Format paartitions
+- Format partitions
 ```bash
 mkfs.fat -F 32 -n BOOT ${BOOT}
 mkswap -L swap ${SWAP}
