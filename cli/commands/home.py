@@ -220,7 +220,7 @@ def setup_home() -> Result[None, str]:
     match result:
         case Err(_):
             utils.io.info("Setting up home-manager")
-            _setup_home_manager(v.HOME_MANAGER_DIR, USER)
+            _setup_home_manager(v.SYSTEM_FLAKE_DIR, USER)
         case Ok(_):
             utils.io.info(
                 "home-manager is already installed. Skipping installation of home manager"
@@ -342,7 +342,7 @@ def switch_home() -> Result[None, str]:
 
     utils.io.info("Switching home-manager config")
     utils.runner.run(
-        f"home-manager switch --flake {v.HOME_MANAGER_DIR}#{USER}",
+        f"home-manager switch --flake {v.SYSTEM_FLAKE_DIR}#{USER}",
         capture=False,
         critical=True,
     )

@@ -17,10 +17,11 @@ WALLPAPERS_REPO_URL = "git@github.com:nishantHolla/wallpapers.git"
 SYSTEM_CLI_DIR = Path(__file__).parent.parent
 SYSTEM_DIR = SYSTEM_CLI_DIR.parent
 SYSTEM_CONFIG_DIR = SYSTEM_DIR / "config"
+SYSTEM_FLAKE_DIR = SYSTEM_DIR
 
 NIXOS_DIR = SYSTEM_DIR / "nixos"
 NIXOS_TEMPLATE_DIR = NIXOS_DIR / "template"
-NIXOS_FLAKE_FILE = NIXOS_DIR / "flake.nix"
+NIXOS_FLAKE_FILE = SYSTEM_DIR / "flake.nix"
 
 HOME_MANAGER_DIR = SYSTEM_DIR / "home-manager"
 HOME_FONTS_DIR = Path("~/Fonts").expanduser()

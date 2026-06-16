@@ -112,7 +112,7 @@ def setup_nixos() -> Result[None, str]:
 
     utils.io.info("Installing system")
     utils.runner.run(
-        f"nixos-install --flake {v.NIXOS_DIR}#{HOSTNAME}",
+        f"nixos-install --flake {v.SYSTEM_FLAKE_DIR}#{HOSTNAME}",
         capture=False,
         critical=True,
     )
@@ -135,7 +135,7 @@ def switch_nixos() -> Result[None, str]:
 
     utils.io.info("Switching nixos config")
     utils.runner.run(
-        f"sudo nixos-rebuild switch --flake {v.NIXOS_DIR}#{HOSTNAME}",
+        f"sudo nixos-rebuild switch --flake {v.SYSTEM_FLAKE_DIR}#{HOSTNAME}",
         critical=True,
         capture=False,
     )
