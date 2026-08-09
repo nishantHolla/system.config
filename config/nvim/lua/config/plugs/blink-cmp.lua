@@ -10,9 +10,7 @@ require("blink.cmp").setup({
         ['<a-h>'] = { 'accept', 'fallback' },
         ['<a-k>'] = { 'select_prev', 'fallback' },
         ['<a-j>'] = { 'select_next', 'fallback' },
-    },
-
-    appearance = {
+        ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
     },
 
     completion = {
@@ -22,7 +20,31 @@ require("blink.cmp").setup({
     },
 
     sources = {
-        default = { 'path', 'buffer' },
+        default = function(ctx)
+            local success, node = pcall(vim.treesitter.get_node)
+            if success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
+                return { 'buffer' }
+            else
+                return { 'lsp', 'path', 'buffer' }
+            end
+        end,
+
+        providers = {
+            buffer = {
+                opts = {
+                    get_bufnrs = function()
+                        return vim.tbl_filter(function(bufnr)
+                            return vim.bo[bufnr].buftype == ''
+                        end, vim.api.nvim_list_bufs())
+                    end
+                }
+            }
+        }
+    },
+
+    signature = {
+        enabled = true,
+        trigger = { enabled = false }
     },
 
     fuzzy = { implementation = "prefer_rust_with_warning" },
