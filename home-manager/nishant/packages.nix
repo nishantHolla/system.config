@@ -51,7 +51,7 @@
         spotify                    # Play music from the Spotify music service
         starship                   # Minimal, blazing fast, and extremely customizable prompt for any shell
         tmux                       # Terminal multiplexer
-        trash-cli                  # Command line interface to the freedesktop.org trashcan
+        trashy                     # Simple, fast, and featureful alternative to rm and trash-cli
         tree-sitter                # Parser generator tool and an incremental parsing library
         ueberzugpp                 # Drop in replacement for ueberzug written in C++
         unzip                      # Extraction utility for archives compressed in .zip format
