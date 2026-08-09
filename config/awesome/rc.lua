@@ -57,6 +57,3 @@ AwesomeWM.functions.spawn_once("gnome-keyring-daemon --start --components=secret
 AwesomeWM.services.battery.start()
 
 local is_resrart = AwesomeWM.functions.check_restart_file()
-if is_resrart == false then
-  AwesomeWM.functions.network.refresh()
-end
