@@ -10,7 +10,7 @@
     boot.loader.efi.canTouchEfiVariables = true;
 
     # Networking
-    networking.hostName = "$TEMPLATE_HOSTNAME";
+    networking.hostName = "nixosPavilion";
     networking.networkmanager.enable = true;
 
     # Time Zone
@@ -57,7 +57,7 @@
     virtualisation.podman.dockerCompat = true;
 
     # Users
-    users.users.$TEMPLATE_USERNAME = {
+    users.users.nishant = {
         isNormalUser = true;
         extraGroups = [ "wheel" "podman" ];
         packages = with pkgs; [ ];
