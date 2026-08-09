@@ -11,7 +11,7 @@ cleanup() {
 trap cleanup EXIT
 
 prepare_tmp() {
-    trashy list --rev > "$1"
+    trash list --rev > "$1"
 }
 
 open_editor() {
@@ -57,7 +57,7 @@ case "$CMD" in
 
         if confirm "$selected" "restore"; then
             echo "Restoring $selected"
-            wrap "$selected" | xargs -r trashy restore --match=exact --force
+            wrap "$selected" | xargs -r trash restore --match=exact --force
         else
             echo "Aborted"
         fi
@@ -75,14 +75,14 @@ case "$CMD" in
 
         if confirm "$selected" "remove"; then
             echo "Removing $selected"
-            wrap "$selected" | xargs -r trashy empty --match=exact --force
+            wrap "$selected" | xargs -r trash empty --match=exact --force
         else
             echo "Aborted."
         fi
         ;;
 
     *)
-        echo "Usage: trash {list|restore|remove}"
+        echo "Usage: trsh {list|restore|remove}"
         exit 1
         ;;
 esac
