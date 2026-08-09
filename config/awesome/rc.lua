@@ -52,6 +52,7 @@ AwesomeWM.functions.spawn_once("flameshot")
 AwesomeWM.functions.spawn_once("kdeconnect-indicator")
 AwesomeWM.functions.spawn_once("picom")
 AwesomeWM.functions.spawn_once("blueman-applet")
+AwesomeWM.functions.spawn_once("gnome-keyring-daemon --start --components=secrets")
 
 AwesomeWM.services.battery.start()
 

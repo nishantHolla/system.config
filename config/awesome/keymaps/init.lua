@@ -145,7 +145,7 @@ keymaps_m.list = {
     {
       { mod }, "space",
       function()
-        AwesomeWM.functions.spawn_with_shell("open")
+        AwesomeWM.functions.spawn_with_shell("launcher")
       end,
       "Launcher"
     },
