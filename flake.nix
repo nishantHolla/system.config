@@ -24,6 +24,14 @@
                 ];
             }; ## --END--
 
+            nixosConfigurations.nixosPavilion = nixpkgs.lib.nixosSystem { ## --START--
+                modules = [
+                    ./nixos/nixosPavilion/config.nix
+                    ./nixos/nixosPavilion/packages.nix
+                    ./nixos/nixosPavilion/hardware.nix
+                ];
+            };
+
             homeConfigurations."nishant" = home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
 
@@ -38,6 +46,7 @@
                     ./home-manager/nishant/picom.nix
                     ./home-manager/nishant/python.nix
                     ./home-manager/nishant/rust.nix
+                    ./home-manager/nishant/udiskie.nix
                     ./home-manager/nishant/zsh.nix
                 ];
             };
