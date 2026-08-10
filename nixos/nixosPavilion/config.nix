@@ -51,6 +51,7 @@
     # Programs
     programs.zsh.enable = true;
     programs.dconf.enable = true;
+    programs.nix-ld.enable = true;
     security.pam.services.i3lock = {};
 
     # Virtualization
