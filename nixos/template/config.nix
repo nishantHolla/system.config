@@ -2,11 +2,12 @@
 { config, lib, pkgs, ... }:
 
 {
-    # GRUB Boot Loader
+    # Boot Loader
     boot.loader.grub.enable = true;
     boot.loader.grub.devices = [ "nodev" ];
     boot.loader.grub.efiSupport = true;
     boot.loader.grub.useOSProber = true;
+    boot.loader.grub.configurationLimit = 7;
     boot.loader.efi.canTouchEfiVariables = true;
 
     # Networking
@@ -79,6 +80,14 @@
     networking.firewall.enable = true;
     networking.firewall.allowedTCPPorts = [ 22 80 443 ];
     networking.firewall.allowedUDPPorts = [ ];
+
+    # Garbage collection
+    nix.gc.automatic = true;
+    nix.gc.dates = "weekly";
+    nix.gc.options = "--delete-older-than 15d";
+
+    nix.optimise.automatic = true;
+    nix.optimise.dates = "weekly";
 
     # Other settings
     system.stateVersion = "25.05";

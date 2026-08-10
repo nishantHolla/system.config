@@ -2,11 +2,12 @@
 { config, lib, pkgs, ... }:
 
 {
-    # GRUB Boot Loader
+    # Boot Loader
     boot.loader.grub.enable = true;
     boot.loader.grub.devices = [ "nodev" ];
     boot.loader.grub.efiSupport = true;
     boot.loader.grub.useOSProber = true;
+    boot.loader.grub.configurationLimit = 7;
     boot.loader.efi.canTouchEfiVariables = true;
 
     # Networking
@@ -59,7 +60,7 @@
     # Users
     users.users.nishant = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "podman" ];
+        extraGroups = [ "wheel" "podman" "tailscale" ];
         packages = with pkgs; [ ];
         shell = pkgs.zsh;
     };
@@ -74,11 +75,21 @@
     # Services
     services.openssh.enable = true;
     services.udisks2.enable = true;
+    services.tailscale.enable = true;
 
     # Firewall
     networking.firewall.enable = true;
     networking.firewall.allowedTCPPorts = [ 22 80 443 ];
-    networking.firewall.allowedUDPPorts = [ ];
+    networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
+    networking.firewall.trustedInterfaces = [ "tailscale0" ];
+
+    # Garbage collection
+    nix.gc.automatic = true;
+    nix.gc.dates = "weekly";
+    nix.gc.options = "--delete-older-than 15d";
+
+    nix.optimise.automatic = true;
+    nix.optimise.dates = "weekly";
 
     # Other settings
     system.stateVersion = "25.05";
