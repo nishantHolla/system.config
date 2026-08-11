@@ -143,6 +143,16 @@ def switch_nixos() -> Result[None, str]:
     return Ok(None)
 
 
+def list_generations() -> Result[None, str]:
+    utils.runner.run(
+        "sudo nixos-rebuild list-generations",
+        critical=True,
+        capture=False,
+    )
+
+    return Ok(None)
+
+
 ### Sub Commands ###
 
 
@@ -160,6 +170,17 @@ def setup():
 @app.command(help=v.NIXOS_TYPER_HELP["switch"])
 def switch():
     result = switch_nixos()
+    match result:
+        case Err(e):
+            utils.io.error(e)
+            exit(1)
+
+    exit(0)
+
+
+@app.command(help=v.NIXOS_TYPER_HELP["generation"])
+def generation():
+    result = list_generations()
     match result:
         case Err(e):
             utils.io.error(e)

@@ -41,10 +41,12 @@ NIXOS_TYPER_HELP_STR = "Control system-level configuration"
 NIXOS_TYPER_HELP = {
     "setup": "Perform setup actions for the system",
     "switch": "Switch to new configuration by rebuilding using nixos",
+    "generation": "List generations of the nixos system",
 }
 
 HOME_TYPER_HELP_STR = "Control home-manager level configuration"
 HOME_TYPER_HELP = {
     "setup": "Perform setup actions for the user",
     "switch": "Switch to new configuration by rebuilding using home-manager",
+    "generation": "List generations of the home-manager system",
 }
