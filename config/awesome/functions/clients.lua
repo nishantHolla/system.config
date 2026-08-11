@@ -33,6 +33,13 @@ clients_sm.init_clients = function()
         placement = AwesomeWM.awful.placement.top_right,
       },
     },
+    {
+      rule = { role = "GtkFileChooserDialog" },
+      description = "Rule for file chooser",
+      properties = {
+        floating = true,
+      },
+    },
   }
 
   AwesomeWM.client.connect_signal("unmanage", function(client)
