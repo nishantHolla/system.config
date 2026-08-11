@@ -16,15 +16,7 @@
             pkgs = nixpkgs.legacyPackages.${system};
         in {
 
-            nixosConfigurations.template = nixpkgs.lib.nixosSystem { ## --START--
-                modules = [
-                    ./nixos/template/config.nix
-                    ./nixos/template/packages.nix
-                    ./nixos/template/hardware.nix
-                ];
-            }; ## --END--
-
-            nixosConfigurations.nixosPavilion = nixpkgs.lib.nixosSystem { ## --START--
+            nixosConfigurations.nixosPavilion = nixpkgs.lib.nixosSystem {
                 modules = [
                     ./nixos/nixosPavilion/config.nix
                     ./nixos/nixosPavilion/packages.nix

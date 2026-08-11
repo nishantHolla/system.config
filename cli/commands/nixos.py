@@ -48,27 +48,9 @@ def setup_nixos() -> Result[None, str]:
 
     utils.io.info(f"Checking if host config exists at {HOST_CONFIG_DIR}")
     if not HOST_CONFIG_DIR.is_dir():
-        utils.io.info(f"Making host config at {HOST_CONFIG_DIR}")
-        utils.runner.run(
-            f"cp -r {v.NIXOS_TEMPLATE_DIR} {HOST_CONFIG_DIR}",
-            capture=True,
-            critical=True,
+        return Err(
+            f"Host config for host {HOSTNAME} does not exist at {HOST_CONFIG_DIR}. Please create it before running the setup"
         )
-
-        utils.io.info("Updating config file for host")
-        result = utils.file.find_and_replace(
-            HOST_CONFIG_FILE, "$TEMPLATE_HOSTNAME", HOSTNAME
-        )
-        match result:
-            case Err(e):
-                return Err(f"Failed to update config file. Error: {e}")
-
-        result = utils.file.find_and_replace(
-            HOST_CONFIG_FILE, "$TEMPLATE_USERNAME", USERNAME
-        )
-        match result:
-            case Err(e):
-                return Err(f"Failed to update config file. Error: {e}")
 
     utils.io.info("Updating hardware file for host")
     utils.runner.run(

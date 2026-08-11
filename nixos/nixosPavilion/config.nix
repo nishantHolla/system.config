@@ -80,8 +80,18 @@
 
     # Firewall
     networking.firewall.enable = true;
-    networking.firewall.allowedTCPPorts = [ 22 80 443 ];
-    networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
+    networking.firewall.allowedTCPPorts = [
+        22  # SSH
+        80  # HTTP
+        443 # HTTPS
+    ];
+    networking.firewall.allowedTCPPortRanges = [
+        { from = 1714; to = 1764; } # KDE Connect
+    ];
+    networking.firewall.allowedUDPPorts = [
+        config.services.tailscale.port
+    ];
+    networking.firewall.allowedUDPPortRanges = config.networking.firewall.allowedTCPPortRanges;
     networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
     # Garbage collection
