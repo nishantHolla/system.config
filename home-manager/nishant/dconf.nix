@@ -7,5 +7,9 @@
             "disable-connected-notifications" = true;
             "disable-disconnected-notifications" = true;
         };
+        "org/virt-manager/virt-manager/connections" = {
+            autoconnect = [ "qemu:///system" ];
+            uris = [ "qemu:///system" ];
+        };
     };
 }

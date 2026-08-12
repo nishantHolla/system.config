@@ -58,7 +58,6 @@
         ueberzugpp                 # Drop in replacement for ueberzug written in C++
         unzip                      # Extraction utility for archives compressed in .zip format
         vimv-rs                    # Command line utility for batch-renaming files
-        virtualbox                 # PC emulator
         vscode                     # Code editor developed by Microsoft
         xclip                      # Tool to access the X clipboard from a console application
         xev                        # Log xserver events

@@ -17,10 +17,6 @@
     # Time Zone
     time.timeZone = "Asia/Kolkata";
 
-    # Network Proxy
-    # networking.proxy.default = "http://user:password@proxy:port/";
-    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
     # Internationalisation properties.
     i18n.defaultLocale = "en_US.UTF-8";
 
@@ -37,12 +33,7 @@
 
     # Sound
     services.pulseaudio.enable = true;
-
     services.pipewire.enable = false;
-    services.pipewire.pulse.enable = false;
-    services.pipewire.alsa.enable = false;
-    services.pipewire.alsa.support32Bit = false;
-
     security.rtkit.enable = true;
 
     # Touchpad
@@ -52,16 +43,19 @@
     programs.zsh.enable = true;
     programs.dconf.enable = true;
     programs.nix-ld.enable = true;
+    programs.virt-manager.enable = true;
     security.pam.services.i3lock = {};
 
     # Virtualization
     virtualisation.podman.enable = true;
     virtualisation.podman.dockerCompat = true;
+    virtualisation.libvirtd.enable = true;
+    virtualisation.libvirtd.qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
 
     # Users
     users.users.nishant = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "podman" "tailscale" ];
+        extraGroups = [ "wheel" "podman" "tailscale" "libvirtd" ];
         packages = with pkgs; [ ];
         shell = pkgs.zsh;
     };
@@ -92,7 +86,7 @@
         config.services.tailscale.port
     ];
     networking.firewall.allowedUDPPortRanges = config.networking.firewall.allowedTCPPortRanges;
-    networking.firewall.trustedInterfaces = [ "tailscale0" ];
+    networking.firewall.trustedInterfaces = [ "tailscale0" "virbr0" ];
 
     # Garbage collection
     nix.gc.automatic = true;

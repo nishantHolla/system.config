@@ -6,6 +6,7 @@
     nixpkgs.config.allowUnfree = true;
     environment.systemPackages = with pkgs; [
         distrobox         # Wrapper around podman or docker to create and start containers
+        dnsmasq           # Integrated DNS, DHCP and TFTP server for small networks
         git               # Distributed version control system
         htop              # Interactive process viewer
         podman-compose    # Implementation of docker-compose with podman backend
