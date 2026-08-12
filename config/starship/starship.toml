@@ -1,8 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-add_newline = true
-
-format = '''$git_branch $git_status$python$nix_shell $directory $character'''
+format = '''$git_branch $git_status${custom.git_newline}$python$nix_shell$shlvl $directory $character'''
 
 scan_timeout = 30
 
@@ -20,16 +18,16 @@ style = 'bold blue'
 disabled = false
 
 [git_status]
-format = "$untracked$modified$staged$renamed$deleted$ahead_behind$stashed$conflicted\n"
-untracked = '[U:$count](bold white)'
-modified = '[ M:$count ](bold green)'
-staged = '[ S:$count ](bold yellow)'
-renamed = '[ R:$count ](bold blue)'
-deleted = '[ D:$count ](bold red)'
-conflicted = '[ C:$count ](bold red)'
-ahead = '[ A:$count ](bold green)'
-behind = '[ B:$count ](bold blue)'
-stashed = '[ S:$count ](bold yellow)'
+format = "$untracked$modified$staged$renamed$deleted$ahead_behind$stashed$conflicted"
+untracked  = '([U:$count](bold white) )'
+modified   = '([M:$count](bold green) )'
+staged     = '([S:$count](bold yellow) )'
+renamed    = '([R:$count](bold blue) )'
+deleted    = '([D:$count](bold red) )'
+ahead      = '([A:$count](bold green) )'
+behind     = '([B:$count](bold blue) )'
+stashed    = '([S:$count](bold yellow) )'
+conflicted = '([C:$count](bold red) )'
 disabled = false
 
 [character]
@@ -41,9 +39,20 @@ error_symbol = '[>](white)'
 format = "\n"
 
 [python]
-format = '\[$virtualenv\] '
+format = '(\[py:$virtualenv\] )'
 disabled = false
 
 [nix_shell]
-format = '\[$name:$state\]'
+format = '(\[nix:$name\]) '
 disabled = false
+heuristic = true
+
+[shlvl]
+format = '\[$shlvl\]'
+disabled = false
+threshold = 2
+
+[custom.git_newline]
+command = 'echo ""'
+when = 'git rev-parse --is-inside-work-tree 2>/dev/null'
+format = "$output\n"
