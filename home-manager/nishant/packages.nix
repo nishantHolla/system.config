@@ -19,6 +19,7 @@
         dragon-drop                # Simple drag-and-drop source/sink for X or Wayland (called dragon in upstream)
         eza                        # Modern, maintained replacement for ls
         fd                         # Simple, fast and user-friendly alternative to find
+        ffmpegthumbnailer          # Lightweight video thumbnailer
         file                       # Program that shows the type of files
         firefox                    # Web browser built from Firefox source tree
         flameshot                  # Powerful yet simple to use screenshot software
