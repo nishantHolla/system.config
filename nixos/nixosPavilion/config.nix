@@ -39,6 +39,13 @@
     # Touchpad
     services.libinput.enable = true;
 
+    # Bluetooth
+
+    hardware.bluetooth.enable = true;
+    hardware.bluetooth.powerOnBoot = true;
+    hardware.bluetooth.settings.General.Enable = "Source,Sink,Media,Socket";
+    services.blueman.enable = true;
+
     # Programs
     programs.zsh.enable = true;
     programs.dconf.enable = true;
@@ -55,7 +62,7 @@
     # Users
     users.users.nishant = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "podman" "tailscale" "libvirtd" ];
+        extraGroups = [ "wheel" "podman" "tailscale" "libvirtd" "bluetooth" ];
         packages = with pkgs; [ ];
         shell = pkgs.zsh;
     };
