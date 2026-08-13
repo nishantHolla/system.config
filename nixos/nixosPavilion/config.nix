@@ -54,15 +54,22 @@
     security.pam.services.i3lock = {};
 
     # Virtualization
+    virtualisation.docker.enable = true;
     virtualisation.podman.enable = true;
-    virtualisation.podman.dockerCompat = true;
     virtualisation.libvirtd.enable = true;
     virtualisation.libvirtd.qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
 
     # Users
     users.users.nishant = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "podman" "tailscale" "libvirtd" "bluetooth" ];
+        extraGroups = [
+            "wheel"
+            "podman"
+            "docker"
+            "tailscale"
+            "libvirtd"
+            "bluetooth"
+        ];
         packages = with pkgs; [ ];
         shell = pkgs.zsh;
     };
