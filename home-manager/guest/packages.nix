@@ -1,4 +1,4 @@
-## user packages for nishant
+## user packages for guest
 { config, pkgs, ... }:
 
 {

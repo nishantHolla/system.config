@@ -1,4 +1,4 @@
-## C and C++ settings and packages for nishant
+## C and C++ settings and packages for guest
 {config, pkgs, ...}:
 
 {

@@ -1,4 +1,4 @@
-## lua settings and packages for nishant
+## lua settings and packages for guest
 {config, pkgs, ...}:
 
 {

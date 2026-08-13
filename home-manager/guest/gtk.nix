@@ -1,4 +1,4 @@
-## gtk config for nishant
+## gtk config for guest
 { config, pkgs, ... }:
 
 {

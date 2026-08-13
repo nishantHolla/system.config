@@ -1,4 +1,4 @@
-## rust settings and packages for nishant
+## rust settings and packages for guest
 {config, pkgs, ...}:
 
 {

@@ -1,10 +1,10 @@
-## home-manager for nishant
+## home-manager for guest
 { config, pkgs, ... }:
 
 {
     # User Information
-    home.username = "nishant";
-    home.homeDirectory = "/home/nishant";
+    home.username = "guest";
+    home.homeDirectory = "/home/guest";
 
     # Environment Variables
     home.sessionPath = [ "$SYSTEM_DIR/bin" ];

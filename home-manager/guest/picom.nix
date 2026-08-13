@@ -1,4 +1,4 @@
-## picom settings for nishant
+## picom settings for guest
 { config, pkgs, ... }:
 
 {

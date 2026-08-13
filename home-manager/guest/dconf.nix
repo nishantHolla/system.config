@@ -1,4 +1,4 @@
-## dconf settings for nishant
+## dconf settings for guest
 { config, pkgs, ... }:
 
 {

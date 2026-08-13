@@ -1,4 +1,4 @@
-## python settings and packages for nishant
+## python settings and packages for guest
 {config, pkgs, ...}:
 
 {

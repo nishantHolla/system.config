@@ -1,4 +1,4 @@
-## udiskie settings for nishnt
+## udiskie settings for guest
 { config, pkgs, ... }:
 
 {

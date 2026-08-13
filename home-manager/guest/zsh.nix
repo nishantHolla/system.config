@@ -1,4 +1,4 @@
-## zsh config for nishant
+## zsh config for guest
 { config, pkgs, ... }:
 
 {

@@ -1,4 +1,4 @@
-# environment variables for nishant
+# environment variables for guest
 { config, pkgs, ... }:
 
 {
