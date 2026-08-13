@@ -226,59 +226,73 @@ def setup_home() -> Result[None, str]:
                 "home-manager is already installed. Skipping installation of home manager"
             )
 
+    # Optional steps
+
+    confirm_bitwarden = False
+    confirm_ssh = False
+    confirm_gpg = False
+
     ## Bitwarden
 
-    utils.io.info("Checking if bitwarden is setup")
-    result = utils.runner.run(
-        r'bw status | grep -q "\"status\":\"unauthenticated\""',
-        capture=True,
-        critical=False,
-    )
+    confirm_bitwarden = utils.io.get_confirmation("Do you want to setup bitwarden?")
+    session = ""
 
-    match result:
-        case Err(_):
-            is_unauthenticated = False
-        case Ok(_):
-            is_unauthenticated = True
-
-    if is_unauthenticated:
-        setup_bw = True
-    else:
-        confirm = utils.io.get_confirmation(
-            "Bitwarden is already setup. Do you want to log out?"
+    if confirm_bitwarden:
+        utils.io.info("Checking if bitwarden is setup")
+        result = utils.runner.run(
+            r'bw status | grep -q "\"status\":\"unauthenticated\""',
+            capture=True,
+            critical=False,
         )
 
-        if confirm:
-            utils.runner.run("bw logout", capture=True, critical=True)
+        match result:
+            case Err(_):
+                is_unauthenticated = False
+            case Ok(_):
+                is_unauthenticated = True
+
+        if is_unauthenticated:
             setup_bw = True
         else:
-            setup_bw = False
+            confirm = utils.io.get_confirmation(
+                "Bitwarden is already setup. Do you want to log out?"
+            )
 
-    if setup_bw:
-        utils.io.info("Setting up bitwarden")
-        session = _setup_bitwarden().unwrap()
-    else:
-        session = _get_bitwarden_session().unwrap()
+            if confirm:
+                utils.runner.run("bw logout", capture=True, critical=True)
+                setup_bw = True
+            else:
+                setup_bw = False
+
+        if setup_bw:
+            utils.io.info("Setting up bitwarden")
+            session = _setup_bitwarden().unwrap()
+        else:
+            session = _get_bitwarden_session().unwrap()
 
     ## Github SSH keys
+    if session:
+        confirm_ssh = utils.io.get_confirmation("Do you want to pull down ssh key?")
 
-    if SSH_DIR.is_dir():
-        confirm = utils.io.get_confirmation(
-            f"{SSH_DIR} is already present. Do you want to pull down ssh key?"
-        )
-        if confirm:
-            utils.io.info("Pulling down SSH keys from bitwarden")
-            _setup_ssh(SSH_FILE, SSH_PUB_FILE, session)
-    else:
-        SSH_DIR.mkdir(parents=True, exist_ok=True)
-        _setup_ssh(SSH_FILE, SSH_PUB_FILE, session)
+        if confirm_ssh:
+            if SSH_DIR.is_dir():
+                confirm = utils.io.get_confirmation(
+                    f"{SSH_DIR} is already present. Do you want to pull down ssh key?"
+                )
+                if confirm:
+                    utils.io.info("Pulling down SSH keys from bitwarden")
+                    _setup_ssh(SSH_FILE, SSH_PUB_FILE, session)
+            else:
+                SSH_DIR.mkdir(parents=True, exist_ok=True)
+                _setup_ssh(SSH_FILE, SSH_PUB_FILE, session)
 
     ## Github GPG keys
+    if session:
+        confirm_gpg = utils.io.get_confirmation("Do you want to pull down gpg key?")
 
-    confirm = utils.io.get_confirmation("Do you want to pull down gpg key?")
-    if confirm:
-        utils.io.info("Pulling dow GPG keys from bitwarden")
-        _setup_gpg(TEMP_GPG_FILE, session)
+        if confirm_gpg:
+            utils.io.info("Pulling dow GPG keys from bitwarden")
+            _setup_gpg(TEMP_GPG_FILE, session)
 
     ## Git repo
 
@@ -294,27 +308,30 @@ def setup_home() -> Result[None, str]:
 
     ## Fonts
 
-    utils.io.info("Setting up fonts")
-    result = _setup_fonts()
-    match result:
-        case Err(e):
-            utils.io.error(f"Failed to setup fonts. Error: {e}")
+    if session and confirm_ssh:
+        utils.io.info("Setting up fonts")
+        result = _setup_fonts()
+        match result:
+            case Err(e):
+                utils.io.error(f"Failed to setup fonts. Error: {e}")
 
     ## Icons
 
-    utils.io.info("Setting up icons")
-    result = _setup_icons()
-    match result:
-        case Err(e):
-            utils.io.error(f"Failed to setup icons. Error: {e}")
+    if session and confirm_ssh:
+        utils.io.info("Setting up icons")
+        result = _setup_icons()
+        match result:
+            case Err(e):
+                utils.io.error(f"Failed to setup icons. Error: {e}")
 
     ## Wallpapers
 
-    utils.io.info("Setting up wallpapers")
-    result = _setup_wallpapers()
-    match result:
-        case Err(e):
-            utils.io.error(f"Failed to setup wallpapers. Error: {e}")
+    if session and confirm_ssh:
+        utils.io.info("Setting up wallpapers")
+        result = _setup_wallpapers()
+        match result:
+            case Err(e):
+                utils.io.error(f"Failed to setup wallpapers. Error: {e}")
 
     ## Awesome
 
