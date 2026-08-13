@@ -16,6 +16,8 @@
             pkgs = nixpkgs.legacyPackages.${system};
         in {
 
+            # ---------------- System configuration ------------------
+
             nixosConfigurations.nixosPavilion = nixpkgs.lib.nixosSystem {
                 modules = [
                     ./nixos/nixosPavilion/config.nix
@@ -23,6 +25,16 @@
                     ./nixos/nixosPavilion/hardware.nix
                 ];
             };
+
+            nixosConfigurations.nixosVM = nixpkgs.lib.nixosSystem {
+                modules = [
+                    ./nixos/nixosVM/config.nix
+                    ./nixos/nixosVM/packages.nix
+                    ./nixos/nixosVM/hardware.nix
+                ];
+            };
+
+            # ---------------- Home configuration ------------------
 
             homeConfigurations."nishant" = home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
@@ -43,5 +55,23 @@
                 ];
             };
 
+            homeConfigurations."guest" = home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+
+                modules = [
+                    ./home-manager/guest/c_cpp.nix
+                    ./home-manager/guest/dconf.nix
+                    ./home-manager/guest/env.nix
+                    ./home-manager/guest/gtk.nix
+                    ./home-manager/guest/home.nix
+                    ./home-manager/guest/lua.nix
+                    ./home-manager/guest/packages.nix
+                    ./home-manager/guest/picom.nix
+                    ./home-manager/guest/python.nix
+                    ./home-manager/guest/rust.nix
+                    ./home-manager/guest/udiskie.nix
+                    ./home-manager/guest/zsh.nix
+                ];
+            };
         };
 }
