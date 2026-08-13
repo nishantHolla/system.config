@@ -33,8 +33,6 @@ def setup_nixos() -> Result[None, str]:
     ROOT_HARDWARE_FILE = ROOT_CONFIG_DIR / "hardware-configuration.nix"
 
     HOST_CONFIG_DIR = v.NIXOS_DIR / HOSTNAME
-    HOST_CONFIG_FILE = HOST_CONFIG_DIR / "config.nix"
-    HOST_PACKAGE_FILE = HOST_CONFIG_DIR / "package.nix"
     HOST_HARDWARE_FILE = HOST_CONFIG_DIR / "hardware.nix"
 
     utils.io.info(f"Checking if root config exists at {ROOT_CONFIG_DIR}")
@@ -69,25 +67,7 @@ def setup_nixos() -> Result[None, str]:
 
     check = rf"(nixosConfigurations\.{HOSTNAME}\s*=\s*nixpkgs\.lib\.nixosSystem\s*)"
     if not re.search(check, flake, re.DOTALL):
-        utils.io.info("Updating flake file")
-
-        pattern = r"(nixosConfigurations\.template\s*=\s*nixpkgs\.lib\.nixosSystem\s*\{\s*##\s*--START--.*?\};)\s*##\s*--END--"
-        match = re.search(pattern, flake, re.DOTALL)
-
-        if match:
-            extracted_block = match.group(1)
-            block = extracted_block.replace("template", HOSTNAME)
-
-        else:
-            return Err("Failed to find template block")
-
-        flake = flake[: match.end()] + "\n\n    " + block + flake[match.end() :]
-        try:
-            with open(v.NIXOS_FLAKE_FILE, "w") as file:
-                file.write(flake)
-
-        except Exception as e:
-            return Err(f"Failed to write flake file. Error: {e}")
+        return Err(f"Flake file does not have hostname {HOSTNAME}")
 
     utils.io.info("Adding new config to git")
     utils.runner.run(f"git add {v.NIXOS_DIR}", capture=True, critical=True)
