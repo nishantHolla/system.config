@@ -64,12 +64,26 @@ keymaps_m.list = {
       "Increase brightness"
     },
     {
+      { mod }, "F4",
+      function()
+        AwesomeWM.functions.brightness.increase()
+      end,
+      "Increase brightness (Function key)"
+    },
+    {
       {}, "XF86MonBrightnessDown",
       function()
         AwesomeWM.functions.brightness.decrease()
       end,
       "Decrease brightness"
-    }
+    },
+    {
+      { mod }, "F3",
+      function()
+        AwesomeWM.functions.brightness.decrease()
+      end,
+      "Decrease brightness (Function key)"
+    },
   },
 
   ["Volume Controls"] = {
@@ -81,6 +95,13 @@ keymaps_m.list = {
       "Increase volume"
     },
     {
+      { mod }, "F7",
+      function()
+        AwesomeWM.functions.volume.increase()
+      end,
+      "Increase volume (Function key)"
+    },
+    {
       {}, "XF86AudioLowerVolume",
       function()
         AwesomeWM.functions.volume.decrease()
@@ -88,12 +109,26 @@ keymaps_m.list = {
       "Decrease volume"
     },
     {
+      { mod }, "F6",
+      function()
+        AwesomeWM.functions.volume.decrease()
+      end,
+      "Decrease volume (Function key)"
+    },
+    {
       {}, "XF86AudioMute",
       function()
         AwesomeWM.functions.volume.toggle()
       end,
       "Toggle volume"
-    }
+    },
+    {
+      { mod }, "F5",
+      function()
+        AwesomeWM.functions.volume.toggle()
+      end,
+      "Toggle volume (Function key)"
+    },
   },
 
   ["Player Controls"] = {
@@ -105,6 +140,13 @@ keymaps_m.list = {
       "Play previous"
     },
     {
+      { mod }, "F8",
+      function()
+        AwesomeWM.functions.player.previous()
+      end,
+      "Play previous (Function key)"
+    },
+    {
       {}, "XF86AudioNext",
       function()
         AwesomeWM.functions.player.next()
@@ -112,12 +154,26 @@ keymaps_m.list = {
       "Play next"
     },
     {
+      { mod }, "F10",
+      function()
+        AwesomeWM.functions.player.next()
+      end,
+      "Play next (Function key)"
+    },
+    {
       {}, "XF86AudioPlay",
       function()
         AwesomeWM.functions.player.toggle()
       end,
       "Toggle player"
-    }
+    },
+    {
+      { mod }, "F9",
+      function()
+        AwesomeWM.functions.player.toggle()
+      end,
+      "Toggle player (Function key)"
+    },
   },
 
   ["Applications"] = {
@@ -309,56 +365,56 @@ keymaps_m.list = {
     {
       { mod }, "Right",
       function()
-				AwesomeWM.client.focus:relative_move(AwesomeWM.values.client_geometry_step, 0, 0, 0)
+        AwesomeWM.client.focus:relative_move(AwesomeWM.values.client_geometry_step, 0, 0, 0)
       end,
       "Move client right"
     },
     {
       { mod }, "Down",
       function()
-				AwesomeWM.client.focus:relative_move(0, AwesomeWM.values.client_geometry_step, 0, 0)
+        AwesomeWM.client.focus:relative_move(0, AwesomeWM.values.client_geometry_step, 0, 0)
       end,
       "Move client down"
     },
     {
       { mod }, "Left",
       function()
-				AwesomeWM.client.focus:relative_move(-1 * AwesomeWM.values.client_geometry_step, 0, 0, 0)
+        AwesomeWM.client.focus:relative_move(-1 * AwesomeWM.values.client_geometry_step, 0, 0, 0)
       end,
       "Move client left"
     },
     {
       { mod }, "Up",
       function()
-				AwesomeWM.client.focus:relative_move(0, -1 * AwesomeWM.values.client_geometry_step, 0, 0)
+        AwesomeWM.client.focus:relative_move(0, -1 * AwesomeWM.values.client_geometry_step, 0, 0)
       end,
       "Move client up"
     },
     {
       { mod, "Ctrl" }, "Right",
       function()
-				AwesomeWM.client.focus:relative_move(0, 0, AwesomeWM.values.client_geometry_step, 0)
+        AwesomeWM.client.focus:relative_move(0, 0, AwesomeWM.values.client_geometry_step, 0)
       end,
       "Increase width of the client"
     },
     {
       { mod, "Ctrl" }, "Left",
       function()
-				AwesomeWM.client.focus:relative_move(0, 0, -1 * AwesomeWM.values.client_geometry_step, 0)
+        AwesomeWM.client.focus:relative_move(0, 0, -1 * AwesomeWM.values.client_geometry_step, 0)
       end,
       "Decrease width of the client"
     },
     {
       { mod, "Ctrl" }, "Down",
       function()
-				AwesomeWM.client.focus:relative_move(0, 0, 0, -1 * AwesomeWM.values.client_geometry_step)
+        AwesomeWM.client.focus:relative_move(0, 0, 0, -1 * AwesomeWM.values.client_geometry_step)
       end,
       "Decrease height of the client"
     },
     {
       { mod, "Ctrl" }, "Up",
       function()
-				AwesomeWM.client.focus:relative_move(0, 0, 0, AwesomeWM.values.client_geometry_step)
+        AwesomeWM.client.focus:relative_move(0, 0, 0, AwesomeWM.values.client_geometry_step)
       end,
       "Increase height of the client"
     }
