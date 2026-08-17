@@ -4,6 +4,7 @@ set shell zsh
 set shellopts '-euy'
 set ifs "\n"
 set filesep "\n"
+set watch true
 
 set drawbox
 set incsearch
@@ -13,6 +14,7 @@ set period 1
 set rulerfmt "  %a|  %p|  \033[7;31m %m \033[0m|  \033[7;33m %c \033[0m|  \033[7;35m %s \033[0m|  \033[7;34m %f \033[0m|  %i/%t"
 set info size:time
 set dircounts
+
 
 map Z set hidden!
 
@@ -205,27 +207,24 @@ map a push :archive<space>
 # New
 
 cmd new ${{
-
-  for arg in "$@"
-  do
-    if [[ "$arg" == */*\.* ]] ; then
-      p="$(dirname "$arg")"
-      f="$(basename "$arg")"
-      mkdir -p "$p"
-      touch "$arg"
-    elif [[ "$arg" == */* ]] ; then
-      mkdir -p "$arg"
-    else
-      touch "$arg"
-    fi
+  for arg in "$@"; do
+    case "$arg" in
+      */)  mkdir -p -- "$arg" ;;
+      */*) mkdir -p -- "$(dirname -- "$arg")"; touch -- "$arg" ;;
+      *)   touch -- "$arg" ;;
+    esac
   done
 
-  if [[ $# -eq 1 ]]; then
-    lf -remote "send select $1"
+  lf -remote "send $id reload"
+  lf -remote "send $id redraw"
+
+  if [ $# -eq 1 ]; then
+    target="$PWD/${1%/}"
+    target=$(printf '%s' "$target" | sed 's/\\/\\\\/g; s/"/\\"/g')
+    lf -remote "send $id select \"$target\""
   fi
-
-
 }}
+
 
 map <a-n> push :new<space>
 
