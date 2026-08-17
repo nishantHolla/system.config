@@ -2,6 +2,7 @@ local utils = require("config.utils")
 local key = utils.key
 local k_opt = utils.k_opt
 
+require('lspconfig')
 vim.lsp.enable("clangd")
 vim.lsp.enable("ruff")
 vim.lsp.enable("pyright")

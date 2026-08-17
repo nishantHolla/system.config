@@ -5,7 +5,6 @@ vim.g.loaded_netrwPlugin = 1
 
 opt.colorcolumn = "100"
 opt.confirm = true
-opt.expandtab = true
 opt.ignorecase = true
 opt.number = true
 opt.relativenumber = true
