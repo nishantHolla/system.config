@@ -41,6 +41,7 @@ NIXOS_TYPER_HELP = {
     "setup": "Perform setup actions for the system",
     "switch": "Switch to new configuration by rebuilding using nixos",
     "generation": "List generations of the nixos system",
+    "search-pkgs": "Search for a package in nixpkgs",
 }
 
 HOME_TYPER_HELP_STR = "Control home-manager level configuration"

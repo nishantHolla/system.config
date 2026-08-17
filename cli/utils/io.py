@@ -1,4 +1,5 @@
 import logging
+import re
 from getpass import getpass
 
 logging.basicConfig(
@@ -7,6 +8,19 @@ logging.basicConfig(
 )
 
 _logger = logging.getLogger("homelab")
+
+BOLD_WHITE = "\033[1;37m"
+BOLD_GREEN = "\033[1;32m"
+RESET = "\033[0m"
+
+
+def highlight_matches(text: str, term: str) -> str:
+    pattern = re.compile(re.escape(term), re.IGNORECASE)
+
+    return pattern.sub(
+        lambda match: f"{BOLD_GREEN}{match.group()}{RESET}",
+        text,
+    )
 
 
 def get_confirmation(prompt: str) -> bool:

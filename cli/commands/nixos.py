@@ -1,6 +1,7 @@
 import re
 import socket
 from pathlib import Path
+import json
 
 import typer
 
@@ -115,6 +116,59 @@ def list_generations() -> Result[None, str]:
     return Ok(None)
 
 
+def search_pkgs(search_param: str, use_nvim) -> Result[None, str]:
+    search_results_json = json.loads(
+        utils.runner.run(
+            f"nix search nixpkgs {search_param} --json", capture=True, critical=True
+        ).unwrap()
+    )
+
+    search_results = [{"title": k} | v for k, v in search_results_json.items()]
+
+    search_results.sort(
+        key=lambda x: (
+            search_param not in x["title"].lower(),
+            not x.get("description"),
+            len(x["title"].split(".")[-1]),
+        )
+    )
+
+    output = []
+
+    for result in search_results:
+        title = result["title"]
+        description = result["description"]
+        version = result["version"]
+
+        if not use_nvim:
+            highlighted_title = utils.io.highlight_matches(title, search_param)
+            title = f"{utils.io.BOLD_WHITE}{highlighted_title}{utils.io.RESET}"
+            description = utils.io.highlight_matches(
+                result["description"], search_param
+            )
+
+        output.append(f"{title} ({version})\n\t{description}")
+
+    output_str = "\n\n".join(output)
+
+    import subprocess
+
+    if use_nvim:
+        subprocess.run(
+            ["nvim", "-"],
+            input=output_str,
+            text=True,
+        )
+    else:
+        subprocess.run(
+            ["less", "-RFX"],
+            input=output_str,
+            text=True,
+        )
+
+    return Ok(None)
+
+
 ### Sub Commands ###
 
 
@@ -143,6 +197,17 @@ def switch():
 @app.command(help=v.NIXOS_TYPER_HELP["generation"])
 def generation():
     result = list_generations()
+    match result:
+        case Err(e):
+            utils.io.error(e)
+            exit(1)
+
+    exit(0)
+
+
+@app.command("search-pkgs", help=v.NIXOS_TYPER_HELP["search-pkgs"])
+def search(search_param: str, nvim: bool = False):
+    result = search_pkgs(search_param, use_nvim=nvim)
     match result:
         case Err(e):
             utils.io.error(e)
