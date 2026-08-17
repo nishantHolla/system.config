@@ -40,6 +40,7 @@ bindkey '^e' edit-command-line
 alias ls='eza -lh --color=auto'
 alias lf='lfcd'
 alias valgrind-check='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes'
+alias nixdev="nix develop --command $SHELL"
 
 # fzf
 
