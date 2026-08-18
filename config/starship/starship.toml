@@ -1,6 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = '''$git_branch $git_status${custom.git_newline}$python$nix_shell$shlvl $directory $character'''
+format = '''$git_branch $git_status$python$nix_shell$shlvl${custom.git_newline}$directory $character'''
 
 scan_timeout = 30
 
@@ -48,7 +48,7 @@ disabled = false
 heuristic = true
 
 [shlvl]
-format = '\[$shlvl\]'
+format = '\[([$shlvl](bold purple))\]'
 disabled = false
 threshold = 2
 
