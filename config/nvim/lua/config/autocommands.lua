@@ -25,7 +25,6 @@ autocommand("BufWinLeave", {
     group = usergroup,
 })
 
-
 -- Autoformat on save for python
 autocommand('BufWritePre', {
     pattern = "?*.py",

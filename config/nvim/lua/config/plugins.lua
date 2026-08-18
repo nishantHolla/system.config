@@ -61,8 +61,8 @@ require("lazy").setup({
     },
 
     {
-        "saghen/blink.indent",
-        config = plugin("blink-indent")
+        "lukas-reineke/indent-blankline.nvim",
+        config = plugin("indent-blankline")
     },
 
     {
