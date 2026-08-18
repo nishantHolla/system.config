@@ -211,6 +211,13 @@ keymaps_m.list = {
         AwesomeWM.functions.spawn("flameshot gui")
       end,
       "Take screenshot"
+    },
+    {
+      { mod }, "F12",
+      function()
+        AwesomeWM.functions.spawn("flameshot gui")
+      end,
+      "Take screenshot"
     }
   },
 
