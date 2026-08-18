@@ -15,6 +15,7 @@
         btop                       # Monitor of resources
         claude-code                # Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster
         dconf                      # Low level configuration system
+        distrobox                  # Wrapper around podman or docker to create and start containers
         docker                     # Open source project to pack, ship and run any application as a lightweight container
         dragon-drop                # Simple drag-and-drop source/sink for X or Wayland (called dragon in upstream)
         eza                        # Modern, maintained replacement for ls
@@ -61,6 +62,7 @@
         vscode                     # Code editor developed by Microsoft
         xclip                      # Tool to access the X clipboard from a console application
         xev                        # Log xserver events
+        xsecurelock                # X11 screen lock utility with security in mind
         zathura                    # Highly customizable and functional PDF viewer
     ];
 }
