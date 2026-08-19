@@ -429,6 +429,28 @@ def setup():
     exit(0)
 
 
+@app.command(help=v.HOME_TYPER_HELP["switch"])
+def switch():
+    result = switch_home()
+    match result:
+        case Err(e):
+            utils.io.error(e)
+            exit(1)
+
+    exit(0)
+
+
+@app.command(help=v.HOME_TYPER_HELP["generation"])
+def generation():
+    result = list_generations()
+    match result:
+        case Err(e):
+            utils.io.error(e)
+            exit(1)
+
+    exit(0)
+
+
 @app.command(help=v.HOME_TYPER_HELP["link"])
 def link():
     result = _link_config()

@@ -49,6 +49,8 @@ NIXOS_TYPER_HELP = {
 HOME_TYPER_HELP_STR = "Control home-manager level configuration"
 HOME_TYPER_HELP = {
     "setup": "Perform setup actions for the user",
+    "switch": "Switch to new configuration by rebuilding using home-manager",
+    "generation": "List generations of the home-manager system",
     "link": "Link config files for the user",
     "unlink": "Unlink config files for the user",
 }
