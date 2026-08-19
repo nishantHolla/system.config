@@ -6,7 +6,6 @@
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
         acpi                       # Show battery status and other ACPI information
-        alacritty                  # Cross-platform, GPU-accelerated terminal emulator
         alsa-utils                 # ALSA, the Advanced Linux Sound Architecture utils
         bat                        # Cat(1) clone with syntax highlighting and Git integration
         bibata-cursors             # Material Based Cursor Theme
