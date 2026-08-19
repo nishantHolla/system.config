@@ -1,6 +1,6 @@
 # System Journal
 
-## Setup
+## Nixos Setup
 
 - Connect to wifi
 
