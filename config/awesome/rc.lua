@@ -45,14 +45,16 @@ AwesomeWM.keymaps.init_keymaps()
 
 -- Launch apps and services
 
-AwesomeWM.functions.spawn_once("snixembed")
-AwesomeWM.functions.spawn_once("nm-applet")
-AwesomeWM.functions.spawn_once("tailscale-systray &")
-AwesomeWM.functions.spawn_once("flameshot")
-AwesomeWM.functions.spawn_once("kdeconnect-indicator")
-AwesomeWM.functions.spawn_once("picom")
+
 AwesomeWM.functions.spawn_once("blueman-applet")
+AwesomeWM.functions.spawn_once("flameshot")
 AwesomeWM.functions.spawn_once("gnome-keyring-daemon --start --components=secrets")
+AwesomeWM.functions.spawn_once("kdeconnect-indicator")
+AwesomeWM.functions.spawn_once("nm-applet")
+AwesomeWM.functions.spawn_once("snixembed")
+AwesomeWM.functions.spawn_once("tailscale-systray &")
+AwesomeWM.functions.spawn_with_shell("udiskie &")
+AwesomeWM.functions.spawn_with_shell("picom &")
 
 AwesomeWM.services.battery.start()
 
