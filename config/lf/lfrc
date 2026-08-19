@@ -4,7 +4,6 @@ set shell zsh
 set shellopts '-euy'
 set ifs "\n"
 set filesep "\n"
-set watch true
 
 set drawbox
 set incsearch
@@ -217,6 +216,7 @@ cmd new ${{
 
   lf -remote "send $id reload"
   lf -remote "send $id redraw"
+  sleep 0.3
 
   if [ $# -eq 1 ]; then
     target="$PWD/${1%/}"
