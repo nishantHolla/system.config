@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Make sure a D-Bus user session is available.
+if ! command -v dbus-send >/dev/null 2>&1; then
+    echo "error: dbus-send is not installed" >&2
+    exit 1
+fi
+
+if ! dbus-send \
+    --session \
+    --dest=org.freedesktop.DBus \
+    --type=method_call \
+    --print-reply \
+    /org/freedesktop/DBus \
+    org.freedesktop.DBus.ListNames >/dev/null 2>&1; then
+    echo "error: D-Bus user session is not running" >&2
+    exit 1
+fi
+
+set_dconf() {
+    local path="$1"
+    local expected="$2"
+
+    local current
+    current=$(dconf read "$path" 2>/dev/null || true)
+
+    if [[ "$current" != "$expected" ]]; then
+        echo "Setting $path"
+        dconf write "$path" "$expected"
+    fi
+}
+
+set_dconf \
+    "/org/gnome/nm-applet/disable-connected-notifications" \
+    "true"
+
+set_dconf \
+    "/org/gnome/nm-applet/disable-disconnected-notifications" \
+    "true"
+
+set_dconf \
+    "/org/virt-manager/virt-manager/connections/autoconnect" \
+    "['qemu:///system']"
+
+set_dconf \
+    "/org/virt-manager/virt-manager/connections/uris" \
+    "['qemu:///system']"
