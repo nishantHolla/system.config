@@ -17,6 +17,8 @@ WALLPAPERS_REPO_URL = "git@github.com:nishantHolla/wallpapers.git"
 SYSTEM_CLI_DIR = Path(__file__).parent.parent
 SYSTEM_DIR = SYSTEM_CLI_DIR.parent
 SYSTEM_CONFIG_DIR = SYSTEM_DIR / "config"
+SYSTEM_BIN_DIR = SYSTEM_DIR / "bin"
+SYSTEM_CONFIG_INDEX_FILE = SYSTEM_CONFIG_DIR / "index.json"
 SYSTEM_FLAKE_DIR = SYSTEM_DIR
 
 NIXOS_DIR = SYSTEM_DIR / "nixos"
@@ -47,6 +49,6 @@ NIXOS_TYPER_HELP = {
 HOME_TYPER_HELP_STR = "Control home-manager level configuration"
 HOME_TYPER_HELP = {
     "setup": "Perform setup actions for the user",
-    "switch": "Switch to new configuration by rebuilding using home-manager",
-    "generation": "List generations of the home-manager system",
+    "link": "Link config files for the user",
+    "unlink": "Unlink config files for the user",
 }

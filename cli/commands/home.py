@@ -165,18 +165,41 @@ def _setup_wallpapers() -> Result[None, str]:
     return Ok(None)
 
 
-def _setup_config() -> Result[None, str]:
-    DEST_DIR = Path("~/.config").expanduser()
+def _unlink_config() -> Result[None, str]:
+    if not v.SYSTEM_CONFIG_INDEX_FILE.is_file():
+        return Err(f"Index file for config not found at {v.SYSTEM_CONFIG_INDEX_FILE}")
 
-    for item in v.SYSTEM_CONFIG_DIR.iterdir():
-        link_path = DEST_DIR / item.name
+    with open(v.SYSTEM_CONFIG_INDEX_FILE, "r") as file:
+        index = json.load(file)
 
-        if link_path.exists():
-            utils.io.warning(f"{link_path} already exists. Skipping linking")
+    for value in index.values():
+        DEST = utils.file.resolve_path(value)
+
+        if not DEST.is_symlink():
+            utils.io.warning(f"Destination {DEST} does not exists. Skipping")
         else:
-            p = item.resolve()
-            link_path.symlink_to(p)
-            utils.io.info(f"Linking {link_path} to {p}")
+            utils.io.info(f"Unlinking {DEST}")
+            DEST.unlink()
+
+    return Ok(None)
+
+
+def _link_config() -> Result[None, str]:
+    if not v.SYSTEM_CONFIG_INDEX_FILE.is_file():
+        return Err(f"Index file for config not found at {v.SYSTEM_CONFIG_INDEX_FILE}")
+
+    with open(v.SYSTEM_CONFIG_INDEX_FILE, "r") as file:
+        index = json.load(file)
+
+    for key, value in index.items():
+        DEST = utils.file.resolve_path(value)
+        SRC = utils.file.resolve_path(v.SYSTEM_CONFIG_DIR / key)
+
+        if DEST.exists():
+            utils.io.warning(f"{DEST} already exists. Skipping linking")
+        else:
+            DEST.symlink_to(SRC)
+            utils.io.info(f"Linking {DEST} to {SRC}")
 
     # Temporary solution: Git config is not being identified at $XDG_CONFIG_HOME/git/config
     GIT_SRC_CONFIG = Path("~/.config/git/config").expanduser()
@@ -192,6 +215,13 @@ def _setup_awesome() -> Result[None, str]:
     v.AWESOME_DIR.mkdir(parents=True, exist_ok=True)
     open(v.AWESOME_DIR / "notification_history.txt", "a").close()
     open(v.AWESOME_DIR / "notes.txt", "a").close()
+
+    return Ok(None)
+
+
+def _setup_dconf() -> Result[None, str]:
+    script = v.SYSTEM_BIN_DIR / "setup-dconf"
+    utils.runner.run(str(script), critical=True, capture=True)
 
     return Ok(None)
 
@@ -344,10 +374,18 @@ def setup_home() -> Result[None, str]:
     ## Config
 
     utils.io.info("Setting up config")
-    result = _setup_config()
+    result = _link_config()
     match result:
         case Err(e):
             utils.io.error(f"Failed to setup config. Error: {e}")
+
+    ## Dconf
+
+    utils.io.info("Setting up dconf")
+    result = _setup_dconf()
+    match result:
+        case Err(e):
+            utils.io.error(f"Failed to setup dconf. Error: {e}")
 
     return Ok(None)
 
@@ -391,9 +429,9 @@ def setup():
     exit(0)
 
 
-@app.command(help=v.HOME_TYPER_HELP["switch"])
-def switch():
-    result = switch_home()
+@app.command(help=v.HOME_TYPER_HELP["link"])
+def link():
+    result = _link_config()
     match result:
         case Err(e):
             utils.io.error(e)
@@ -402,9 +440,9 @@ def switch():
     exit(0)
 
 
-@app.command(help=v.HOME_TYPER_HELP["generation"])
-def generation():
-    result = list_generations()
+@app.command(help=v.HOME_TYPER_HELP["unlink"])
+def unlink():
+    result = _unlink_config()
     match result:
         case Err(e):
             utils.io.error(e)

@@ -7,7 +7,7 @@ logging.basicConfig(
     format="[%(levelname)s] %(message)s",
 )
 
-_logger = logging.getLogger("homelab")
+_logger = logging.getLogger("system")
 
 BOLD_WHITE = "\033[1;37m"
 BOLD_GREEN = "\033[1;32m"
