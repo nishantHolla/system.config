@@ -5,6 +5,38 @@
     # User Packages
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
+        # C/C++
+
+        (lib.hiPrio clang)
+        clang-tools                # Standalone command line tools for C++ development
+        gcc                        # GNU Compiler Collection, version 14.2.1.20250322 (wrapper script)
+        gdb                        # GNU Project debugger
+        libgcc                     # GNU Compiler Collection, version 14.2.1.20250322
+
+        # Lua
+
+        lua5_1                     # Powerful, fast, lightweight, embeddable scripting language
+        lua51Packages.luarocks     # A package manager for Lua modules.
+
+        # Python
+
+        pyright                    # Type checker for the Python language
+        ruff                       # Extremely fast Python linter and code formatter
+        uv                         # Extremely fast Python package installer and resolver, written in Rust
+
+        (python313.withPackages (ps: with ps; [
+            debugpy                # Implementation of the Debug Adapter Protocol for Python
+            typer                  # Library for building CLI applications
+        ]))
+
+        # Rust
+
+        cargo                      # Downloads your Rust project's dependencies and builds your project
+        rust-analyzer              # Language server for the Rust language
+        rustc                      # Safe, concurrent, practical language (wrapper script)
+
+        # General
+
         acpi                       # Show battery status and other ACPI information
         alsa-utils                 # ALSA, the Advanced Linux Sound Architecture utils
         bat                        # Cat(1) clone with syntax highlighting and Git integration
@@ -44,7 +76,9 @@
         p7zip                      # File compression and decompression tool
         papirus-icon-theme         # Pixel perfect icon theme for Linux
         pcmanfm                    # File manager with GTK interface
+        picom                      # Fork of XCompMgr, a sample compositing manager for X servers
         playerctl                  # Command-line utility and library for controlling media players that implement MPRIS
+        podman-compose             # Implementation of docker-compose with podman backend
         poppler-utils              # PDF rendering library
         qalculate-qt               # Ultimate desktop calculator
         ripgrep                    # Utility that combines the usability of The Silver Searcher with the raw speed of grep
@@ -55,6 +89,7 @@
         tmux                       # Terminal multiplexer
         trashy                     # Simple, fast, and featureful alternative to rm and trash-cli
         tree-sitter                # Parser generator tool and an incremental parsing library
+        udiskie                    # Removable disk automounter for udisks
         ueberzugpp                 # Drop in replacement for ueberzug written in C++
         unzip                      # Extraction utility for archives compressed in .zip format
         vimv-rs                    # Command line utility for batch-renaming files
