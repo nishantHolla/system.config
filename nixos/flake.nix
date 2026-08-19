@@ -20,9 +20,9 @@
 
             nixosConfigurations.nixosPavilion = nixpkgs.lib.nixosSystem {
                 modules = [
-                    ./nixos/nixosPavilion/config.nix
-                    ./nixos/nixosPavilion/packages.nix
-                    ./nixos/nixosPavilion/hardware.nix
+                    ./nixosPavilion/config.nix
+                    ./nixosPavilion/packages.nix
+                    ./nixosPavilion/hardware.nix
                 ];
             };
 
@@ -32,8 +32,8 @@
                 inherit pkgs;
 
                 modules = [
-                    ./home-manager/nishant/home.nix
-                    ./home-manager/nishant/packages.nix
+                    ./nishant/config.nix
+                    ./nishant/packages.nix
                 ];
             };
         };

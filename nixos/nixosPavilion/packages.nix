@@ -1,4 +1,4 @@
-## system packages for nixosVM
+## system packages for nixosPavilion
 { config, lib, pkgs, ... }:
 
 {

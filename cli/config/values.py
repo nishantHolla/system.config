@@ -19,12 +19,12 @@ SYSTEM_DIR = SYSTEM_CLI_DIR.parent
 SYSTEM_CONFIG_DIR = SYSTEM_DIR / "config"
 SYSTEM_BIN_DIR = SYSTEM_DIR / "bin"
 SYSTEM_CONFIG_INDEX_FILE = SYSTEM_CONFIG_DIR / "index.json"
-SYSTEM_FLAKE_DIR = SYSTEM_DIR
+SYSTEM_FLAKE_DIR = SYSTEM_DIR / "nixos"
 
 NIXOS_DIR = SYSTEM_DIR / "nixos"
-NIXOS_FLAKE_FILE = SYSTEM_DIR / "flake.nix"
+NIXOS_FLAKE_FILE = SYSTEM_FLAKE_DIR / "flake.nix"
 
-HOME_MANAGER_DIR = SYSTEM_DIR / "home-manager"
+HOME_MANAGER_DIR = SYSTEM_DIR / "nixos"
 HOME_FONTS_DIR = Path("~/Fonts").expanduser()
 HOME_ICONS_DIR = Path("~/Icons").expanduser()
 HOME_WALLPAPERS_DIR = Path("~/Wallpapers").expanduser()
