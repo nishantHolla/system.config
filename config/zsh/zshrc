@@ -1,3 +1,9 @@
+# environment variables
+
+if [ -f $HOME/.profile ]; then
+  source $HOME/.profile
+fi
+
 # History
 
 HISTSIZE=10000
@@ -42,6 +48,7 @@ alias lf='lfcd'
 alias valgrind-check='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes'
 alias nixdev="nix develop --command $SHELL"
 
+
 # fzf
 
 source <(fzf --zsh)
@@ -49,7 +56,6 @@ source <(fzf --zsh)
 # Starship
 
 eval "$(starship init zsh)"
-export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 
 # Tmux
 
