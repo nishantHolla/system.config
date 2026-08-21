@@ -1,5 +1,15 @@
 AwesomeWM = {}
 
+-- https://github.com/awesomeWM/awesome/issues/4029
+local lgi = require("lgi")
+local Gio = lgi.Gio
+local GioUnix = lgi.GioUnix
+
+if not Gio.UnixInputStream and GioUnix then
+    Gio.UnixInputStream = GioUnix.InputStream
+    Gio.UnixOutputStream = GioUnix.OutputStream
+end
+
 -- Awesome modules
 
 AwesomeWM.luarocks = pcall(require, "luarocks.loader")
