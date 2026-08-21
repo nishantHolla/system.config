@@ -57,6 +57,10 @@ export GIT_CONFIG_GLOBAL="${XDG_CONFIG_HOME}/git/config"
 export RUSTUP_HOME="${XDG_CONFIG_HOME}/rustup"
 export CARGO_HOME="${XDG_CONFIG_HOME}/cargo"
 
+# go
+
+export GOPATH="${HOME}/Go"
+
 # starship
 
 export STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship/starship.toml"
@@ -70,3 +74,4 @@ export SOPS_AGE_KEY_FILE="$HOME/Sops/age/keys.txt"
 export PATH="${SYSTEM_DIR}/bin:${PATH}"
 export PATH="${HOME}/.local/bin:${PATH}"
 export PATH="${CARGO_HOME}/bin:${PATH}"
+export PATH="${GOPATH}/bin:${PATH}"
