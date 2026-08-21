@@ -37,6 +37,8 @@ fzf
 gimp
 git
 glow
+gtk3
+gtk4
 imv
 inkscape
 kde-connect
