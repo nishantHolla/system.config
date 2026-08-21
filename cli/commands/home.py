@@ -378,6 +378,14 @@ def setup_home() -> Result[None, str]:
         case Err(e):
             utils.io.error(f"Failed to setup awesome. Error: {e}")
 
+    ## Bash
+
+    bashrc_path = Path("~/.bashrc").expanduser()
+
+    if bashrc_path.exists():
+        utils.io.info("Removing default bashrc")
+        os.remove(bashrc_path)
+
     ## Config
 
     utils.io.info("Setting up config")
