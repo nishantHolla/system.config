@@ -8,7 +8,7 @@ if command -v bw-cli &> /dev/null; then
 	exit 0
 fi
 
-INSTALL_FILE=$HOME/.local/bin/bw-cli
+INSTALL_FILE=$HOME/.local/bin/bw
 
 curl -L -o bw-linux.zip "https://bitwarden.com/download/?app=cli&platform=linux"
 unzip bw-linux.zip
