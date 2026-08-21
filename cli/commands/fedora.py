@@ -70,6 +70,9 @@ def setup_fedora() -> Result[None, str]:
         if file.is_file() and file.suffix == ".sh":
             utils.runner.run(f"{file}", critical=True, capture=False)
 
+    utils.io.info("Changing shell of user")
+    utils.runner.run("chsh -s $(which zsh)", capture=False, critical=True)
+
     return Ok(None)
 
 
