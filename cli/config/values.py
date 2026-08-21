@@ -29,6 +29,11 @@ HOME_FONTS_DIR = Path("~/Fonts").expanduser()
 HOME_ICONS_DIR = Path("~/Icons").expanduser()
 HOME_WALLPAPERS_DIR = Path("~/Wallpapers").expanduser()
 
+FEDORA_DIR = SYSTEM_DIR / "fedora"
+FEDORA_PACKAGES_LIST = FEDORA_DIR / "packages.txt"
+FEDORA_FLATPAK_LIST = FEDORA_DIR / "flatpak.txt"
+FEDORA_INSTALL_DIR = FEDORA_DIR / "install"
+
 SYSTEM_FONTS_DIR = Path("~/.local/share/fonts").expanduser()
 SYSTEM_ICONS_DIR = Path("~/.local/share/icons").expanduser()
 
@@ -38,7 +43,7 @@ AWESOME_DIR = Path("~/.local/share/awesome").expanduser()
 
 SYSTEM_TYPER_HELP_STR = "CLI for System"
 
-NIXOS_TYPER_HELP_STR = "Control system-level configuration"
+NIXOS_TYPER_HELP_STR = "Control system-level configuration for nixos"
 NIXOS_TYPER_HELP = {
     "setup": "Perform setup actions for the system",
     "switch": "Switch to new configuration by rebuilding using nixos",
@@ -54,3 +59,6 @@ HOME_TYPER_HELP = {
     "link": "Link config files for the user",
     "unlink": "Unlink config files for the user",
 }
+
+FEDORA_TYPER_HELP_STR = "Control system-level config for fedora"
+FEDORA_TYPER_HELP = {"setup": "Perform setup actions for the system"}
