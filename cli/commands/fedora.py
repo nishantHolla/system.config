@@ -13,7 +13,7 @@ def setup_fedora() -> Result[None, str]:
     utils.io.info("Updating dnf.conf")
     DNF_CONF = v.FEDORA_DIR / "dnf.conf"
     utils.runner.run(
-        f"sudo cat {DNF_CONF} > /etc/dnf/dnf.conf", critical=True, capture=True
+        f"sudo tee /etc/dnf/dnf.conf < {DNF_CONF} ", critical=True, capture=True
     )
 
     utils.io.info("Installing base packages")
@@ -38,7 +38,7 @@ def setup_fedora() -> Result[None, str]:
             return Err(f"Invalid packages.txt: {line}")
 
     for repo in repos:
-        utils.runner.run(f"sudo dnf add {repo}", critical=True, capture=False)
+        utils.runner.run(f"sudo dnf copr enable {repo}", critical=True, capture=False)
 
     package_str = " ".join(list(packages))
     utils.runner.run(f"sudo dnf install {package_str}")
