@@ -45,7 +45,7 @@ libtree-sitter
 make
 mpv
 neovim
-netowrk-manager-applet
+network-manager-applet
 obs-studio
 p7zip
 papirus-icon-theme
@@ -55,7 +55,7 @@ playerctl
 podman
 podman-compose
 poppler-utils
-qualculate
+qalculate
 ripgrep
 rofi
 tmux
