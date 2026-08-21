@@ -41,7 +41,7 @@ def setup_fedora() -> Result[None, str]:
         utils.runner.run(f"sudo dnf copr enable {repo}", critical=True, capture=False)
 
     package_str = " ".join(list(packages))
-    utils.runner.run(f"sudo dnf install {package_str}")
+    utils.runner.run(f"sudo dnf install {package_str}", critical=True, capture=False)
 
     utils.io.info("Installing flatpaks")
     paks = set()
@@ -57,7 +57,7 @@ def setup_fedora() -> Result[None, str]:
         paks.add(line)
 
     for pak in paks:
-        utils.runner.run(f"flatpak install flathub {pak}")
+        utils.runner.run(f"flatpak install flathub {pak}", critical=True, capture=False)
 
     utils.io.info("Running all install scripts")
     for file in v.FEDORA_INSTALL_DIR.iterdir():
