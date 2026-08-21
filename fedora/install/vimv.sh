@@ -8,4 +8,5 @@ if command -v vimv &> /dev/null; then
 	exit 0
 fi
 
+mkdir -p $HOME/.local/bin
 curl https://raw.githubusercontent.com/thameera/vimv/master/vimv > ~/.local/bin/vimv && chmod +755 ~/.local/bin/vimv

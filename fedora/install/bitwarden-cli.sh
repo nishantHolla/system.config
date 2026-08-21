@@ -10,6 +10,7 @@ fi
 
 INSTALL_FILE=$HOME/.local/bin/bw
 
+mkdir -p "$HOME/.local/bin"
 curl -L -o bw-linux.zip "https://bitwarden.com/download/?app=cli&platform=linux"
 unzip bw-linux.zip
 chmod u+x bw
