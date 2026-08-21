@@ -74,6 +74,9 @@ def _setup_ssh(
         f.write(j["fields"][0]["value"])
 
     utils.runner.run(f"sudo chmod 600 {key_file}", capture=True, critical=True)
+    utils.runner.run(
+        "systemctl --user enable --now ssh-agent.service", capture=True, critical=True
+    )
     utils.runner.run(f"ssh-add {key_file}", capture=True, critical=True)
 
     return Ok(None)
