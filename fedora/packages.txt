@@ -33,11 +33,14 @@ firefox
 flameshot
 flatpak
 flowblade
+fontconfig
+fontconfig-devel
 fzf
 gimp
 git
 glow
 gtk3
+gtk3-devel
 gtk4
 imv
 inkscape
@@ -53,6 +56,7 @@ p7zip
 papirus-icon-theme
 pcmanfm
 picom
+pkgconf-pkg-config
 playerctl
 podman
 podman-compose
