@@ -46,6 +46,12 @@ def setup_fedora() -> Result[None, str]:
     utils.io.info("Installing flatpaks")
     paks = set()
 
+    utils.runner.run(
+        "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo",
+        critical=True,
+        capture=False,
+    )
+
     with open(v.FEDORA_FLATPAK_LIST, "r") as f:
         lines = f.readlines()
 
