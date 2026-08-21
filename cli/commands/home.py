@@ -6,6 +6,7 @@ from pathlib import Path
 from utils.result import Result, Err, Ok
 import utils
 import typer
+import platform
 
 app = typer.Typer(help=v.HOME_TYPER_HELP_STR)
 
@@ -245,16 +246,19 @@ def setup_home() -> Result[None, str]:
 
     ## Home Manager
 
-    utils.io.info("Checking if home-manager is installed")
-    result = utils.runner.run("home-manager --version", critical=False, capture=True)
-    match result:
-        case Err(_):
-            utils.io.info("Setting up home-manager")
-            _setup_home_manager(v.SYSTEM_FLAKE_DIR, USER)
-        case Ok(_):
-            utils.io.info(
-                "home-manager is already installed. Skipping installation of home manager"
-            )
+    if platform.freedesktop_os_release()["ID"] == "nixos":
+        utils.io.info("Checking if home-manager is installed")
+        result = utils.runner.run(
+            "home-manager --version", critical=False, capture=True
+        )
+        match result:
+            case Err(_):
+                utils.io.info("Setting up home-manager")
+                _setup_home_manager(v.SYSTEM_FLAKE_DIR, USER)
+            case Ok(_):
+                utils.io.info(
+                    "home-manager is already installed. Skipping installation of home manager"
+                )
 
     # Optional steps
 
