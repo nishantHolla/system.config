@@ -22,6 +22,7 @@ bat
 breeze-cursor-theme
 brightnessctl
 btop
+dbus-tools
 dconf
 distrobox
 eza
