@@ -44,10 +44,17 @@ require("lazy").setup({
     },
 
     {
-        'saghen/blink.cmp',
-        version = '1.*',
-        config = plugin("blink-cmp"),
-        opts_extend = { "sources.default" }
+        "hrsh7th/nvim-cmp",
+        config = plugin("nvim-cmp"),
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "L3MON4D3/LuaSnip",
+            "hrsh7th/cmp-nvim-lsp-document-symbol"
+        },
+        event = "VeryLazy"
     },
 
     {
@@ -65,10 +72,10 @@ require("lazy").setup({
         config = plugin("indent-blankline")
     },
 
-    {
-        "3rd/image.nvim",
-        config = plugin("image")
-    },
+    -- {
+    --     "3rd/image.nvim",
+    --     config = plugin("image")
+    -- },
 
     {
         "tpope/vim-sleuth",
