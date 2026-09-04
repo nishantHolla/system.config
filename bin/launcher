@@ -7,8 +7,9 @@ TEXT_OPTION="texts\0icon\x1fGI_fileTextWhite\n"
 PDF_OPTION="pdfs\0icon\x1fGI_filePdfWhite\n"
 DIRECTORIES_OPTION="directories\0icon\x1fGI_fileDirectoryWhite\n"
 ALL_FILES_OPTION="all files\0icon\x1fGI_allFilesWhite\n"
+CLIPBOARD_MANAGER_OPTION="clipboard manager\0icon\x1fGI_clipboardWhite\n"
 
-OPTIONS="$APPLICATIONS_OPTIONS$IMAGE_OPTION$VIDEO_OPTION$TEXT_OPTION$PDF_OPTION$DIRECTORIES_OPTION$ALL_FILES_OPTION"
+OPTIONS="$APPLICATIONS_OPTIONS$IMAGE_OPTION$VIDEO_OPTION$TEXT_OPTION$PDF_OPTION$DIRECTORIES_OPTION$ALL_FILES_OPTION$CLIPBOARD_MANAGER_OPTION"
 
 SELECTED=`echo -en "$OPTIONS" | rofi -dmenu -i -p "Open: " -icon-theme GI`
 SELECTED_FILE=""
@@ -112,6 +113,9 @@ case "$SELECTED" in
 
     "all files")
         $TERMINAL -e $CLI_FILE_MANAGER -command "fzf fd file";;
+
+    "clipboard manager")
+        clipinctl;;
 
     *) exit 3;;
 esac
