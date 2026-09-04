@@ -1,6 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = '''$git_branch $git_status$python$nix_shell$shlvl${custom.git_newline}$directory $character'''
+format = '''$git_branch $git_status${custom.git_newline}$python $directory $character'''
 
 scan_timeout = 30
 
