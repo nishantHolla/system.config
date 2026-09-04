@@ -1,21 +1,106 @@
-#!/bin/sh
-set -euo pipefail
+#!/usr/bin/env bash
+#
+# volctl.sh - control laptop volume, works with both PulseAudio and PipeWire
+#
+# Usage: volctl.sh {get|set <N|N%|N%+|N%-|mute|unmute|toggle>}
 
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
+set -uo pipefail
+
+PROG="$(basename "$0")"
+
+usage() {
+    echo "Usage: $PROG {get|set <N|N%|N%+|N%-|mute|unmute|toggle>}"
+    echo
+    echo "Examples:"
+    echo "  $PROG get           # show current volume/mute state"
+    echo "  $PROG set 50        # set volume to 50%"
+    echo "  $PROG set 50%       # same as above"
+    echo "  $PROG set 5%+       # increase volume by 5%"
+    echo "  $PROG set 5%-       # decrease volume by 5%"
+    echo "  $PROG set mute      # mute"
+    echo "  $PROG set unmute    # unmute"
+    echo "  $PROG set toggle    # toggle mute"
+    exit 1
 }
 
-### PipeWire (wpctl) ###
+# --- Backend detection -------------------------------------------------
+
+detect_backend() {
+    # Prefer native pipewire control (wpctl) whenever it's installed and
+    # working - it talks to pipewire directly and understands the SAME
+    # N%+/N%- syntax we use for the CLI. Don't rely on pactl for this
+    # check, since a minimal install may have wpctl without pactl at all.
+    if command -v wpctl >/dev/null 2>&1 && wpctl status >/dev/null 2>&1; then
+        echo "pipewire"
+    elif command -v pactl >/dev/null 2>&1; then
+        echo "pulseaudio"
+    else
+        echo "none"
+    fi
+}
+
+BACKEND="$(detect_backend)"
+
+if [[ "$BACKEND" == "none" ]]; then
+    echo "Error: neither wpctl nor pactl found. Is PulseAudio or PipeWire installed?" >&2
+    exit 2
+fi
+
+# --- Helpers -------------------------------------------------------------
+
+# Validate the volume token: N | N% | N%+ | N%-
+is_valid_volume() {
+    [[ "$1" =~ ^[0-9]+(%[+-]?)?$ ]]
+}
+
+# Normalize a volume token to a plain percentage form "N%" (no +/- suffix)
+to_plain_percent() {
+    local v="$1"
+    v="${v%\%+}"
+    v="${v%\%-}"
+    v="${v%\%}"
+    echo "${v}%"
+}
+
+is_relative() {
+    [[ "$1" == *%+ || "$1" == *%- ]]
+}
+
+relative_sign() {
+    [[ "$1" == *%+ ]] && echo "+" || echo "-"
+}
+
+relative_amount() {
+    local v="$1"
+    v="${v%\%+}"
+    v="${v%\%-}"
+    echo "${v}%"
+}
+
+# --- PipeWire (wpctl) backend --------------------------------------------
+
 pw_get() {
-    wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2)}'
-}
-
-pw_is_muted() {
-    wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q '\[MUTED\]'
+    local out
+    out="$(wpctl get-volume @DEFAULT_AUDIO_SINK@ 2>&1)" || {
+        echo "Error reading volume: $out" >&2
+        exit 3
+    }
+    # e.g. "Volume: 0.55" or "Volume: 0.55 [MUTED]"
+    if echo "$out" | grep -q "MUTED"; then
+        echo "M"
+        return
+    fi
+    local frac pct
+    frac="$(echo "$out" | awk '{print $2}')"
+    # note: wpctl volume can exceed 1.0 if boosted above 100%; clamp to 100
+    pct="$(awk -v f="$frac" 'BEGIN{p=f*100; if (p>100) p=100; printf "%d", p}')"
+    echo "$pct"
 }
 
 pw_set() {
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ "$1"
+    local arg="$1"
+    # wpctl natively accepts N%, N%+, N%-
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ "$arg"
 }
 
 pw_mute() {
@@ -30,17 +115,39 @@ pw_toggle() {
     wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 }
 
-### PulseAudio (pactl) ###
-pa_get() {
-    pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | tr -d '%\n'
-}
+# --- PulseAudio (pactl) backend ------------------------------------------
 
-pa_is_muted() {
-    pactl get-sink-mute @DEFAULT_SINK@ | grep -q 'yes'
+pa_get() {
+    local vol_out mute_out pct
+    vol_out="$(pactl get-sink-volume @DEFAULT_SINK@ 2>&1)" || {
+        echo "Error reading volume: $vol_out" >&2
+        exit 3
+    }
+    mute_out="$(pactl get-sink-mute @DEFAULT_SINK@ 2>&1)" || {
+        echo "Error reading mute state: $mute_out" >&2
+        exit 3
+    }
+    if echo "$mute_out" | grep -q "yes"; then
+        echo "M"
+        return
+    fi
+    # e.g. "Volume: front-left: 32768 /  50% / ..."
+    pct="$(echo "$vol_out" | grep -oP '\d+(?=%)' | head -n1)"
+    # clamp in case volume was boosted above 100%
+    [[ "$pct" -gt 100 ]] && pct=100
+    echo "$pct"
 }
 
 pa_set() {
-    pactl set-sink-volume @DEFAULT_SINK@ "$1%"
+    local arg="$1"
+    if is_relative "$arg"; then
+        local sign amount
+        sign="$(relative_sign "$arg")"
+        amount="$(relative_amount "$arg")"
+        pactl set-sink-volume @DEFAULT_SINK@ "${sign}${amount}"
+    else
+        pactl set-sink-volume @DEFAULT_SINK@ "$(to_plain_percent "$arg")"
+    fi
 }
 
 pa_mute() {
@@ -55,107 +162,58 @@ pa_toggle() {
     pactl set-sink-mute @DEFAULT_SINK@ toggle
 }
 
-### ALSA (amixer) ###
-alsa_get() {
-    amixer get Master | awk -F'[][]' 'END{print $2}' | tr -d '%\n'
-}
+# --- Dispatch -------------------------------------------------------------
 
-alsa_is_muted() {
-    amixer get Master | grep -q '\[off\]'
-}
-
-alsa_set() {
-    amixer set Master "$1%" >/dev/null
-}
-
-alsa_mute() {
-    amixer set Master mute >/dev/null
-}
-
-alsa_unmute() {
-    amixer set Master unmute >/dev/null
-}
-
-alsa_toggle() {
-    amixer set Master toggle >/dev/null
-}
-
-### Backend selection ###
-if command_exists wpctl; then
-    BACKEND="pw"
-elif command_exists pactl; then
-    BACKEND="pa"
-elif command_exists amixer; then
-    BACKEND="alsa"
-else
-    echo "No supported audio backend found" >&2
-    exit 1
-fi
-
-### Helpers ###
-get_volume() {
-    if "${BACKEND}_is_muted"; then
-        echo "M"
+do_get() {
+    if [[ "$BACKEND" == "pipewire" ]]; then
+        pw_get
     else
-        "${BACKEND}_get"
+        pa_get
     fi
 }
 
-set_volume() {
-    "${BACKEND}_set" "$1"
-}
-
-### Parse set argument ###
-parse_set_arg() {
-    arg="$1"
-    arg="${arg//%/}"
+do_set() {
+    local arg="${1:-}"
+    [[ -z "$arg" ]] && usage
 
     case "$arg" in
-        *+)
-            delta="${arg%+}"
-            current="$("${BACKEND}_get")"
-            echo $((current + delta))
+        mute)
+            [[ "$BACKEND" == "pipewire" ]] && pw_mute || pa_mute
             ;;
-        *-)
-            delta="${arg%-}"
-            current="$("${BACKEND}_get")"
-            echo $((current - delta))
+        unmute)
+            [[ "$BACKEND" == "pipewire" ]] && pw_unmute || pa_unmute
+            ;;
+        toggle)
+            [[ "$BACKEND" == "pipewire" ]] && pw_toggle || pa_toggle
             ;;
         *)
-            echo "$arg"
+            if ! is_valid_volume "$arg"; then
+                echo "Error: invalid volume argument '$arg'" >&2
+                usage
+            fi
+            if [[ "$BACKEND" == "pipewire" ]]; then
+                pw_set "$arg"
+            else
+                pa_set "$arg"
+            fi
             ;;
     esac
+
+    do_get
 }
 
-### Dispatch ###
-case "${1:-}" in
+# --- Main -------------------------------------------------------------
+
+[[ $# -lt 1 ]] && usage
+
+case "$1" in
     get)
-        get_volume
+        do_get
         ;;
     set)
-        [ -z "${2:-}" ] && {
-            echo "Usage: $0 set <N|N%|N%+|N%->" >&2
-            exit 1
-        }
-
-        value="$(parse_set_arg "$2")"
-
-        [ "$value" -lt 0 ] && value=0
-        [ "$value" -gt 100 ] && value=100
-
-        set_volume "$value"
-        ;;
-    mute)
-        "${BACKEND}_mute"
-        ;;
-    unmute)
-        "${BACKEND}_unmute"
-        ;;
-    toggle)
-        "${BACKEND}_toggle"
+        do_set "${2:-}"
         ;;
     *)
-        echo "Usage: $0 {get|set <N|N%|N%+|N%->|mute|unmute|toggle}" >&2
-        exit 1
+        usage
         ;;
 esac
