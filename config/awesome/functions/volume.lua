@@ -20,15 +20,15 @@ volume_sm.decrease = function()
 end
 
 volume_sm.toggle = function()
-  run(script .. " toggle")
+  run(script .. " set toggle")
 end
 
 volume_sm.mute = function()
-  run(script .. " mute")
+  run(script .. " set mute")
 end
 
 volume_sm.unmute = function()
-  run(script .. " unmute")
+  run(script .. " set unmute")
 end
 
 volume_sm.find_volume_and = function(callback)

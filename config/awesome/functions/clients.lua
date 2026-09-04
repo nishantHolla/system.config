@@ -25,7 +25,7 @@ clients_sm.init_clients = function()
       },
     },
     {
-      rule = { class = "Dragon-drop" },
+      rule = { class = "Dragon" },
       description = "Rule for dragon drop",
       properties = {
         floating = true,

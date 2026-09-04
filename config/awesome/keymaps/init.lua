@@ -218,7 +218,7 @@ keymaps_m.list = {
         AwesomeWM.functions.spawn("flameshot gui")
       end,
       "Take screenshot"
-    }
+    },
   },
 
   ["Client Movement"] = {
