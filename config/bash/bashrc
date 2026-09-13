@@ -1,3 +1,3 @@
-if [ -f "$HOME/.profile" ]; then
-	source $HOME/.profile
+if [[ -z "$PROFILE_IS_SOURCED" ]]; then
+	[[ -f $HOME/.profile ]] && source $HOME/.profile
 fi
