@@ -1,0 +1,17 @@
+{{with .Message -}}
+	{{. -}}
+{{else with .Stat -}}
+	{{.Permissions | printf " \033[1;35m%s\033[0m " -}}
+	{{.User | printf "\033[33m%s\033[0m " -}}
+	{{.Group | printf "\033[33m%s\033[0m " -}}
+	{{.ModTime | printf "%s " -}}
+	{{with .Target}} {{printf "\033[36m-> %s\033[0m " .}}{{end -}}
+{{end -}}
+{{.SPACER -}}
+{{with .Progress}} {{join . " "}} {{end -}}
+{{with .Copy}} {{ len . | printf "copy: %d "}} {{end -}}
+{{with .Cut}} {{ len . | printf "cut: %d "}} {{end -}}
+{{with .Select}} {{ len . | printf "select: %d "}} {{end -}}
+{{with .Visual}} {{ len . | printf "%s %d\033[0m " $.Options.visualfmt}} {{end -}}
+{{with .Filter}} {{ join . " " | printf "%s " }} {{ end -}}
+{{printf "%d/%d" .Index .Total}}
