@@ -29,14 +29,14 @@ end
 
 power_sm.lock = function(display_off)
   if display_off then
-    AwesomeWM.functions.spawn_with_shell("XSECURELOCK_BLANK_TIMEOUT=0 XSECURELOCK_DPMS_TIMEOUT=0 xsecurelock")
+    AwesomeWM.functions.spawn_with_shell("betterlockscreen -l & sleep 1; xset dpms force off")
   else
-    AwesomeWM.functions.spawn_with_shell("XSECURELOCK_NO_DPMS=1 XSECURELOCK_NO_BLANK=1 xsecurelock")
+    AwesomeWM.functions.spawn_with_shell("betterlockscreen -l")
   end
 end
 
 power_sm.sleep = function()
-  AwesomeWM.functions.spawn_with_shell("systemctl suspend && xsecurelock")
+  AwesomeWM.functions.spawn_with_shell("systemctl suspend && betterlockscreen -l")
 end
 
 return power_sm
