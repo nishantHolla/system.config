@@ -1,24 +1,24 @@
 local telescope = require("telescope")
 
 telescope.setup({
-    defaults = {
-        mappings = {
-            i = {
-                ["<A-j>"] = "move_selection_next",
-                ["<A-k>"] = "move_selection_previous",
-                ["<A-h>"] = "close",
-                ["<A-l>"] = "select_default",
-                ["<A-v>"] = "select_vertical",
-                ["<A-o>"] = "select_horizontal",
-                ["<A-t>"] = "select_tab",
-                ["<A-space>"] = "toggle_selection",
-                ["<A-s>"] = "preview_scrolling_down",
-                ["<A-d>"] = "preview_scrolling_up",
-                ["<A-a>"] = "preview_scrolling_left",
-                ["<A-f>"] = "preview_scrolling_right"
-            }
-        }
-    }
+	defaults = {
+		mappings = {
+			i = {
+				["<A-j>"] = "move_selection_next",
+				["<A-k>"] = "move_selection_previous",
+				["<A-h>"] = "close",
+				["<A-l>"] = "select_default",
+				["<A-v>"] = "select_vertical",
+				["<A-o>"] = "select_horizontal",
+				["<A-t>"] = "select_tab",
+				["<A-space>"] = "toggle_selection",
+				["<A-s>"] = "preview_scrolling_down",
+				["<A-d>"] = "preview_scrolling_up",
+				["<A-a>"] = "preview_scrolling_left",
+				["<A-f>"] = "preview_scrolling_right"
+			}
+		}
+	}
 })
 
 local builtin = require('telescope.builtin')
