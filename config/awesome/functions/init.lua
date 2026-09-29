@@ -103,6 +103,26 @@ functions_m.spawn_with_shell = function(command)
   AwesomeWM.awful.spawn.with_shell(command)
 end
 
+functions_m.spawn_browser = function()
+  if AwesomeWM.values.browser == "firefox" then
+    functions_m.spawn(AwesomeWM.values.browser .. " -P Nishant")
+  else
+    functions_m.spawn(AwesomeWM.values.browser)
+  end
+end
+
+functions_m.spawn_vpn_browser = function()
+  local pid = AwesomeWM.awful.spawn(
+    AwesomeWM.values.terminal_cmd .. "firefox-vpn",
+    {
+      floating = true,
+      width = 800,
+      height = 200,
+      placement = AwesomeWM.awful.placement.centered
+    }
+  )
+end
+
 functions_m.is_file= function(file_path)
   local f = io.open(file_path, "r")
 

@@ -19,6 +19,7 @@ values_m.terminal = "alacritty"
 values_m.editor = "nvim"
 values_m.browser = "firefox"
 values_m.file_manager = "pcmanfm"
+values_m.terminal_cmd = values_m.terminal .. " -e "
 values_m.editor_cmd = values_m.terminal .. " -e " .. values_m.editor
 
 -- Layouts and Tags

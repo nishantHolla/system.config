@@ -187,7 +187,14 @@ keymaps_m.list = {
     {
       { mod }, "'",
       function()
-        AwesomeWM.functions.spawn(AwesomeWM.values.browser)
+        AwesomeWM.functions.spawn_browser()
+      end,
+      "Spawn " .. AwesomeWM.values.browser
+    },
+    {
+      { mod, "Shift" }, "'",
+      function()
+        AwesomeWM.functions.spawn_vpn_browser()
       end,
       "Spawn " .. AwesomeWM.values.browser
     },

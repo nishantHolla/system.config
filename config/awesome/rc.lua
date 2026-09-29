@@ -63,6 +63,7 @@ AwesomeWM.functions.spawn_once("kdeconnect-indicator")
 AwesomeWM.functions.spawn_once("nm-applet")
 AwesomeWM.functions.spawn_once("snixembed")
 AwesomeWM.functions.spawn_once("tailscale-systray &")
+AwesomeWM.functions.spawn_once("video-idle")
 AwesomeWM.functions.spawn_with_shell("udiskie &")
 AwesomeWM.functions.spawn_with_shell("picom &")
 
