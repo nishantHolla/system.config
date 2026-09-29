@@ -29,6 +29,21 @@ M.prompt = function(prompt_text)
     })
 end
 
+M.sync_run = function(cmd)
+    local permit = ui.hide()
+
+    local output, err = Command("sh")
+        :arg("-c")
+        :arg(cmd)
+        :stdin(Command.INHERIT)
+        :stdout(Command.PIPED)
+        :stderr(Command.PIPED)
+        :output()
+
+    permit:drop()
+    return output, err
+end
+
 M.split_str_by_space = function(str)
     local result = {}
 
@@ -64,6 +79,20 @@ end
 
 M.str_ends_with = function(str, suffix)
     return suffix == "" or string.sub(str, -string.len(suffix)) == suffix
+end
+
+M.not_in = function(str, table)
+    for i, j in ipairs(table) do
+        if str == j then
+            return false
+        end
+    end
+
+    return true
+end
+
+M.trim_str = function(s)
+    return (string.gsub(s, "^%s*(.-)%s*$", "%1"))
 end
 
 return M

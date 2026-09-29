@@ -8,6 +8,11 @@ run  = "plugin smart-enter"
 desc = "Enter the child directory, or open the file"
 
 [[mgr.prepend_keymap]]
+on   = "<right>"
+run  = "plugin smart-enter"
+desc = "Enter the child directory, or open the file"
+
+[[mgr.prepend_keymap]]
 on = "<a-y>"
 run = 'plugin duplicate-entry'
 desc = "Duplicate selected files"
@@ -16,6 +21,11 @@ desc = "Duplicate selected files"
 on = "e"
 run = 'plugin manage-archive -- extract'
 desc = "Extract archive"
+
+[[mgr.prepend_keymap]]
+on = "r"
+run = 'bulk_rename'
+desc = "Bulk rename"
 
 [[mgr.prepend_keymap]]
 on = "a"
@@ -28,6 +38,41 @@ run = 'plugin new-entry'
 desc = "Create file or directory"
 
 [[mgr.prepend_keymap]]
+on = "<A-d>"
+run = 'shell -- dragon %s'
+desc = "Dragon drop"
+
+[[mgr.prepend_keymap]]
 on = "<Space>"
 run = "toggle"
 desc = "Toggle selection"
+
+[[mgr.prepend_keymap]]
+on = ["g", "o"]
+run = "plugin fzf-jump -- current all"
+desc = "fzf jump: current all"
+
+[[mgr.prepend_keymap]]
+on = ["g", "O"]
+run = "plugin fzf-jump -- home all"
+desc = "fzf jump: home all"
+
+[[mgr.prepend_keymap]]
+on = ["g", "d"]
+run = "plugin fzf-jump -- current dir"
+desc = "fzf jump: current dir"
+
+[[mgr.prepend_keymap]]
+on = ["g", "D"]
+run = "plugin fzf-jump -- home dir"
+desc = "fzf jump: home dir"
+
+[[mgr.prepend_keymap]]
+on = ["g", "f"]
+run = "plugin fzf-jump -- current file"
+desc = "fzf jump: current file"
+
+[[mgr.prepend_keymap]]
+on = ["g", "F"]
+run = "plugin fzf-jump -- home file"
+desc = "fzf jump: home file"

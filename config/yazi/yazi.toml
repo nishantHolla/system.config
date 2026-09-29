@@ -73,3 +73,7 @@ use = "presentation"
 [[open.prepend_rules]]
 url = "*.{xls,xlsx,ods}"
 use = "spreadsheet"
+
+[[open.append_rules]]
+url = "*"
+use = "edit"
