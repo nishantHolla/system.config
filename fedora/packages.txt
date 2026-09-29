@@ -1,3 +1,12 @@
+# C/C++
+
+clang
+clang-tools-extra
+gcc
+gdb
+libgcc
+libasan
+
 # Rust
 
 cargo
@@ -15,6 +24,7 @@ atim/starship starship
 # Genral
 
 ImageMagick
+SDL3-devel
 acpi
 alacritty
 alsa-utils
@@ -45,10 +55,10 @@ gtk3-devel
 gtk4
 imv
 inkscape
-kde-connect
 libreoffice
 libtree-sitter
 make
+man-pages
 mpv
 neovim
 network-manager-applet
@@ -69,8 +79,20 @@ tmux
 tree-sitter-cli
 udiskie
 unzip
+valgrind
+wget
 xclip
 xev
-xsecurelock
+xinput
 zathura
-zsh
+
+# Fonts
+
+google-noto-sans-fonts
+google-noto-serif-fonts
+google-noto-emoji-fonts
+google-noto-color-emoji-fonts
+google-noto-sans-symbols-fonts
+google-noto-sans-symbols2-fonts
+google-noto-sans-devanagari-fonts
+google-noto-serif-devanagari-fonts
