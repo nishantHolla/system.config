@@ -17,12 +17,17 @@ telescope.setup({
 				["<A-a>"] = "preview_scrolling_left",
 				["<A-f>"] = "preview_scrolling_right"
 			}
-		}
-	}
+		},
+	},
+	pickers = {
+		man_pages = {
+			sections = { "1", "2", "3" },
+		},
+	},
 })
 
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+vim.keymap.set('n', '<leader>ff', "<cmd> Telescope find_files theme=ivy<cr>", { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', "<cmd> Telescope live_grep theme=ivy<cr>", { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', "<cmd> Telescope buffers theme=ivy<cr>", { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', "<cmd> Telescope help_tags theme=ivy<cr>", { desc = 'Telescope help tags' })
+vim.keymap.set('n', '<leader>fm', "<cmd> Telescope man_pages theme=ivy<cr>", { desc = 'Manpages help' })

@@ -5,9 +5,10 @@ vim.g.loaded_netrwPlugin = 1
 
 opt.colorcolumn = "100"
 opt.confirm = true
+opt.expandtab = false
 opt.ignorecase = true
 opt.list = true;
-opt.listchars = { tab = "| ", leadmultispace = "| " }
+opt.listchars = { tab = "| ", leadmultispace = "|   " }
 opt.number = true
 opt.relativenumber = true
 opt.shiftwidth = 4
