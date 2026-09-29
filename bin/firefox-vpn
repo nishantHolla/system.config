@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# --- Config: edit these to match your setup ---
+NETNS="protonns"
+WG_CONF="$HOME/.region1-netns.conf"
+FF_PROFILE="Nishant-VPN"
+
+log() { echo "[protonns-firefox] $*"; }
+
+# Parsed from WG_CONF at runtime — do not set these manually
+WG_ADDR=""
+WG_DNS=""
+WG_STRIPPED=""
+
+parse_conf() {
+    if [[ ! -f "$WG_CONF" ]]; then
+        log "ERROR: config file not found: $WG_CONF"
+        exit 1
+    fi
+
+    WG_ADDR=$(grep -E '^\s*Address\s*=' "$WG_CONF" | head -n1 | cut -d= -f2- | tr -d ' ')
+    WG_DNS=$(grep -E '^\s*DNS\s*=' "$WG_CONF" | head -n1 | cut -d= -f2- | tr -d ' ')
+
+    if [[ -z "$WG_ADDR" || -z "$WG_DNS" ]]; then
+        log "ERROR: could not find Address= or DNS= in $WG_CONF"
+        exit 1
+    fi
+    log "Parsed Address=$WG_ADDR DNS=$WG_DNS from $WG_CONF"
+
+    # wg setconf only understands [Interface]/[Peer] keys — strip the
+    # wg-quick-only Address/DNS lines into a temp file for actual use.
+    WG_STRIPPED=$(mktemp /tmp/protonns-wg.XXXXXX.conf)
+    grep -v -E '^\s*(Address|DNS)\s*=' "$WG_CONF" > "$WG_STRIPPED"
+    chmod 600 "$WG_STRIPPED"
+}
+
+netns_exists() {
+    sudo ip netns list | grep -qx "$NETNS"
+}
+
+wg_is_up() {
+    sudo ip netns exec "$NETNS" wg show wg0 2>/dev/null | grep -q "latest handshake"
+}
+
+setup_netns() {
+    log "Setting up namespace $NETNS..."
+    sudo ip netns add "$NETNS"
+    sudo ip netns exec "$NETNS" ip link set lo up
+
+    sudo ip link add wg0 type wireguard
+    sudo ip link set wg0 netns "$NETNS"
+    sudo ip netns exec "$NETNS" wg setconf wg0 "$WG_STRIPPED"
+
+    sudo ip netns exec "$NETNS" ip addr add "$WG_ADDR" dev wg0
+    sudo ip netns exec "$NETNS" ip link set wg0 up
+    sudo ip netns exec "$NETNS" ip route add default dev wg0
+
+    sudo mkdir -p "/etc/netns/$NETNS"
+    echo "nameserver $WG_DNS" | sudo tee "/etc/netns/$NETNS/resolv.conf" > /dev/null
+}
+
+wait_for_handshake() {
+    log "Waiting for WireGuard handshake..."
+    for _ in $(seq 1 10); do
+        if sudo ip netns exec "$NETNS" wg show wg0 | grep -q "latest handshake"; then
+            log "Handshake established."
+            return 0
+        fi
+        sleep 1
+    done
+    log "ERROR: no handshake after 10s. Check Endpoint/PublicKey in $WG_CONF, your system clock, or try a different server."
+    exit 1
+}
+
+launch_firefox() {
+    log "Launching Firefox inside $NETNS (profile: $FF_PROFILE)..."
+    # --no-remote means this call blocks until the LAST window of this
+    # instance closes (not just the first window) — so teardown below
+    # only runs once you're fully done with the VPN'd Firefox.
+    sudo ip netns exec "$NETNS" sudo -u "$USER" \
+        XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-}" \
+        WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-}" \
+        DISPLAY="${DISPLAY:-}" \
+        firefox --no-remote -P "$FF_PROFILE"
+}
+
+cleanup() {
+    log "Cleaning up..."
+    sudo ip netns exec "$NETNS" ip link delete wg0 2>/dev/null || true
+    sudo ip netns delete "$NETNS" 2>/dev/null || true
+    [[ -n "$WG_STRIPPED" && -f "$WG_STRIPPED" ]] && rm -f "$WG_STRIPPED"
+    log "Teardown complete."
+}
+
+# --- Main ---
+sudo -v   # cache sudo credentials once, up front
+parse_conf
+
+# Tear down (netns + temp file) even if interrupted (Ctrl+C) while Firefox is running
+trap cleanup EXIT
+
+if ! netns_exists; then
+    setup_netns
+    wait_for_handshake
+elif ! wg_is_up; then
+    log "Namespace exists but tunnel is down — retrying handshake."
+    sudo ip netns exec "$NETNS" ip link set wg0 up 2>/dev/null || true
+    wait_for_handshake
+else
+    log "Namespace and tunnel already up."
+fi
+
+launch_firefox

@@ -1,1 +1,3 @@
-../cli/system.py
+#!/bin/sh
+
+exec "$SYSTEM_DIR/cli/.venv/bin/python" "$SYSTEM_DIR/cli/system" "$@"

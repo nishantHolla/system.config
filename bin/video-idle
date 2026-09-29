@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Normal idle timeout
+IDLE_TIMEOUT=600
+
+while true; do
+    status="$(playerctl -p firefox status 2>/dev/null)"
+
+    if [ "$status" = "Playing" ]; then
+        # Keep the display awake
+        xset s off
+        xset dpms 0 0 0
+    else
+        # Restore normal 10-minute timeout
+        xset s "$IDLE_TIMEOUT"
+        xset dpms 0 0 "$IDLE_TIMEOUT"
+    fi
+
+    sleep 5
+done
