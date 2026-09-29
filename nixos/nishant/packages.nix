@@ -97,7 +97,6 @@
         vscode                     # Code editor developed by Microsoft
         xclip                      # Tool to access the X clipboard from a console application
         xev                        # Log xserver events
-        xsecurelock                # X11 screen lock utility with security in mind
         zathura                    # Highly customizable and functional PDF viewer
     ];
 }
