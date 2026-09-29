@@ -106,12 +106,4 @@ if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-fpath+=~/.zfunc; autoload -Uz compinit; compinit
-
-#compdef system
-
-_system_completion() {
-  eval $(env _TYPER_COMPLETE_ARGS="${words[1,$CURRENT]}" _SYSTEM_COMPLETE=complete_zsh system)
-}
-
-compdef _system_completion system
+# fpath+=~/.zfunc; autoload -Uz compinit; compinit

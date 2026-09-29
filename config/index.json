@@ -2,6 +2,7 @@
 	"alacritty": "~/.config/alacritty",
 	"awesome": "~/.config/awesome",
 	"bash": "~/.config/bash",
+	"bash/bash_profile": "~/.bash_profile",
 	"bash/bashrc": "~/.bashrc",
 	"fd": "~/.config/fd",
 	"flameshot": "~/.config/flameshot",
@@ -18,10 +19,11 @@
 	"tmux": "~/.config/tmux",
 	"tridactyl": "~/.config/tridactyl",
 	"udiskie": "~/.config/udiskie",
-	"xinitrc": "~/.xinitrc",
 	"xprofile": "~/.xprofile",
 	"xresources": "~/.Xresources",
+	"yazi": "~/.config/yazi",
 	"zathura": "~/.config/zathura",
 	"zsh": "~/.config/zsh",
+	"zsh/zprofile": "~/.zprofile",
 	"zsh/zshrc": "~/.zshrc"
 }
