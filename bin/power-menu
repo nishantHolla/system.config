@@ -7,25 +7,30 @@ LOCK_OPTION="lock\0icon\x1fGI_powerLockWhite\n"
 LOGOUT_OPTION="logout\0icon\x1fGI_powerLogoutWhite\n"
 
 OPTIONS="$SHUTDOWN_OPTION$RESTART_OPTION$LOCK_OPTION$SLEEP_OPTION$LOGOUT_OPTION"
+USAGE="Usage: $0 [select|shutdown|restart|logout|sleep|lock]"
 
-SELECTED=`echo -en "$OPTIONS" | rofi -dmenu -i -p "Powermenu: " -icon-theme GI`
+if [[ $1 == "select" ]]; then
+    SELECTED=`echo -en "$OPTIONS" | rofi -dmenu -i -p "Powermenu: " -icon-theme GI`
+    if [[ -z "$SELECTED" ]] ; then
+        exit 1
+    fi
 
-if [[ -z "$SELECTED" ]] ; then
-    exit 1
+    confirm >/dev/null
+    if [[ "$?" == "1" ]] ; then
+        exit 2
+    fi
+
+    echo "$SELECTED"
+    exit 0
+else
+    case "$1" in
+        "shutdown") shutdown now;;
+        "restart") reboot;;
+        "logout") kill -9 -1;;
+        "sleep") systemctl suspend && betterlockscreen -l;;
+        "lock") betterlockscreen -l;;
+        *) echo "$USAGE" && exit 3;;
+    esac
+    exit 0
 fi
 
-confirm
-if [[ "$?" == "1" ]] ; then
-    exit 2
-fi
-
-case "$SELECTED" in
-
-    "shutdown") awesome-client "AwesomeWM.functions.power.shutdown()";;
-    "restart") awesome-client "AwesomeWM.functions.power.reboot()";;
-    "logout") awesome-client "AwesomeWM.functions.power.logout()";;
-    "sleep") awesome-client "AwesomeWM.functions.power.sleep()";;
-    "lock") awesome-client "AwesomeWM.functions.power.lock()";;
-    *) exit 3;
-
-esac
