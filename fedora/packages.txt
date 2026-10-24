@@ -72,6 +72,7 @@ playerctl
 podman
 podman-compose
 poppler-utils
+pulseaudio-utils
 qalculate
 ripgrep
 rofi
