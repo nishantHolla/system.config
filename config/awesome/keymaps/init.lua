@@ -49,7 +49,7 @@ keymaps_m.list = {
     {
       { mod }, "Escape",
       function()
-        AwesomeWM.functions.spawn_with_shell("power-menu")
+        AwesomeWM.functions.power.select()
       end,
       "Show power menu"
     }
@@ -192,13 +192,6 @@ keymaps_m.list = {
       "Spawn " .. AwesomeWM.values.browser
     },
     {
-      { mod, "Shift" }, "'",
-      function()
-        AwesomeWM.functions.spawn_vpn_browser()
-      end,
-      "Spawn " .. AwesomeWM.values.browser
-    },
-    {
       { mod }, ";",
       function()
         AwesomeWM.functions.spawn(AwesomeWM.values.file_manager)
@@ -226,6 +219,13 @@ keymaps_m.list = {
       end,
       "Take screenshot"
     },
+    {
+      { mod }, "F11",
+      function()
+        AwesomeWM.functions.toggle_recording()
+      end,
+      "Toggle recording"
+    }
   },
 
   ["Client Movement"] = {

@@ -111,18 +111,6 @@ functions_m.spawn_browser = function()
   end
 end
 
-functions_m.spawn_vpn_browser = function()
-  local pid = AwesomeWM.awful.spawn(
-    AwesomeWM.values.terminal_cmd .. "firefox-vpn",
-    {
-      floating = true,
-      width = 800,
-      height = 200,
-      placement = AwesomeWM.awful.placement.centered
-    }
-  )
-end
-
 functions_m.is_file= function(file_path)
   local f = io.open(file_path, "r")
 
@@ -143,6 +131,11 @@ functions_m.spawn_once = function(command, application)
       functions_m.spawn(command);
     end
   end)
+end
+
+functions_m.toggle_recording = function()
+  AwesomeWM.widgets.overlays.recording.toggle()
+  AwesomeWM.awful.spawn("screen-record")
 end
 
 -- Sub modules

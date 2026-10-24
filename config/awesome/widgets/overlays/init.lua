@@ -3,12 +3,14 @@ local overlays_sm = {}
 overlays_sm.client_count = require("widgets.overlays.client_count")
 overlays_sm.time = require("widgets.overlays.time")
 overlays_sm.client_properties = require("widgets.overlays.client_properties")
+overlays_sm.recording = require("widgets.overlays.recording")
 
 overlays_sm.init = function(screen)
   screen = screen or AwesomeWM.mouse.screen
   overlays_sm.client_count.init(screen)
   overlays_sm.time.init(screen)
   overlays_sm.client_properties.init(screen)
+  overlays_sm.recording.init(screen)
 end
 
 overlays_sm.show = function(screen)
