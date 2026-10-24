@@ -59,3 +59,10 @@ key({"n", "t"}, "<a-/>", "<cmd>tabnew %<cr>", k_opt("Expand current buffer"))
 key({"n", "t"}, "<a-?>", "<cmd>tabclose<cr>", k_opt("Close expanded tab"))
 key("n", "<a-I>", ":tabprevious<cr>", k_opt("Go to previous tab"))
 key("n", "<a-O>", ":tabnext<cr>", k_opt("Go to next tab"))
+
+-- Cursors
+-- key({"n", "v", "i"}, "<c-q>", function()
+-- 	local mc_ns = vim.api.nvim_create_namespace('nvim.multicursor')
+-- 	vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+-- end, k_opt("Clear multicursors"))
+

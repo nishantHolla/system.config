@@ -11,6 +11,7 @@ local parsers = {
 	'html',
 	'java',
 	'javascript',
+	'llvm',
 	'lua',
 	'markdown',
 	'markdown_inline',
@@ -35,5 +36,17 @@ vim.api.nvim_create_autocmd("FileType", {
 
 		-- indentation, provided by nvim-treesitter
 		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "llvm",
+	callback = function()
+		vim.bo.indentexpr = ""
+		vim.bo.autoindent = true
+		vim.bo.smartindent = true
+		vim.bo.shiftwidth = 2
+		vim.bo.tabstop = 2
+		vim.bo.expandtab = true
 	end,
 })

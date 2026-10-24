@@ -1,12 +1,11 @@
+
+
 local opt = vim.opt
-
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 opt.colorcolumn = "100"
 opt.confirm = true
 opt.expandtab = false
 opt.ignorecase = true
+opt.laststatus = 3
 opt.list = true;
 opt.listchars = { tab = "| ", leadmultispace = "|   " }
 opt.number = true
@@ -24,3 +23,5 @@ opt.termguicolors = true
 opt.undofile = true
 opt.viewoptions:remove("curdir")
 opt.wrap = false
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
