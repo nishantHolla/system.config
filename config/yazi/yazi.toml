@@ -8,6 +8,13 @@ orphan = true
 desc = "Image viewer"
 for = "unix"
 
+# Images
+[[opener.gimp]]
+run = 'gimp %s'
+orphan = true
+desc = "Image editor"
+for = "unix"
+
 # Videos
 [[opener.video]]
 run = '$VIDEO_VIEWER %s'
@@ -52,27 +59,27 @@ for = "unix"
 
 [[open.prepend_rules]]
 url = "*.{jpg,jpeg,png,webp,gif,ppm}"
-use = "image"
+use = [ "image", "gimp", "edit" ]
 
 [[open.prepend_rules]]
 url = "*.{mp4,mpg,mkv}"
-use = "video"
+use = [ "video", "edit" ]
 
 [[open.prepend_rules]]
 url = "*.pdf"
-use = "pdf"
+use = [ "pdf", "edit" ]
 
 [[open.prepend_rules]]
 url = "*.{doc,docx,odt}"
-use = "word"
+use = [ "word", "edit" ]
 
 [[open.prepend_rules]]
 url = "*.{ppt,pptx}"
-use = "presentation"
+use = [ "presentation", "edit" ]
 
 [[open.prepend_rules]]
-url = "*.{xls,xlsx,ods}"
-use = "spreadsheet"
+url = "*.{xls,xlsx,ods,csv}"
+use = [ "spreadsheet", "edit" ]
 
 [[open.append_rules]]
 url = "*"
