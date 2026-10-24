@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+OUTDIR="$HOME/Downloads"
+STATE="$XDG_RUNTIME_DIR/screen-record.pid"
+
+mkdir -p "$OUTDIR"
+
+# Stop the current recording.
+if [[ -f "$STATE" ]]; then
+    pid=$(<"$STATE")
+
+    if kill -0 "$pid" 2>/dev/null; then
+        kill -INT "$pid"
+
+        # Wait for FFmpeg to finalize the MP4.
+        while kill -0 "$pid" 2>/dev/null; do
+            sleep 0.2
+        done
+    fi
+
+    rm -f "$STATE"
+    notify-send "Screen recorder" "Recording stopped."
+    exit 0
+fi
+
+# Find the default desktop audio monitor.
+AUDIO_SOURCE=$(
+    pactl get-default-sink | while read -r sink; do
+        pactl list short sources |
+            awk -v sink="$sink" '$2 == sink".monitor" { print $2; exit }'
+    done
+)
+
+if [[ -z "$AUDIO_SOURCE" ]]; then
+    notify-send "Screen recorder" "Could not find desktop audio source."
+    exit 1
+fi
+
+FILE="$OUTDIR/recording-$(date +%Y-%m-%d_%H-%M-%S).mp4"
+
+ffmpeg -hide_banner -loglevel error \
+    -f x11grab -framerate 30 -i "$DISPLAY" \
+    -f pulse -i "$AUDIO_SOURCE" \
+    -c:v libx264 -preset ultrafast -crf 23 \
+    -pix_fmt yuv420p \
+    -c:a aac -b:a 192k \
+    -movflags +faststart \
+    "$FILE" &
+
+pid=$!
+echo "$pid" > "$STATE"
